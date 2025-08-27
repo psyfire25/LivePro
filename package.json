@@ -6,12 +6,17 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "gen:openapi": "(curl -fsSL http://localhost:4000/docs-json -o packages/api-types/schema.json || curl -fsSL http://localhost:4000/api-json -o packages/api-types/schema.json || curl -fsSL http://localhost:4000/api/docs-json -o packages/api-types/schema.json || curl -fsSL http://localhost:4000/api/api-json -o packages/api-types/schema.json) && pnpm --filter @livepro/api-types run gen",
+    "build:api-types": "pnpm --filter @livepro/api-types run build"
   },
   "devDependencies": {
+    "@types/node": "^24.3.0",
+    "openapi-typescript": "^7.9.1",
     "prettier": "^3.6.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "turbo": "^2.5.6"
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.2"
   },
   "packageManager": "pnpm@8.15.6",
   "engines": {
