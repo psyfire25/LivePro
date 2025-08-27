@@ -1,0 +1,147 @@
+// apps/api/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EventType {
+  CLUB_NIGHT
+  CONCERT
+  FESTIVAL
+  CONFERENCE
+  PRIVATE
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  BLOCKED
+  DONE
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ScheduleKind {
+  DOORS
+  PERFORMANCE
+  CHANGEOVER
+  CURFEW
+  NOTE
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      String   @default("member")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id            String           @id @default(cuid())
+  name          String
+  type          EventType
+  startAt       DateTime
+  endAt         DateTime
+  location      String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  stages        Stage[]
+  tasks         Task[]
+  scheduleItems ScheduleItem[]
+  crews         CrewAssignment[]
+  supplierLinks SupplierLink[]
+}
+
+model Stage {
+  id      String         @id @default(cuid())
+  eventId String
+  event   Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  name    String
+  notes   String?
+  tasks   Task[]
+  items   ScheduleItem[]
+}
+
+model Contact {
+  id       String           @id @default(cuid())
+  name     String
+  email    String?
+  phone    String?
+  org      String?
+  crews    CrewAssignment[]
+  tasks    Task[]           @relation("TaskAssignee")
+  supplier Supplier?
+}
+
+model Supplier {
+  id        String         @id @default(cuid())
+  name      String
+  category  String?
+  contactId String?        @unique
+  contact   Contact?       @relation(fields: [contactId], references: [id])
+  links     SupplierLink[]
+  notes     String?
+}
+
+model CrewAssignment {
+  id        String   @id @default(cuid())
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  contactId String?
+  contact   Contact? @relation(fields: [contactId], references: [id])
+  role      String
+  notes     String?
+}
+
+model SupplierLink {
+  id         String   @id @default(cuid())
+  eventId    String
+  event      Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+  role       String?
+  notes      String?
+}
+
+model Task {
+  id          String       @id @default(cuid())
+  eventId     String
+  event       Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  stageId     String?
+  stage       Stage?       @relation(fields: [stageId], references: [id])
+  title       String
+  description String?
+  status      TaskStatus   @default(TODO)
+  priority    TaskPriority @default(MEDIUM)
+  dueAt       DateTime?
+  assigneeId  String?
+  assignee    Contact?     @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model ScheduleItem {
+  id      String       @id @default(cuid())
+  eventId String
+  event   Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  stageId String?
+  stage   Stage?       @relation(fields: [stageId], references: [id])
+  title   String
+  kind    ScheduleKind
+  startAt DateTime
+  endAt   DateTime
+  notes   String?
+  artist  String?
+}
