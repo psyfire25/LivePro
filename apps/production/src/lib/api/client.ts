@@ -1,12 +1,12 @@
-import type { API } from "../../../../../packages/api-types/src/index";
+// Optional: import OpenAPI types when generated; not required to run dev
+// import type { API } from "@livepro/api-types";
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export async function listEvents() {
-  type R = API.paths["/events"]["get"]["responses"]["200"]["content"]["application/json"];
   const res = await fetch(`${BASE}/events`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to list events");
-  return res.json() as Promise<R>;
+  return res.json() as Promise<any[]>;
 }
 
 export async function createEvent(input: {
@@ -21,10 +21,9 @@ export async function createEvent(input: {
 }
 
 export async function getEvent(id: string) {
-  type R = API.paths["/events/{id}"]["get"]["responses"]["200"]["content"]["application/json"];
   const res = await fetch(`${BASE}/events/${id}`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to load event");
-  return res.json() as Promise<R>;
+  return res.json() as Promise<any>;
 }
 
 export async function listStages(eventId: string) {
