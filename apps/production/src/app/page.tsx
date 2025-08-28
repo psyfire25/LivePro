@@ -11,15 +11,15 @@ export default function Home() {
       </section>
 
       <section className="grid gap-4 md:grid-cols-3">
-        <a className="lp-card p-5 hover:ui:bg-black/5" href="/events">
+        <a className="lp-card p-5" href="/events">
           <div className="text-lg font-semibold">Events</div>
           <div className="opacity-70 text-sm mt-1">Browse and create events</div>
         </a>
-        <a className="lp-card p-5 hover:ui:bg-black/5" href="/events">
+        <a className="lp-card p-5" href="/events">
           <div className="text-lg font-semibold">Tasks</div>
           <div className="opacity-70 text-sm mt-1">Track work across stages</div>
         </a>
-        <a className="lp-card p-5 hover:ui:bg-black/5" href="/events">
+        <a className="lp-card p-5" href="/events">
           <div className="text-lg font-semibold">Schedule</div>
           <div className="opacity-70 text-sm mt-1">Doors, changeovers, and sets</div>
         </a>
