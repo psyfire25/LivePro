@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-5xl p-8 space-y-8 lp-prose">
       <Reveal variant="fade-up">
-        <section className="relative overflow-hidden lp-card p-10 lp-hero-bg">
+        <section className="relative overflow-hidden lp-card lp-card-lg lp-hero-bg">
           <h1>LivePro</h1>
           <p className="mt-2 max-w-2xl">A modular suite for live event production: plan shows, staff crews, coordinate talent, and reconcile finances — all in one place.</p>
           <div className="mt-6 flex gap-3">
@@ -29,9 +29,9 @@ export default function Home() {
       </Reveal>
 
       <Reveal variant="fade-up" delay={100}>
-        <section className="grid gap-4 md:grid-cols-3">
+        <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
           {links.slice(1).map(l => (
-            <a key={l.href} className="lp-card ui:p-5 ui:block" href={l.href}>
+            <a key={l.href} className="lp-card" href={l.href}>
               <div className="text-lg font-semibold">{l.label}</div>
               <div className="opacity-70 text-sm mt-1">{l.href}</div>
             </a>

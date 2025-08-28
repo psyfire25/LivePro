@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, type ReactNode } from "react";
+import { SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const links = [
@@ -34,10 +35,10 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="ui:min-h-screen ui:bg-white">
-      <header className="ui:sticky ui:top-0 ui:z-50 ui:border-b ui:bg-white/70 ui:backdrop-blur ui:px-4 ui:py-3">
-        <div className="ui:mx-auto ui:max-w-6xl ui:flex ui:items-center ui:justify-between">
-          <a href="/" className="ui:font-semibold ui:text-black ui:no-underline">LivePro</a>
+    <div className="ui:min-h-screen">
+      <header className="ui:sticky ui:top-0 ui:z-50 lp-header">
+        <div className="lp-wrap lp-container ui:flex ui:items-center ui:justify-between">
+          <a href="/" className="ui:font-semibold ui:no-underline">LivePro</a>
           <div className="ui:flex ui:items-center ui:gap-3">
             <nav className="lp-nav ui:text-sm">
               {links.map(l => (
@@ -50,13 +51,22 @@ export function AppShell({ children }: { children: ReactNode }) {
                 </a>
               ))}
             </nav>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
+            </SignedIn>
             <button onClick={toggleTheme} className="ui:inline-flex ui:items-center ui:justify-center ui:h-8 ui:w-8 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5" aria-label="Toggle theme">
               {theme === 'dark' ? '☀️' : '🌙'}
             </button>
+"use client";
           </div>
         </div>
       </header>
-      <main className="ui:mx-auto ui:max-w-6xl ui:px-4 ui:py-8">
+      <main className="lp-wrap lp-container">
         {children}
       </main>
     </div>

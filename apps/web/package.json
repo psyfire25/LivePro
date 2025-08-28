@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@repo/ui": "workspace:*",
+    "@clerk/nextjs": "^5.2.0",
+    "@repo/auth": "workspace:*",
     "@repo/motion": "workspace:*",
     "next": "^15.4.2",
     "react": "^19.1.0",

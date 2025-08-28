@@ -141,7 +141,7 @@ export default function Onboarding() {
                 ? `${m.devUrl}/events/${createdEventId}?w=${encodeURIComponent(workspace)}`
                 : `${m.devUrl}/?w=${encodeURIComponent(workspace)}`;
               return (
-                <a key={m.key} className="lp-card ui:rounded ui:px-4 ui:py-3" href={href} target="_blank" rel="noreferrer">
+                <a key={m.key} className="lp-card ui:rounded" href={href} target="_blank" rel="noreferrer">
                   <div className="font-medium">{m.name}</div>
                   <div className="text-sm opacity-70">{m.devUrl}</div>
                 </a>
