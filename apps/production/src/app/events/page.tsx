@@ -1,6 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { listEvents, createEvent } from "../../lib/api/client";
+import { Card } from "@repo/ui/card";
+import { Gradient } from "@repo/ui/gradient";
+import { Input } from "@repo/ui/src/components/ui/input";
+import { Button } from "@repo/ui/src/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/src/components/ui/tabs";
+import { Reveal } from "@repo/motion";
 
 export default function EventsPage() {
   const [events, setEvents] = useState<any[]>([]);
@@ -23,37 +29,59 @@ export default function EventsPage() {
   }
 
   return (
-    <main className="p-6 space-y-6">
-      <h1 className="text-2xl font-semibold">Events</h1>
-
-      <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
-        <input className="border rounded p-2" placeholder="Name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} />
-        <select className="border rounded p-2" value={form.type} onChange={e=>setForm({...form,type:e.target.value})}>
-          {["CLUB_NIGHT","CONCERT","FESTIVAL","CONFERENCE","PRIVATE"].map(t=><option key={t} value={t}>{t}</option>)}
-        </select>
-        <input className="border rounded p-2" type="datetime-local" value={form.startAt} onChange={e=>setForm({...form,startAt:e.target.value})} />
-        <input className="border rounded p-2" type="datetime-local" value={form.endAt} onChange={e=>setForm({...form,endAt:e.target.value})} />
-        <div className="flex gap-2">
-          <input className="border rounded p-2 flex-1" placeholder="Location" value={form.location} onChange={e=>setForm({...form,location:e.target.value})} />
-          <button disabled={loading} className="border rounded px-3 py-2">{loading?"…":"Create"}</button>
+    <main className="p-6 space-y-6 lp-prose">
+      <section className="relative border rounded p-6 overflow-hidden">
+        <Gradient conic className="inset-[-20%]" />
+        <div className="relative z-10">
+          <h2 className="text-sm font-medium mb-3 opacity-70">Shared UI Preview</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <Card title="Docs" href="https://example.com">
+              This card is rendered from @repo/ui and uses ui: classes.
+            </Card>
+          </div>
         </div>
-      </form>
+      </section>
+      <Reveal variant="fade-up"><h1>Events</h1></Reveal>
 
-      <table className="w-full text-left border">
-        <thead>
-          <tr className="bg-gray-50"><th className="p-2">Name</th><th className="p-2">Type</th><th className="p-2">Start</th><th className="p-2">End</th></tr>
-        </thead>
-        <tbody>
-          {events.map(ev=>(
-            <tr key={ev.id} className="border-t hover:bg-gray-50">
-              <td className="p-2"><a className="underline" href={`/events/${ev.id}`}>{ev.name}</a></td>
-              <td className="p-2">{ev.type}</td>
-              <td className="p-2">{new Date(ev.startAt).toLocaleString()}</td>
-              <td className="p-2">{new Date(ev.endAt).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Tabs defaultValue="list">
+        <TabsList>
+          <TabsTrigger value="list">All Events</TabsTrigger>
+          <TabsTrigger value="create">Create Event</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="create" className="ui:mt-4">
+          <form onSubmit={submit} className="ui:grid ui:grid-cols-1 md:ui:grid-cols-5 ui:gap-3 ui:items-end">
+            <Input placeholder="Name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} />
+            <select className="ui:h-9 ui:rounded-md ui:border ui:border-black/15 ui:bg-white ui:px-3 ui:text-sm" value={form.type} onChange={e=>setForm({...form,type:e.target.value})}>
+              {["CLUB_NIGHT","CONCERT","FESTIVAL","CONFERENCE","PRIVATE"].map(t=><option key={t} value={t}>{t}</option>)}
+            </select>
+            <Input type="datetime-local" value={form.startAt} onChange={e=>setForm({...form,startAt:e.target.value})} />
+            <Input type="datetime-local" value={form.endAt} onChange={e=>setForm({...form,endAt:e.target.value})} />
+            <div className="ui:flex ui:gap-2">
+              <Input className="ui:flex-1" placeholder="Location" value={form.location} onChange={e=>setForm({...form,location:e.target.value})} />
+              <Button disabled={loading}>{loading?"…":"Create"}</Button>
+            </div>
+          </form>
+        </TabsContent>
+
+        <TabsContent value="list" className="ui:mt-4">
+          <table className="ui:w-full ui:text-left ui:border ui:rounded-md ui:overflow-hidden">
+            <thead>
+              <tr className="ui:bg-black/5"><th className="ui:p-2">Name</th><th className="ui:p-2">Type</th><th className="ui:p-2">Start</th><th className="ui:p-2">End</th></tr>
+            </thead>
+            <tbody>
+              {events.map(ev=>(
+                <tr key={ev.id} className="ui:border-t hover:ui:bg-black/5">
+                  <td className="ui:p-2"><a className="ui:underline" href={`/events/${ev.id}`}>{ev.name}</a></td>
+                  <td className="ui:p-2">{ev.type}</td>
+                  <td className="ui:p-2">{new Date(ev.startAt).toLocaleString()}</td>
+                  <td className="ui:p-2">{new Date(ev.endAt).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </TabsContent>
+      </Tabs>
     </main>
   );
 }

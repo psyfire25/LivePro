@@ -10,6 +10,9 @@
     "build:components": {
       "outputs": ["dist/**"]
     },
+    "prebuild": {
+      "cache": false
+    },
     "dev": {
       "with": ["dev:styles", "dev:components"]
     },

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-/* Use built CSS export from @repo/ui, not deep src path */
-@import "@repo/ui/styles.css";
+@import "@repo/ui/src/styles.css";
+@import "@repo/motion/styles.css";
 
 :root {
   --background: #ffffff;

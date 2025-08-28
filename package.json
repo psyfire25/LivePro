@@ -3,8 +3,9 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
-    "dev:prod": "turbo run dev --filter=@repo/ui --filter=api --filter=production",
+    "dev": "turbo run dev --concurrency=20",
+    "dev:all": "turbo run build --filter=@repo/ui --filter=@repo/motion && turbo run dev --concurrency=20",
+    "dev:prod": "turbo run build --filter=@repo/ui --filter=@repo/motion && turbo run dev --filter=@repo/ui --filter=@repo/motion --filter=api --filter=production",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

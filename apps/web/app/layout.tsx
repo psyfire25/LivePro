@@ -1,5 +1,5 @@
-import "@repo/ui/styles.css";
 import "./globals.css";
+import { AppShell } from "@repo/ui/src/components/ui/app-shell";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 
@@ -17,7 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={geist.className}>{children}</body>
+      <body className={geist.className}>
+        <AppShell>{children}</AppShell>
+      </body>
     </html>
   );
 }

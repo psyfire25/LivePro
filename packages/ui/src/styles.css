@@ -7,3 +7,60 @@
   --color-purple-1000: #a853ba;
   --color-red-1000: #e92a67;
 }
+
+/* Base theme tokens */
+:root {
+  --lp-bg: #fafafa;
+  --lp-fg: #0f172a; /* slate-900 */
+}
+
+/* Baseline body + typography */
+html, body { color: var(--lp-fg); background: var(--lp-bg); }
+body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+
+/* Typography */
+.lp-prose {
+  font-feature-settings: "ss01" on, "liga" on;
+  line-height: 1.6;
+}
+.lp-prose, .lp-card { color: #111111; }
+.lp-prose a { color: #0f172a; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.lp-prose a:visited { color: #0f172a; }
+.lp-prose a:hover { text-decoration-color: rgba(15, 23, 42, .6); }
+.lp-prose h1 { font-size: 2.25rem; line-height: 2.5rem; font-weight: 700; }
+.lp-prose h2 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; }
+.lp-prose p { opacity: .85; }
+
+/* Cards: subtle gradient + border */
+.lp-card {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.lp-card:hover { transform: translateY(-2px); border-color: #cbd5e1; box-shadow: 0 6px 16px rgba(15, 23, 42, .06); }
+.lp-card a { color: inherit; text-decoration: none; }
+
+/* Stepper */
+.lp-stepper { display:flex; align-items:center; gap:.75rem; }
+.lp-stepper-item { display:flex; align-items:center; gap:.5rem; color:#334155; }
+.lp-stepper-dot { width:10px; height:10px; border-radius:9999px; background:#cbd5e1; }
+.lp-stepper-item.is-active .lp-stepper-dot { background:#0f172a; }
+.lp-stepper-sep { width:28px; height:2px; background:#e2e8f0; border-radius:1px; }
+.lp-stepper-item.is-active + .lp-stepper-sep { background:#94a3b8; }
+
+/* Hero background gradient */
+.lp-hero-bg {
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(233,42,103,0.06), transparent 60%),
+              radial-gradient(1200px 600px at 80% -10%, rgba(42,138,246,0.06), transparent 60%);
+}
+
+/* Glass surface */
+.lp-glass { backdrop-filter: saturate(120%) blur(10px); background: rgba(255,255,255,0.55); }
+
+/* AppShell nav fallback (works even if ui: utilities fail) */
+.lp-nav { display:flex; align-items:center; gap:16px; }
+.lp-nav a { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px; color:#334155; text-decoration:none; }
+.lp-nav a:hover { background:#f1f5f9; color:#0f172a; }
