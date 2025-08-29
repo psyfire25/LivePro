@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@repo/auth";
+import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 import { AppShell } from "@repo/ui/src/components/ui/app-shell";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,10 +26,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script id="lp-theme-init" strategy="beforeInteractive">
+          {`(function(){try{var t=localStorage.getItem('lp-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();`}
+        </Script>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
-          <AppShell>{children}</AppShell>
+          <AppShell rightSlot={(
+            <>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
+              </SignedIn>
+            </>
+          )}>
+            {children}
+          </AppShell>
         </AuthProvider>
       </body>
     </html>

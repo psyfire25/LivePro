@@ -135,6 +135,12 @@ importers:
 
   apps/docs:
     dependencies:
+      '@clerk/nextjs':
+        specifier: ^5.2.0
+        version: 5.7.5(next@15.4.2)(react-dom@19.1.0)(react@19.1.0)
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/motion':
         specifier: workspace:*
         version: link:../../packages/motion
@@ -193,6 +199,12 @@ importers:
 
   apps/finance:
     dependencies:
+      '@clerk/nextjs':
+        specifier: ^5.2.0
+        version: 5.7.5(next@15.5.2)(react-dom@19.1.0)(react@19.1.0)
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/motion':
         specifier: workspace:*
         version: link:../../packages/motion
@@ -309,6 +321,12 @@ importers:
 
   apps/staffing:
     dependencies:
+      '@clerk/nextjs':
+        specifier: ^5.2.0
+        version: 5.7.5(next@15.5.2)(react-dom@19.1.0)(react@19.1.0)
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/motion':
         specifier: workspace:*
         version: link:../../packages/motion
@@ -355,6 +373,12 @@ importers:
 
   apps/talent:
     dependencies:
+      '@clerk/nextjs':
+        specifier: ^5.2.0
+        version: 5.7.5(next@15.5.2)(react-dom@19.1.0)(react@19.1.0)
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@repo/motion':
         specifier: workspace:*
         version: link:../../packages/motion

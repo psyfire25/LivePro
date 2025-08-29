@@ -1,5 +1,6 @@
 import "./globals.css";
 import { AppShell } from "@repo/ui/src/components/ui/app-shell";
+import { AuthProvider } from "@repo/auth";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={geist.className}>
-        <AppShell>{children}</AppShell>
+        <AuthProvider>
+          <AppShell>{children}</AppShell>
+        </AuthProvider>
       </body>
     </html>
   );

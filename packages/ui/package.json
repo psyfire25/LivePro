@@ -8,7 +8,7 @@
     "dist"
   ],
   "exports": {
-    "./styles.css": "./src/styles.css",
+    "./styles.css": "./dist/index.css",
     "./src/*": "./src/*",
     "./*": "./dist/*.js"
   },

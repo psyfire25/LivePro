@@ -27,7 +27,7 @@ export function Tabs({ defaultValue, value, onValueChange, children, className =
 
 export function TabsList({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`ui:inline-flex ui:h-9 ui:items-center ui:justify-start ui:gap-1 ui:rounded-md ui:border ui:border-black/10 ui:bg-white ui:p-1 ${className}`}>
+    <div className={`ui:inline-flex ui:h-9 ui:items-center ui:justify-start ui:gap-1 ui:rounded-md ui:border ui:border-[var(--lp-card-border)] ui:bg-[var(--lp-card-bg)] ui:p-1 ${className}`}>
       {children}
     </div>
   );
@@ -56,4 +56,3 @@ export function TabsContent({ value, children, className = "" }: { value: string
   if (ctx.value !== value) return null;
   return <div className={className}>{children}</div>;
 }
-

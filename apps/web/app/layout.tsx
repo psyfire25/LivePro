@@ -1,6 +1,6 @@
 import "./globals.css";
 import { AppShell } from "@repo/ui/src/components/ui/app-shell";
-import { AuthProvider } from "@repo/auth";
+import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 
@@ -17,10 +17,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script id="lp-theme-init" suppressHydrationWarning dangerouslySetInnerHTML={{__html:`(function(){try{var t=localStorage.getItem('lp-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();`}} />
+      </head>
       <body className={geist.className}>
         <AuthProvider>
-          <AppShell>{children}</AppShell>
+          <AppShell
+            rightSlot={(
+              <>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
+                </SignedIn>
+              </>
+            )}
+          >
+            {children}
+          </AppShell>
         </AuthProvider>
       </body>
     </html>

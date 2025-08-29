@@ -1,8 +1,14 @@
-import { createAuthMiddleware, defaultConfig } from "@repo/auth/middleware";
+import { createAuthMiddleware } from "@repo/auth/middleware";
 
 export default createAuthMiddleware({
-  // Only auth pages are public; everything else requires sign-in
-  publicRoutes: ["/sign-in(.*)", "/sign-up(.*)", "/api/(.*)"],
+  // Make onboarding public; all other routes require sign-in
+  publicRoutes: ["/sign-in(.*)", "/sign-up(.*)", "/onboarding(.*)", "/api/(.*)"],
 });
 
-export const config = defaultConfig;
+export const config = {
+  matcher: [
+    "/((?!.*\\..*|_next).*)",
+    "/",
+    "/(api)(.*)",
+  ],
+};

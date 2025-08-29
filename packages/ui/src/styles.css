@@ -21,6 +21,7 @@
   --lp-card-shadow-hover: 0 6px 16px rgba(15,23,42,.06);
   --lp-border: #e5e7eb;
   --lp-header-bg: rgba(255,255,255,.7);
+  color-scheme: light dark;
 }
 
 [data-theme="dark"] {
@@ -35,6 +36,25 @@
   --lp-card-shadow-hover: 0 8px 24px rgba(0,0,0,.6);
   --lp-border: #1f2937;
   --lp-header-bg: rgba(15,23,42,.7);
+  color-scheme: dark;
+}
+
+/* Fallback: if OS prefers dark and no explicit data-theme is set yet, use dark tokens */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --lp-bg: #0b0f19;
+    --lp-fg: #e5e7eb;
+    --lp-nav-fg: #cbd5e1;
+    --lp-nav-hover: rgba(255,255,255,.08);
+    --lp-card-bg: #0f172a;
+    --lp-card-border: #1f2937;
+    --lp-card-border-hover: #334155;
+    --lp-card-shadow: 0 1px 2px rgba(0,0,0,.5);
+    --lp-card-shadow-hover: 0 8px 24px rgba(0,0,0,.6);
+    --lp-border: #1f2937;
+    --lp-header-bg: rgba(15,23,42,.7);
+    color-scheme: dark;
+  }
 }
 
 /* Baseline body + typography */

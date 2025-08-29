@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@repo/ui/src/styles.css";
+@import "@repo/ui/styles.css";
 @import "@repo/motion/styles.css";
 
 /* Inherit shared theme tokens */

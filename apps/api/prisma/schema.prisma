@@ -55,6 +55,8 @@ model Event {
   startAt       DateTime
   endAt         DateTime
   location      String?
+  workspaceId   String?
+  workspace     Workspace?      @relation(fields: [workspaceId], references: [id])
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
   stages        Stage[]
@@ -144,4 +146,44 @@ model ScheduleItem {
   endAt   DateTime
   notes   String?
   artist  String?
+}
+
+// Subscription & access models
+enum ModuleName {
+  PRODUCTION
+  STAFFING
+  TALENT
+  FINANCE
+  DOCS
+}
+
+model Workspace {
+  id        String               @id @default(cuid())
+  name      String
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+  members   WorkspaceMember[]
+  entitlements ModuleEntitlement[]
+  events    Event[]
+}
+
+model WorkspaceMember {
+  id          String    @id @default(cuid())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  userId      String
+  role        String    @default("member")
+  createdAt   DateTime  @default(now())
+}
+
+model ModuleEntitlement {
+  id          String      @id @default(cuid())
+  workspaceId String
+  workspace   Workspace   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  module      ModuleName
+  plan        String? // e.g., free, pro
+  status      String   @default("active") // active, canceled, trialing
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  @@unique([workspaceId, module])
 }

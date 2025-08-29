@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState, type ReactNode } from "react";
-import { SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({ children, rightSlot }: { children: ReactNode; rightSlot?: ReactNode }) {
   const links = [
     { href: "http://localhost:3010", label: "Production" },
     { href: "http://localhost:3030", label: "Staffing" },
@@ -38,31 +37,23 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="ui:min-h-screen">
       <header className="ui:sticky ui:top-0 ui:z-50 lp-header">
         <div className="lp-wrap lp-container ui:flex ui:items-center ui:justify-between">
-          <a href="/" className="ui:font-semibold ui:no-underline">LivePro</a>
+          <nav className="ui:flex lp-nav ui:text-sm ui:items-center ui:gap-3">
+            <a href="/" className="ui:font-semibold ui:no-underline">LivePro</a>
+            {links.map(l => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="ui:px-3 ui:py-1.5 ui:rounded-md ui:no-underline"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
           <div className="ui:flex ui:items-center ui:gap-3">
-            <nav className="lp-nav ui:text-sm">
-              {links.map(l => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  className="ui:px-3 ui:py-1.5 ui:rounded-md ui:no-underline"
-                >
-                  {l.label}
-                </a>
-              ))}
-            </nav>
-            <SignedOut>
-              <SignInButton mode="modal">
-                <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
-            </SignedIn>
+            {rightSlot}
             <button onClick={toggleTheme} className="ui:inline-flex ui:items-center ui:justify-center ui:h-8 ui:w-8 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5" aria-label="Toggle theme">
               {theme === 'dark' ? '☀️' : '🌙'}
             </button>
-"use client";
           </div>
         </div>
       </header>

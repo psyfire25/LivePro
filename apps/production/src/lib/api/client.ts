@@ -80,3 +80,14 @@ export async function createSchedule(eventId: string, item: {
   if (!res.ok) throw new Error("Failed to create schedule item");
   return res.json();
 }
+
+export async function updateSchedule(eventId: string, id: string, patch: Partial<{
+  title: string; kind: "DOORS"|"PERFORMANCE"|"CHANGEOVER"|"CURFEW"|"NOTE";
+  startAt: string; endAt: string; stageId?: string; notes?: string; artist?: string;
+}>) {
+  const res = await fetch(`${BASE}/events/${eventId}/schedule/${id}`, {
+    method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(patch)
+  });
+  if (!res.ok) throw new Error("Failed to update schedule item");
+  return res.json();
+}

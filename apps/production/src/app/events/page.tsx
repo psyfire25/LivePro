@@ -30,20 +30,10 @@ export default function EventsPage() {
 
   return (
     <main className="p-6 space-y-6 lp-prose">
-      <section className="relative border rounded p-6 overflow-hidden">
-        <Gradient conic className="inset-[-20%]" />
-        <div className="relative z-10">
-          <h2 className="text-sm font-medium mb-3 opacity-70">Shared UI Preview</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <Card title="Docs" href="https://example.com">
-              This card is rendered from @repo/ui and uses ui: classes.
-            </Card>
-          </div>
-        </div>
-      </section>
+      
       <Reveal variant="fade-up"><h1>Events</h1></Reveal>
 
-      <Tabs defaultValue="list">
+      <Tabs defaultValue="list" className="ui:bg-transparent">
         <TabsList>
           <TabsTrigger value="list">All Events</TabsTrigger>
           <TabsTrigger value="create">Create Event</TabsTrigger>
@@ -72,7 +62,10 @@ export default function EventsPage() {
             <tbody>
               {events.map(ev=>(
                 <tr key={ev.id} className="ui:border-t hover:ui:bg-black/5">
-                  <td className="ui:p-2"><a className="ui:underline" href={`/events/${ev.id}`}>{ev.name}</a></td>
+                  <td className="ui:p-2 ui:flex ui:items-center ui:gap-3">
+                    <a className="ui:underline" href={`/events/${ev.id}`}>{ev.name}</a>
+                    <a className="ui:text-xs ui:underline ui:opacity-70" href={`/events/${ev.id}/gantt`}>Gantt</a>
+                  </td>
                   <td className="ui:p-2">{ev.type}</td>
                   <td className="ui:p-2">{new Date(ev.startAt).toLocaleString()}</td>
                   <td className="ui:p-2">{new Date(ev.endAt).toLocaleString()}</td>
