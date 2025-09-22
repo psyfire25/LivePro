@@ -1,9 +1,12 @@
 import { createAuthMiddleware } from "@repo/auth/middleware";
+import type { NextMiddleware } from "next/server";
 
-export default createAuthMiddleware({
+const middleware: NextMiddleware = createAuthMiddleware({
   // Make onboarding public; all other routes require sign-in
   publicRoutes: ["/sign-in(.*)", "/sign-up(.*)", "/onboarding(.*)", "/api/(.*)"],
 });
+
+export default middleware;
 
 export const config = {
   matcher: [

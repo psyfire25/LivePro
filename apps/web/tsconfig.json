@@ -1,6 +1,8 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["react", "react-dom"],
     "plugins": [
       {
         "name": "next"
@@ -8,7 +10,14 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/src/*": ["./src/*"]
+      "@/src/*": ["./src/*"],
+      "@repo/ui/src/*": ["../../packages/ui/src/*"],
+      "@repo/ui/gradient": ["../../packages/ui/src/components/ui/gradient.tsx"],
+      "@repo/motion": ["./types/repo-motion"],
+      "@repo/motion/*": ["./types/repo-motion"],
+      "@repo/auth": ["./types/repo-auth"],
+      "@repo/auth/*": ["./types/repo-auth"],
+      "next/server": ["./node_modules/next/server.d.ts"]
     }
   },
   "include": [

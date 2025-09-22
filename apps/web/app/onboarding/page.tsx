@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { Gradient } from "@repo/ui/gradient";
 import { Tile } from "@repo/ui/src/components/ui/tile";
 import { Button } from "@repo/ui/src/components/ui/button";
@@ -29,20 +30,26 @@ export default function Onboarding() {
     docs: false,
   });
 
-  const selectedList = useMemo(() => MODULES.filter(m => selected[m.key]), [selected]);
+  const selectedList = useMemo<Array<(typeof MODULES)[number]>>(
+    () => MODULES.filter(module => selected[module.key]),
+    [selected],
+  );
   const [createdEventId, setCreatedEventId] = useState<string | null>(null);
   const [provisioning, setProvisioning] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   function toggleModule(key: ModuleKey) {
-    setSelected(prev => ({ ...prev, [key]: !prev[key] }));
+    setSelected(prev => {
+      const nextState: Record<ModuleKey, boolean> = { ...prev, [key]: !prev[key] };
+      return nextState;
+    });
   }
 
   function next() {
-    setStep(s => Math.min(3, s + 1));
+    setStep(current => Math.min(3, current + 1));
   }
   function back() {
-    setStep(s => Math.max(1, s - 1));
+    setStep(current => Math.max(1, current - 1));
   }
 
   async function finish() {
@@ -69,8 +76,9 @@ export default function Onboarding() {
         });
         setCreatedEventId(ev.id);
       }
-    } catch (e: any) {
-      setError(e?.message || "Failed to provision resources");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to provision resources";
+      setError(message);
     } finally {
       setProvisioning(false);
       setStep(3);
@@ -136,21 +144,25 @@ export default function Onboarding() {
           {provisioning && <p className="text-sm">Provisioning your starter event…</p>}
           {error && <p className="text-sm text-red-600">{error}</p>}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {selectedList.map(m => {
-              const href = m.key === "production" && createdEventId
-                ? `${m.devUrl}/events/${createdEventId}?w=${encodeURIComponent(workspace)}`
-                : `${m.devUrl}/?w=${encodeURIComponent(workspace)}`;
+            {selectedList.map(module => {
+              const href = module.key === "production" && createdEventId
+                ? `${module.devUrl}/events/${createdEventId}?w=${encodeURIComponent(workspace)}`
+                : `${module.devUrl}/?w=${encodeURIComponent(workspace)}`;
               return (
-                <a key={m.key} className="lp-card ui:rounded" href={href} target="_blank" rel="noreferrer">
-                  <div className="font-medium">{m.name}</div>
-                  <div className="text-sm opacity-70">{m.devUrl}</div>
+                <a key={module.key} className="lp-card ui:rounded" href={href} target="_blank" rel="noreferrer">
+                  <div className="font-medium">{module.name}</div>
+                  <div className="text-sm opacity-70">{module.devUrl}</div>
                 </a>
               );
             })}
           </div>
           <div className="flex gap-2 pt-2">
-            <a className="underline" href="/">Return home</a>
-            <a className="underline" href="/onboarding">Restart onboarding</a>
+            <Link className="underline" href="/">
+              Return home
+            </Link>
+            <Link className="underline" href="/onboarding">
+              Restart onboarding
+            </Link>
           </div>
         </section>
       )}

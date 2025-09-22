@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import type { NextMiddleware } from "next/server";
 
 /**
  * Create a Clerk middleware that protects all routes except the provided public ones.
@@ -6,7 +7,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
  */
 export function createAuthMiddleware({
   publicRoutes,
-}: { publicRoutes?: (string | RegExp)[] } = {}) {
+}: { publicRoutes?: (string | RegExp)[] } = {}): NextMiddleware {
   const isPublic = createRouteMatcher(
     publicRoutes ?? ["/sign-in(.*)", "/sign-up(.*)", "/api/(.*)"]
   );
@@ -18,7 +19,7 @@ export function createAuthMiddleware({
 }
 
 // Default auth middleware (protect everything except sign-in/up/api)
-export const defaultMiddleware = createAuthMiddleware();
+export const defaultMiddleware: NextMiddleware = createAuthMiddleware();
 
 // Recommended matcher config (exclude static assets and _next)
 export const defaultConfig = {
