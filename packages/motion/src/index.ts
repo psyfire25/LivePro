@@ -1,2 +1,2 @@
-export * from "./reveal";
+export * from "./reveal.js";
 

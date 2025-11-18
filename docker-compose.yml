@@ -17,7 +17,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: Dockerfile.api
+      dockerfile: dockerfile.api
     container_name: livepro_api
     restart: unless-stopped
     env_file: .env
@@ -29,7 +29,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.web
+      dockerfile: dockerfile.web
     container_name: livepro_web
     restart: unless-stopped
     env_file: .env

@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { listEvents, createEvent } from "../../lib/api/client";
-import { Card } from "@repo/ui/card";
-import { Gradient } from "@repo/ui/gradient";
-import { Input } from "@repo/ui/src/components/ui/input";
-import { Button } from "@repo/ui/src/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui/src/components/ui/tabs";
+import { Card } from "@repo/ui";
+import { Gradient } from "@repo/ui";
+import { Input } from "@repo/ui";
+import { Button } from "@repo/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@repo/ui";
 import { Reveal } from "@repo/motion";
 
 export default function EventsPage() {

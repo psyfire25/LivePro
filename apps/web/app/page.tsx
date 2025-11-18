@@ -1,6 +1,6 @@
 "use client";
 import { Reveal } from "@repo/motion";
-import { Button } from "@repo/ui/src/components/ui/button";
+import { Button } from "@repo/ui";
 
 export default function Home() {
   const links = [

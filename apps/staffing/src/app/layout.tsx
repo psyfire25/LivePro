@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AdminShell } from "@repo/ui/src/components/ui/admin-shell";
+import { AdminShell } from "@repo/ui";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 
 const geistSans = Geist({

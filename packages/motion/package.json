@@ -17,10 +17,13 @@
     "check-types": "tsc -p tsconfig.json --noEmit"
   },
   "peerDependencies": {
-    "react": "^19"
+    "react": "^19",
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "react": "^19.x",
+    "react-dom": "^18.x"
   }
 }

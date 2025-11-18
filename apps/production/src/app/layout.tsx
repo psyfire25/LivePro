@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
-import { AdminShell } from "@repo/ui/src/components/ui/admin-shell";
+import { AdminShell } from "@repo/ui";
 import Script from "next/script";
 
 const geistSans = Geist({

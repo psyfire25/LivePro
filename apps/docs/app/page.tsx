@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import { Reveal } from "@repo/motion";
-import { Card } from "@repo/ui/card";
-import { Gradient } from "@repo/ui/gradient";
-import { TurborepoLogo } from "@repo/ui/turborepo-logo";
+import { Card } from "@repo/ui";
+import { Gradient } from "@repo/ui";
+import { TurborepoLogo } from "@repo/ui";
 
 const LINKS = [
   {

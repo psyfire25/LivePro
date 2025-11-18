@@ -1,9 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Gradient } from "@repo/ui/gradient";
-import { Tile } from "@repo/ui/src/components/ui/tile";
-import { Button } from "@repo/ui/src/components/ui/button";
-import { Stepper } from "@repo/ui/src/components/ui/stepper";
+import { Gradient, Tile, Button, Stepper  } from "@repo/ui";
 import { createEvent } from "@/src/lib/api";
 import { Reveal } from "@repo/motion";
 

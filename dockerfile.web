@@ -9,7 +9,7 @@ COPY . .
 
 RUN pnpm install --frozen-lockfile
 
-# Build only the web app
+RUN pnpm --filter @repo/ui build
 RUN pnpm --filter web build
 
 FROM node:20-alpine AS runtime
@@ -30,5 +30,5 @@ COPY --from=build /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 EXPOSE 3001
 
 # apps/web/package.json should have:
-# "start": "next start -p 3000"
+# "start": "next start -p 3001"
 CMD ["pnpm", "--filter", "web", "start"]

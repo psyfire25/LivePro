@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { listEvents, createEvent } from "../lib/api/client";
-import { Input } from "@repo/ui/src/components/ui/input";
-import { Button } from "@repo/ui/src/components/ui/button";
+import { Input } from "@repo/ui";
+import { Button } from "@repo/ui";
 import { useWorkspaceRole, hasMinRole } from "@/lib/auth/role";
 
 export default function Home() {

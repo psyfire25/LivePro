@@ -1,0 +1,19 @@
+# VCS
+.git
+.gitignore
+
+# Node / monorepo stuff
+node_modules
+pnpm-store
+*.log
+
+# Build artifacts
+**/.next
+**/dist
+**/.turbo
+**/coverage
+
+# OS/editor junk
+.DS_Store
+.vscode
+.idea

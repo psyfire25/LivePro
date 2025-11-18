@@ -1,5 +1,5 @@
 import "./globals.css";
-import { AdminShell } from "@repo/ui/src/components/ui/admin-shell";
+import { AdminShell } from "@repo/ui";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
