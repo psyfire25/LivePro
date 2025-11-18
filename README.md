@@ -21,10 +21,10 @@ LivePro uses **Turborepo** with **pnpm workspaces** to manage multiple applicati
 
 /packages
   /ui           → shared Tailwind + shadcn UI components
-  /utils        → shared utilities
   /config       → TypeScript, ESLint, Tailwind configs
   /api-types    → OpenAPI-generated client types
   /motion       → shared motion/animation helpers
+  /auth         → shared auth utilities and middleware
 ```
 
 Each app runs independently during development using Turborepo task pipelines and shared caching.
@@ -71,12 +71,12 @@ pnpm dev
 
 Default application ports:
 
-- Web: **3000**
+- Web: **3001**
+- Docs: **3000**
 - Production: **3010**
-- Staffing: **3020**
-- Talent: **3030**
+- Talent: **3020**
+- Staffing: **3030**
 - Finance: **3040**
-- Docs: **3050**
 - API (NestJS): **3333**
 
 ---

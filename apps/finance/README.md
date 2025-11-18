@@ -1,36 +1,288 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance App — Budgeting & Financial Management
 
-## Getting Started
+The **Finance** app is a specialized Next.js application for managing budgets, quotes, invoices, and financial tracking for live events.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📋 Overview
+
+This application provides tools for:
+- **Event Budgeting** - Create and manage event budgets
+- **Quote Generation** - Create professional quotes and estimates
+- **Invoice Management** - Track invoices and payments
+- **Expense Tracking** - Monitor costs and spending
+- **Vendor Payments** - Manage vendor invoices and payment schedules
+- **Financial Reporting** - Generate financial reports and analytics
+
+---
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 15.5.2 with App Router
+- **Build Tool**: Turbopack
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Shared `@repo/ui` library
+- **Animations**: `@repo/motion` shared animation library
+- **Authentication**: Clerk (`@clerk/nextjs`)
+- **Port**: 3040
+
+---
+
+## 🏗 Project Structure
+
+```
+apps/finance/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx          # Root layout with auth
+│   │   ├── page.tsx             # Dashboard
+│   │   ├── globals.css          # Global styles
+│   │   ├── budgets/             # Budget management
+│   │   ├── quotes/              # Quote generation
+│   │   ├── invoices/            # Invoice tracking
+│   │   ├── expenses/            # Expense tracking
+│   │   └── reports/             # Financial reporting
+│   ├── lib/                     # Utilities
+│   └── components/              # App-specific components
+└── package.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔧 Development
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Prerequisites
 
-## Learn More
+1. **API backend** running on port `4000`
+2. **PostgreSQL database** running
+3. Dependencies installed:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Start Development Server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+From the **monorepo root**:
 
-## Deploy on Vercel
+```bash
+pnpm dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Or run only the finance app:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+cd apps/finance
+pnpm dev
+```
+
+Access at:
+```
+http://localhost:3040
+```
+
+### Environment Variables
+
+Create `.env.local` in `apps/finance/`:
+
+```env
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+
+# API Backend
+NEXT_PUBLIC_API_URL=http://localhost:4000
+```
+
+---
+
+## 🎯 Features
+
+### 1. **Event Budgeting**
+- Create comprehensive event budgets
+- Budget categories:
+  - Talent & Artist Fees
+  - Production & Equipment
+  - Staffing & Crew
+  - Venue & Logistics
+  - Marketing & Promotion
+  - Insurance & Permits
+  - Contingency
+- Budget vs. Actual tracking
+- Multi-currency support
+- Budget templates for recurring event types
+
+### 2. **Quote Generation**
+- Professional quote creation
+- Line-item details with descriptions
+- Terms and conditions
+- Quote versions and revisions
+- Acceptance workflow
+- Convert quotes to invoices
+- PDF export
+
+### 3. **Invoice Management**
+- Create and send invoices
+- Track invoice status:
+  - Draft
+  - Sent
+  - Paid
+  - Overdue
+  - Cancelled
+- Payment tracking and reconciliation
+- Recurring invoices
+- Payment reminders
+- Multi-payment support
+
+### 4. **Expense Tracking**
+- Record event expenses
+- Receipt attachment and storage
+- Expense categorization
+- Vendor/supplier tracking
+- Approval workflows
+- Expense reports
+- Budget reconciliation
+
+### 5. **Vendor Payments**
+- Vendor invoice tracking
+- Payment schedules and terms
+- Payment status monitoring
+- Vendor contact management
+- Payment history
+
+### 6. **Financial Reporting**
+- Event profitability analysis
+- Budget variance reports
+- Cash flow projections
+- Expense breakdown by category
+- Payment status summaries
+- Historical financial data
+- Export to CSV/Excel
+
+### 7. **Role-Based Access**
+- **View-only**: For crew and general users
+- **Finance Staff**: Create and manage financial documents
+- **Manager**: Approve budgets and payments
+- **Admin**: Full financial access and reporting
+
+---
+
+## 📦 Shared Dependencies
+
+| Package | Purpose |
+|---------|---------|
+| `@repo/ui` | Shared UI components (forms, tables, modals) |
+| `@repo/motion` | Animations and transitions |
+| `@repo/auth` | Authentication and role-based permissions |
+
+---
+
+## 🧪 Available Scripts
+
+```bash
+pnpm dev          # Development server (port 3040)
+pnpm build        # Production build
+pnpm start        # Start production server
+pnpm lint         # Lint code
+```
+
+---
+
+## 💰 Financial Features
+
+### Currency Management
+- Multi-currency support
+- Exchange rate tracking
+- Currency conversion
+- Default currency per workspace
+
+### Tax Handling
+- Configurable tax rates
+- Tax-inclusive/exclusive pricing
+- Tax reports
+- Multiple tax jurisdictions
+
+### Payment Methods
+- Track payment methods (bank transfer, card, check, cash)
+- Payment reconciliation
+- Payment gateway integration (planned)
+
+---
+
+## 🔗 Integration Points
+
+### With Other Apps
+- **Production** - Event budgets linked to production events
+- **Staffing** - Crew payroll and expenses
+- **Talent** - Artist fees and payments
+- **API** - Financial data persistence
+
+### External Integrations (Planned)
+- Accounting software (QuickBooks, Xero)
+- Payment gateways (Stripe, PayPal)
+- Banking APIs for reconciliation
+- Receipt scanning and OCR
+
+---
+
+## 📊 Reporting & Analytics
+
+### Dashboard Metrics
+- Total revenue
+- Total expenses
+- Profit margin
+- Outstanding invoices
+- Upcoming payments
+- Budget health indicators
+
+### Custom Reports
+- Date range filtering
+- Event-specific reports
+- Vendor/supplier reports
+- Client reports
+- Tax reports
+
+---
+
+## 🚢 Deployment
+
+### Vercel
+
+```bash
+# Build command
+cd ../.. && pnpm build --filter=finance
+```
+
+Set environment variables:
+- Clerk keys
+- API URL
+
+### Security Considerations
+
+⚠️ **Financial Data Protection**:
+- Ensure HTTPS in production
+- Implement audit logging
+- Regular backups
+- Access control and permissions
+- PCI compliance for payment handling
+
+---
+
+## 🤝 Contributing
+
+Part of the LivePro monorepo. See [main README](../../README.md).
+
+### Adding Financial Features
+
+1. Database schema updates via Prisma
+2. API endpoints in backend
+3. Type-safe client generation
+4. UI components using `@repo/ui`
+5. Role-based access control
+
+---
+
+## 📄 License
+
+See [LICENSE](../../LICENSE).

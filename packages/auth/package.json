@@ -7,12 +7,18 @@
     ".": "./src/index.ts",
     "./middleware": "./src/middleware.ts"
   },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^1.2.1",
+    "@repo/test-config": "workspace:*"
   },
   "peerDependencies": {
     "@clerk/nextjs": "^5"
   }
 }
-

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal Component Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Inline animations for demo */
+    @keyframes backdropFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-backdrop {
+      animation: backdropFadeIn 0.2s ease-out;
+    }
+
+    .modal-container {
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    .modal-content {
+      animation: modalSlideIn 0.3s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Universal Modal Component</h1>
+      <p class="text-lg text-gray-600">A flexible, prop-driven modal that can be used anywhere</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <!-- Basic Modal -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="font-semibold text-lg mb-2">Basic Modal</h3>
+        <p class="text-gray-600 text-sm mb-4">Simple modal with title and content</p>
+        <button onclick="openModal('basic')" class="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">
+          Open Basic Modal
+        </button>
+      </div>
+
+      <!-- Modal with Footer -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="font-semibold text-lg mb-2">With Footer</h3>
+        <p class="text-gray-600 text-sm mb-4">Modal with action buttons in footer</p>
+        <button onclick="openModal('footer')" class="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">
+          Open with Footer
+        </button>
+      </div>
+
+      <!-- Small Size -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="font-semibold text-lg mb-2">Small Size</h3>
+        <p class="text-gray-600 text-sm mb-4">Compact modal for simple messages</p>
+        <button onclick="openModal('small')" class="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">
+          Open Small Modal
+        </button>
+      </div>
+
+      <!-- Large Size -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="font-semibold text-lg mb-2">Large Size</h3>
+        <p class="text-gray-600 text-sm mb-4">Spacious modal for detailed content</p>
+        <button onclick="openModal('large')" class="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">
+          Open Large Modal
+        </button>
+      </div>
+
+      <!-- No Close Button -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="font-semibold text-lg mb-2">Forced Action</h3>
+        <p class="text-gray-600 text-sm mb-4">Requires button click to close</p>
+        <button onclick="openModal('forced')" class="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">
+          Open Forced Modal
+        </button>
+      </div>
+
+      <!-- Scrollable Content -->
+      <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+        <h3 class="font-semibold text-lg mb-2">Scrollable</h3>
+        <p class="text-gray-600 text-sm mb-4">Modal with long scrollable content</p>
+        <button onclick="openModal('scrollable')" class="w-full px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">
+          Open Scrollable Modal
+        </button>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+      <h2 class="text-2xl font-bold mb-6">Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <h3 class="font-semibold">Fully Prop-Driven</h3>
+            <p class="text-sm text-gray-600">Control everything through props</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <h3 class="font-semibold">Keyboard Support</h3>
+            <p class="text-sm text-gray-600">ESC key to close (configurable)</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <h3 class="font-semibold">Smooth Animations</h3>
+            <p class="text-sm text-gray-600">Fade and slide with ease-out timing</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <h3 class="font-semibold">Backdrop Click</h3>
+            <p class="text-sm text-gray-600">Close on outside click (configurable)</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <h3 class="font-semibold">Scroll Management</h3>
+            <p class="text-sm text-gray-600">Prevents body scroll when open</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <h3 class="font-semibold">Accessible</h3>
+            <p class="text-sm text-gray-600">Proper ARIA attributes and roles</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Templates -->
+  <div id="modal-container"></div>
+
+  <script>
+    function closeModal() {
+      const container = document.getElementById('modal-container');
+      container.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    function openModal(type) {
+      document.body.style.overflow = 'hidden';
+      const container = document.getElementById('modal-container');
+      
+      let modalHTML = '';
+      
+      switch(type) {
+        case 'basic':
+          modalHTML = createModal({
+            title: 'Basic Modal',
+            content: '<p class="text-gray-700">This is a basic modal with a title and content. You can close it by clicking the X button, pressing ESC, or clicking outside.</p>',
+            size: 'max-w-md'
+          });
+          break;
+          
+        case 'footer':
+          modalHTML = createModal({
+            title: 'Confirm Action',
+            content: '<p class="text-gray-700">Are you sure you want to save these changes?</p>',
+            footer: `
+              <div class="flex gap-3 justify-end">
+                <button onclick="closeModal()" class="px-4 py-2 rounded-md hover:bg-gray-100 transition-colors">Cancel</button>
+                <button onclick="alert('Saved!'); closeModal()" class="px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">Save Changes</button>
+              </div>
+            `,
+            size: 'max-w-md'
+          });
+          break;
+          
+        case 'small':
+          modalHTML = createModal({
+            title: 'Small Modal',
+            content: '<p class="text-gray-700">This is a small modal, perfect for simple messages and confirmations.</p>',
+            size: 'max-w-sm'
+          });
+          break;
+          
+        case 'large':
+          modalHTML = createModal({
+            title: 'Large Modal',
+            content: `
+              <div class="space-y-4">
+                <p class="text-gray-700">This is a large modal with more space for detailed content.</p>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="p-4 bg-gray-50 rounded-md">
+                    <h4 class="font-semibold mb-2">Feature 1</h4>
+                    <p class="text-sm text-gray-600">Description of feature 1</p>
+                  </div>
+                  <div class="p-4 bg-gray-50 rounded-md">
+                    <h4 class="font-semibold mb-2">Feature 2</h4>
+                    <p class="text-sm text-gray-600">Description of feature 2</p>
+                  </div>
+                </div>
+              </div>
+            `,
+            size: 'max-w-lg'
+          });
+          break;
+          
+        case 'forced':
+          modalHTML = createModal({
+            title: 'Important Notice',
+            content: '<p class="text-gray-700">This modal requires you to click the button to close it. The backdrop click and ESC key are disabled for this example.</p>',
+            footer: '<button onclick="closeModal()" class="px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">I Understand</button>',
+            showClose: false,
+            closeOnBackdrop: false,
+            size: 'max-w-md'
+          });
+          break;
+          
+        case 'scrollable':
+          const longContent = Array.from({length: 15}, (_, i) => 
+            `<p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>`
+          ).join('');
+          
+          modalHTML = createModal({
+            title: 'Terms and Conditions',
+            content: `<div class="space-y-4">${longContent}</div>`,
+            footer: '<button onclick="closeModal()" class="px-4 py-2 bg-black text-white rounded-md hover:bg-black/90 transition-colors">Accept</button>',
+            size: 'max-w-md'
+          });
+          break;
+      }
+      
+      container.innerHTML = modalHTML;
+      
+      // Add ESC key listener
+      document.addEventListener('keydown', handleEsc);
+    }
+
+    function handleEsc(e) {
+      if (e.key === 'Escape') {
+        const container = document.getElementById('modal-container');
+        const modal = container.querySelector('[data-close-on-esc="true"]');
+        if (modal) {
+          closeModal();
+        }
+      }
+    }
+
+    function createModal({title, content, footer, size = 'max-w-md', showClose = true, closeOnBackdrop = true}) {
+      return `
+        <div class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-container">
+          <div class="absolute inset-0 bg-black/50 backdrop-blur-sm modal-backdrop" onclick="${closeOnBackdrop ? 'closeModal()' : ''}"></div>
+          
+          <div class="relative w-full ${size} bg-white rounded-lg shadow-2xl flex flex-col max-h-[90vh] modal-content" role="dialog" aria-modal="true" data-close-on-esc="${closeOnBackdrop}">
+            ${title || showClose ? `
+              <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+                ${title ? `<h2 class="text-xl font-semibold text-gray-900">${title}</h2>` : ''}
+                ${showClose ? `
+                  <button onclick="closeModal()" class="ml-auto inline-flex items-center justify-center w-8 h-8 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                  </button>
+                ` : ''}
+              </div>
+            ` : ''}
+            
+            <div class="flex-1 overflow-y-auto px-6 py-4">
+              ${content}
+            </div>
+            
+            ${footer ? `
+              <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+                ${footer}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

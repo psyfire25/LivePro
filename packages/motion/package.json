@@ -5,7 +5,10 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist", "src/styles.css"],
+  "files": [
+    "dist",
+    "src/styles.css"
+  ],
   "exports": {
     ".": "./dist/index.js",
     "./styles.css": "./src/styles.css",
@@ -14,16 +17,21 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsc -w -p tsconfig.json",
-    "check-types": "tsc -p tsconfig.json --noEmit"
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "peerDependencies": {
     "react": "^19",
-    "react-dom": "^18"
+    "react-dom": "^19"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "typescript": "^5.9.2",
     "react": "^19.x",
-    "react-dom": "^18.x"
+    "react-dom": "^19.x",
+    "vitest": "^1.2.1",
+    "@repo/test-config": "workspace:*"
   }
 }

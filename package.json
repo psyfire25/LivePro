@@ -8,6 +8,11 @@
     "dev:prod": "turbo run build --filter=@repo/ui --filter=@repo/motion && turbo run dev --filter=@repo/ui --filter=@repo/motion --filter=api --filter=production",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
+    "test": "turbo run test",
+    "test:unit": "turbo run test:unit",
+    "test:integration": "turbo run test:integration",
+    "test:e2e": "turbo run test:e2e",
+    "test:coverage": "turbo run test:coverage",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "gen:openapi": "(curl -fsSL http://localhost:4000/docs-json -o packages/api-types/schema.json || curl -fsSL http://localhost:4000/api-json -o packages/api-types/schema.json || curl -fsSL http://localhost:4000/api/docs-json -o packages/api-types/schema.json || curl -fsSL http://localhost:4000/api/api-json -o packages/api-types/schema.json) && pnpm --filter @livepro/api-types run gen",
     "build:api-types": "pnpm --filter @livepro/api-types run build",
@@ -18,8 +23,8 @@
     "db:reset": "pnpm -F api run db:reset"
   },
   "devDependencies": {
-    "@types/node": "^24.3.0",
-    "@types/react": "^19.2.5",
+    "@types/node": "^22.15.30",
+    "@types/react": "^19.1.0",
     "openapi-typescript": "^7.9.1",
     "prettier": "^3.6.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
