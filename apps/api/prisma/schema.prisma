@@ -39,13 +39,33 @@ enum ScheduleKind {
   NOTE
 }
 
+enum NotificationType {
+  SCHEDULE_CHANGE
+  TASK_ASSIGNED
+  TASK_COMPLETED
+  TASK_STATUS_CHANGE
+  CREW_ASSIGNMENT
+  EVENT_CREATED
+  EVENT_UPDATED
+  DEADLINE_APPROACHING
+  SYSTEM_ALERT
+}
+
+enum NotificationSeverity {
+  INFO
+  SUCCESS
+  WARNING
+  ERROR
+}
+
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  role      String   @default("member")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String?
+  role          String         @default("member")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  notifications Notification[]
 }
 
 model Event {
@@ -64,6 +84,7 @@ model Event {
   scheduleItems ScheduleItem[]
   crews         CrewAssignment[]
   supplierLinks SupplierLink[]
+  notifications Notification[]
 }
 
 model Stage {
@@ -118,20 +139,21 @@ model SupplierLink {
 }
 
 model Task {
-  id          String       @id @default(cuid())
-  eventId     String
-  event       Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  stageId     String?
-  stage       Stage?       @relation(fields: [stageId], references: [id])
-  title       String
-  description String?
-  status      TaskStatus   @default(TODO)
-  priority    TaskPriority @default(MEDIUM)
-  dueAt       DateTime?
-  assigneeId  String?
-  assignee    Contact?     @relation("TaskAssignee", fields: [assigneeId], references: [id])
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id            String         @id @default(cuid())
+  eventId       String
+  event         Event          @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  stageId       String?
+  stage         Stage?         @relation(fields: [stageId], references: [id])
+  title         String
+  description   String?
+  status        TaskStatus     @default(TODO)
+  priority      TaskPriority   @default(MEDIUM)
+  dueAt         DateTime?
+  assigneeId    String?
+  assignee      Contact?       @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  notifications Notification[]
 }
 
 model ScheduleItem {
@@ -158,13 +180,14 @@ enum ModuleName {
 }
 
 model Workspace {
-  id        String               @id @default(cuid())
-  name      String
-  createdAt DateTime             @default(now())
-  updatedAt DateTime             @updatedAt
-  members   WorkspaceMember[]
-  entitlements ModuleEntitlement[]
-  events    Event[]
+  id            String               @id @default(cuid())
+  name          String
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  members       WorkspaceMember[]
+  entitlements  ModuleEntitlement[]
+  events        Event[]
+  notifications Notification[]
 }
 
 enum WorkspaceRole {
@@ -194,4 +217,44 @@ model ModuleEntitlement {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   @@unique([workspaceId, module])
+}
+
+model Notification {
+  id          String               @id @default(cuid())
+  
+  // Recipient
+  userId      String
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Content
+  type        NotificationType
+  severity    NotificationSeverity @default(INFO)
+  title       String
+  message     String
+  actionUrl   String?              // Deep link to relevant resource
+  
+  // Context (optional relations)
+  workspaceId String?
+  eventId     String?
+  taskId      String?
+  
+  // Metadata
+  metadata    Json?                // Flexible data for different notification types
+  
+  // Status
+  read        Boolean              @default(false)
+  readAt      DateTime?
+  archived    Boolean              @default(false)
+  
+  // Timestamps
+  createdAt   DateTime             @default(now())
+  expiresAt   DateTime?            // Optional auto-cleanup for old notifications
+  
+  // Relations
+  workspace   Workspace?           @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  event       Event?               @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  task        Task?                @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, read, createdAt])
+  @@index([userId, archived])
 }

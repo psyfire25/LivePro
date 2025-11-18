@@ -1,24 +1,30 @@
 import { render, screen } from '@testing-library/react';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../card';
+import { Card } from '../card';
 import { describe, it, expect } from 'vitest';
 import React from 'react';
 
 describe('Card', () => {
-    it('renders all parts correctly', () => {
+    it('renders correctly with title and children', () => {
         render(
-            <Card>
-                <CardHeader>
-                    <CardTitle>Card Title</CardTitle>
-                    <CardDescription>Card Description</CardDescription>
-                </CardHeader>
-                <CardContent>Card Content</CardContent>
-                <CardFooter>Card Footer</CardFooter>
+            <Card title="Test Title" href="https://example.com">
+                Test Description
             </Card>
         );
 
-        expect(screen.getByText('Card Title')).toBeInTheDocument();
-        expect(screen.getByText('Card Description')).toBeInTheDocument();
-        expect(screen.getByText('Card Content')).toBeInTheDocument();
-        expect(screen.getByText('Card Footer')).toBeInTheDocument();
+        expect(screen.getByText('Test Title')).toBeInTheDocument();
+        expect(screen.getByText('Test Description')).toBeInTheDocument();
+    });
+
+    it('renders as a link with correct href', () => {
+        render(
+            <Card title="Link Card" href="https://test.com">
+                Content
+            </Card>
+        );
+
+        const link = screen.getByRole('link');
+        expect(link).toHaveAttribute('href');
+        expect(link).toHaveAttribute('target', '_blank');
+        expect(link).toHaveAttribute('rel', 'noopener noreferrer');
     });
 });

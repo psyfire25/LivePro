@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Input } from '../input';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
 
 describe('Input', () => {
@@ -10,7 +10,7 @@ describe('Input', () => {
     });
 
     it('accepts value and onChange', () => {
-        const handleChange = jest.fn();
+        const handleChange = vi.fn();
         render(<Input value="test value" onChange={handleChange} />);
         const input = screen.getByDisplayValue('test value');
         expect(input).toBeInTheDocument();
