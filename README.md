@@ -1,58 +1,212 @@
-# Turborepo Tailwind CSS starter
+# LivePro — Live Event Management Platform
 
-This Turborepo starter is maintained by the Turborepo core team.
+LivePro is a modern, scalable event-management system built as a Turborepo monorepo.  
+It contains multiple specialized Next.js applications, a NestJS API backend, shared UI libraries, reusable utilities, and a PostgreSQL database—designed to run together as a cohesive platform for managing the full lifecycle of live events.
 
-## Using this example
+---
 
-Run the following command:
+## 📦 Monorepo Architecture
+
+LivePro uses **Turborepo** with **pnpm workspaces** to manage multiple applications and shared packages:
+
+```
+/apps
+  /web          → public-facing app
+  /production   → event production tools
+  /staffing     → staffing & crew scheduling
+  /talent       → artist & talent management
+  /finance      → budgeting, quotes, invoices
+  /docs         → documentation site
+  /api          → NestJS backend
+
+/packages
+  /ui           → shared Tailwind + shadcn UI components
+  /utils        → shared utilities
+  /config       → TypeScript, ESLint, Tailwind configs
+  /api-types    → OpenAPI-generated client types
+  /motion       → shared motion/animation helpers
+```
+
+Each app runs independently during development using Turborepo task pipelines and shared caching.
+
+---
+
+## 🚀 Tech Stack
+
+### Frontend
+- Next.js 15 (Turbopack)
+- TypeScript 5.9
+- Tailwind CSS v4
+- shadcn/ui shared component system  
+- Clerk authentication  
+- OpenAPI-typed API client
+
+### Backend
+- NestJS (modular architecture)
+- Prisma ORM
+- PostgreSQL
+- OpenAPI/Swagger schema generation
+
+### Infrastructure
+- Docker Compose (PostgreSQL)
+- pnpm + Turborepo
+- ESLint + Prettier
+- Jest for backend tests
+
+---
+
+## 🔧 Development
+
+Install dependencies:
 
 ```sh
-npx create-turbo@latest -e with-tailwind
+pnpm install
 ```
 
-## What's inside?
+Start the full stack:
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Building packages/ui
-
-This example is set up to produce compiled styles for `ui` components into the `dist` directory. The component `.tsx` files are consumed by the Next.js apps directly using `transpilePackages` in `next.config.ts`. This was chosen for several reasons:
-
-- Make sharing one `tailwind.config.ts` to apps and packages as easy as possible.
-- Make package compilation simple by only depending on the Next.js Compiler and `tailwindcss`.
-- Ensure Tailwind classes do not overwrite each other. The `ui` package uses a `ui-` prefix for it's classes.
-- Maintain clear package export boundaries.
-
-Another option is to consume `packages/ui` directly from source without building. If using this option, you will need to update the `tailwind.config.ts` in your apps to be aware of your package locations, so it can find all usages of the `tailwindcss` class names for CSS compilation.
-
-For example, in [tailwind.config.ts](packages/tailwind-config/tailwind.config.ts):
-
-```js
-  content: [
-    // app content
-    `src/**/*.{js,ts,jsx,tsx}`,
-    // include packages if not transpiling
-    "../../packages/ui/*.{js,ts,jsx,tsx}",
-  ],
+```sh
+pnpm dev
 ```
 
-If you choose this strategy, you can remove the `tailwindcss` and `autoprefixer` dependencies from the `ui` package.
+Default application ports:
 
-### Utilities
+- Web: **3000**
+- Production: **3010**
+- Staffing: **3020**
+- Talent: **3030**
+- Finance: **3040**
+- Docs: **3050**
+- API (NestJS): **3333**
 
-This Turborepo has some additional tools already setup for you:
+---
 
-- [Tailwind CSS](https://tailwindcss.com/) for styles
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## 🗄 Database
+
+LivePro uses **PostgreSQL** with Prisma.
+
+Start the database using Docker:
+
+```sh
+docker compose up -d
+```
+
+Apply migrations:
+
+```sh
+pnpm prisma:migrate
+```
+
+Generate Prisma client:
+
+```sh
+pnpm prisma:generate
+```
+
+---
+
+## 🔐 Authentication
+
+All frontend apps integrate **Clerk** for:
+
+- User authentication
+- Role-based access control
+- Workspace scoping
+- Shared middleware for public/private routes
+
+---
+
+## 📚 Documentation
+
+- API documentation is available via Swagger:
+
+```
+http://localhost:3333/api
+```
+
+- Additional documentation lives in `/apps/docs`.
+
+---
+
+## 🧪 Testing
+
+Backend tests (Jest):
+
+```sh
+pnpm api:test
+```
+
+Integration and E2E tests are planned for frontend applications.
+
+---
+
+## 📁 Environment Variables
+
+Each app requires its own `.env` file.  
+A template is provided: **`.env.example`**
+
+Copy it:
+
+```sh
+cp .env.example .env
+```
+
+Common variables include:
+
+- Database URL
+- Clerk keys
+- API URLs
+
+---
+
+## 🧱 Shared Packages
+
+### UI Library (`packages/ui`)
+Shared design system based on Tailwind v4 and shadcn/ui.
+
+### API Types (`packages/api-types`)
+Generated TypeScript bindings from the NestJS OpenAPI schema.
+
+### Utils & Config
+Shared helpers and configuration packages for ESLint, Prettier, Tailwind, and TypeScript.
+
+---
+
+## 📦 Deployment (Planned)
+
+Upcoming work includes:
+
+- Full Docker Compose stack (API + frontend + PostgreSQL)
+- GitHub Actions CI/CD
+- Production Docker images
+- Database backup strategy
+
+---
+
+## 🛠 Roadmap & Improvements
+
+### High Priority
+- Align Next.js versions across all apps  
+- Remove unused files (e.g., `production.zip`)  
+- Add shared API client library  
+- Improve environment variable handling  
+
+### Medium Priority
+- Add Husky + lint-staged  
+- Expand OpenAPI documentation  
+- Add integration tests for frontends  
+- Add full-stack Docker setup  
+
+### Low Priority
+- Centralize shared validation schemas  
+- Add Storybook for UI documentation  
+- Add analytics and monitoring  
+
+---
+
+## 📘 Summary
+
+LivePro is a well-structured, modern monorepo designed for the full workflow of live event production.  
+With multiple specialized apps, a typed API, a shared UI system, and scalable architecture, it forms a strong foundation for a professional-grade events platform.
+
+Documentation, testing, version alignment, and deployment will elevate it to production quality.
