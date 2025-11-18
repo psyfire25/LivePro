@@ -1,0 +1,34 @@
+FROM node:20-alpine AS base
+WORKDIR /app
+RUN corepack enable
+
+FROM base AS build
+WORKDIR /app
+
+COPY . .
+
+RUN pnpm install --frozen-lockfile
+
+# Build only the web app
+RUN pnpm --filter web build
+
+FROM node:20-alpine AS runtime
+WORKDIR /app
+RUN corepack enable
+ENV NODE_ENV=production
+
+# Copy built web app pieces
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/apps/web/.next ./apps/web/.next
+COPY --from=build /app/apps/web/public ./apps/web/public
+COPY --from=build /app/apps/web/next.config.* ./apps/web/
+COPY --from=build /app/apps/web/package.json ./apps/web/package.json
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=build /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
+
+EXPOSE 3001
+
+# apps/web/package.json should have:
+# "start": "next start -p 3000"
+CMD ["pnpm", "--filter", "web", "start"]

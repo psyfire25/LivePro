@@ -1,15 +1,42 @@
+version: "3.9"
+
 services:
   db:
     image: postgres:16-alpine
-    restart: always
+    container_name: livepro_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: livepro
-      POSTGRES_PASSWORD: livepro
-      POSTGRES_DB: livepro
     volumes:
-      - dbdata:/var/lib/postgresql/data
+      - livepro_db_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: livepro_api
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - db
+    ports:
+      - "3333:3333"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    container_name: livepro_web
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
 
 volumes:
-  dbdata:
+  livepro_db_data:

@@ -133,19 +133,19 @@ export default function GanttPage() {
                 <div className="absolute inset-0">
                   {/* items in lane */}
                   {(rows.byStage[r.key]||[]).map(it => {
-                    const s = new Date(it.startAt).getTime();
-                    const e = new Date(it.endAt).getTime();
-                    const left = Math.max(0, ((s - timeline.start) / timeline.totalMs) * 100);
-                    const width = Math.max(1, ((e - s) / timeline.totalMs) * 100);
+                    const startMs = new Date(it.startAt).getTime();
+                    const endMs = new Date(it.endAt).getTime();
+                    const left = Math.max(0, ((startMs - timeline.start) / timeline.totalMs) * 100);
+                    const width = Math.max(1, ((endMs - startMs) / timeline.totalMs) * 100);
                     return (
                       <div key={it.id}
                            className="absolute h-7 rounded-md bg-blue-600/80 hover:bg-blue-600 text-white text-xs px-2 overflow-hidden whitespace-nowrap text-ellipsis group cursor-move"
                            style={{ left: `${left}%`, width: `${width}%`, top: 6 }}
                            title={`${it.title} (${new Date(it.startAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}–${new Date(it.endAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})})`}
-                           onMouseDown={(e)=>{
-                             if (e.button!==0) return;
-                             const mode = (e.target as HTMLElement).dataset.handle as any || 'move';
-                             setDrag({ id: it.id, mode, startX: e.clientX, origStart: s, origEnd: e });
+                           onMouseDown={(evt)=>{
+                             if (evt.button!==0) return;
+                             const mode = (evt.target as HTMLElement).dataset.handle as any || 'move';
+                             setDrag({ id: it.id, mode, startX: evt.clientX, origStart: startMs, origEnd: endMs });
                            }}
                            onDoubleClick={()=>setSelected(it)}
                       >

@@ -1,5 +1,5 @@
 import "./globals.css";
-import { AppShell } from "@repo/ui/src/components/ui/app-shell";
+import { AdminShell } from "@repo/ui/src/components/ui/admin-shell";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
@@ -23,7 +23,7 @@ export default function RootLayout({
       </head>
       <body className={geist.className}>
         <AuthProvider>
-          <AppShell
+          <AdminShell
             rightSlot={(
               <>
                 <SignedOut>
@@ -38,7 +38,7 @@ export default function RootLayout({
             )}
           >
             {children}
-          </AppShell>
+          </AdminShell>
         </AuthProvider>
       </body>
     </html>

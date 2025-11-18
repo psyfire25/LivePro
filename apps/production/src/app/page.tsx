@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { listEvents, createEvent } from "./lib/api/client";
-import { Input } from "./lib/placeholder-input";
+import { listEvents, createEvent } from "../lib/api/client";
+import { Input } from "@repo/ui/src/components/ui/input";
 import { Button } from "@repo/ui/src/components/ui/button";
+import { useWorkspaceRole, hasMinRole } from "@/lib/auth/role";
 
 export default function Home() {
+  const { role } = useWorkspaceRole();
   const [loading, setLoading] = useState(true);
   const [hasEvents, setHasEvents] = useState<boolean | null>(null);
   const [form, setForm] = useState({ name: "", type: "CONCERT", startAt: "", endAt: "", location: "" });
@@ -66,14 +68,18 @@ export default function Home() {
               <div className="text-lg font-semibold">Production Management</div>
               <div className="opacity-70 text-sm mt-1">Events, schedules, tasks</div>
             </a>
+            {hasMinRole(role,'MANAGER') && (
             <a className="lp-card" href="/sections/build">
               <div className="text-lg font-semibold">Production Build</div>
               <div className="opacity-70 text-sm mt-1">Stages, tech specs, equipment</div>
             </a>
+            )}
+            {hasMinRole(role,'MANAGER') && (
             <a className="lp-card" href="/sections/logistics">
               <div className="text-lg font-semibold">Logistics</div>
               <div className="opacity-70 text-sm mt-1">Crew, suppliers, transport</div>
             </a>
+            )}
           </section>
         </>
       )}

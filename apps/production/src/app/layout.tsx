@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
-import { AppShell } from "@repo/ui/src/components/ui/app-shell";
+import { AdminShell } from "@repo/ui/src/components/ui/admin-shell";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -34,7 +34,16 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
-          <AppShell rightSlot={(
+          <AdminShell
+            appName="LivePro: Production"
+            sideNav={[
+              { href: "/", label: "Dashboard" },
+              { href: "/events", label: "Events" },
+              { href: "/sections/management", label: "Management" },
+              { href: "/sections/build", label: "Build" },
+              { href: "/sections/logistics", label: "Logistics" },
+            ]}
+            rightSlot={(
             <>
               <SignedOut>
                 <SignInButton mode="modal">
@@ -45,9 +54,10 @@ export default function RootLayout({
                 <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
               </SignedIn>
             </>
-          )}>
+          )}
+          >
             {children}
-          </AppShell>
+          </AdminShell>
         </AuthProvider>
       </body>
     </html>

@@ -91,3 +91,18 @@ export async function updateSchedule(eventId: string, id: string, patch: Partial
   if (!res.ok) throw new Error("Failed to update schedule item");
   return res.json();
 }
+
+// Workspace role/membership
+export async function getMembership(workspaceId: string, userId: string) {
+  const res = await fetch(`${BASE}/workspaces/${workspaceId}/members/${userId}`, { cache: 'no-store' });
+  if (!res.ok) return null;
+  return res.json() as Promise<{ id: string; workspaceId: string; userId: string; role: string } | null>;
+}
+
+export async function upsertMembership(workspaceId: string, userId: string, role: 'DIRECTOR'|'MANAGER'|'LEAD'|'STAFF') {
+  const res = await fetch(`${BASE}/workspaces/${workspaceId}/members`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId, role })
+  });
+  if (!res.ok) throw new Error('Failed to upsert membership');
+  return res.json();
+}
