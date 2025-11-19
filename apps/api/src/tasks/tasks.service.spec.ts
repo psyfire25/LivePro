@@ -10,6 +10,7 @@ describe('TasksService', () => {
         task: {
             findMany: jest.fn(),
             findUnique: jest.fn(),
+            findFirst: jest.fn(),
             create: jest.fn(),
             update: jest.fn(),
         },

@@ -3,7 +3,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class WorkspacesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   getMembership(workspaceId: string, userId: string) {
     return this.prisma.workspaceMember.findUnique({
@@ -17,5 +17,13 @@ export class WorkspacesService {
       update: { role: role as any },
       create: { workspaceId, userId, role: role as any },
     });
+  }
+
+  list() {
+    return this.prisma.workspace.findMany();
+  }
+
+  create(dto: { name: string; slug: string }) {
+    return this.prisma.workspace.create({ data: dto });
   }
 }

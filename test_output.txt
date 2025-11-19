@@ -1,0 +1,95 @@
+
+> api@0.0.1 test:unit /Volumes/T7/CodeT7/Archive/LivePro/apps/api
+> jest
+
+FAIL src/workspaces/workspaces.service.spec.ts (7.788 s)
+  ● WorkspacesService › list › should return workspaces
+
+    TypeError: service.list is not a function
+
+      39 |             jest.spyOn(prisma.workspace, 'findMany').mockResolvedValue(result as any);
+      40 |
+    > 41 |             expect(await service.list()).toBe(result);
+         |                                  ^
+      42 |         });
+      43 |     });
+      44 |
+
+      at Object.<anonymous> (workspaces/workspaces.service.spec.ts:41:34)
+
+  ● WorkspacesService › create › should create a workspace
+
+    TypeError: service.create is not a function
+
+      49 |             jest.spyOn(prisma.workspace, 'create').mockResolvedValue(result as any);
+      50 |
+    > 51 |             expect(await service.create(dto)).toBe(result);
+         |                                  ^
+      52 |         });
+      53 |     });
+      54 | });
+
+      at Object.<anonymous> (workspaces/workspaces.service.spec.ts:51:34)
+
+FAIL src/workspaces/workspaces.controller.spec.ts (8.058 s)
+  ● WorkspacesController › list › should return workspaces
+
+    TypeError: controller.list is not a function
+
+      36 |             jest.spyOn(service, 'list').mockResolvedValue(result as any);
+      37 |
+    > 38 |             expect(await controller.list()).toBe(result);
+         |                                     ^
+      39 |         });
+      40 |     });
+      41 |
+
+      at Object.<anonymous> (workspaces/workspaces.controller.spec.ts:38:37)
+
+  ● WorkspacesController › create › should create a workspace
+
+    TypeError: controller.create is not a function
+
+      46 |             jest.spyOn(service, 'create').mockResolvedValue(result as any);
+      47 |
+    > 48 |             expect(await controller.create(dto)).toBe(result);
+         |                                     ^
+      49 |         });
+      50 |     });
+      51 | });
+
+      at Object.<anonymous> (workspaces/workspaces.controller.spec.ts:48:37)
+
+FAIL src/tasks/tasks.service.spec.ts (9.164 s)
+  ● TasksService › updateStatus › should update task status
+
+    TypeError: this.prisma.task.findFirst is not a function
+
+      29 |
+      30 |   async updateStatus(eventId: string, id: string, dto: UpdateTaskStatusDto) {
+    > 31 |     const existing = await this.prisma.task.findFirst({ where: { id, eventId } });
+         |                                             ^
+      32 |     if (!existing) throw new NotFoundException('Task not found');
+      33 |     return this.prisma.task.update({ where: { id }, data: { status: dto.status as any } });
+      34 |   }
+
+      at TasksService.updateStatus (tasks/tasks.service.ts:31:45)
+      at Object.<anonymous> (tasks/tasks.service.spec.ts:62:34)
+
+PASS src/events/events.service.spec.ts
+PASS src/tasks/tasks.controller.spec.ts (5.34 s)
+PASS src/schedule/schedule.controller.spec.ts (5.03 s)
+PASS src/events/events.controller.spec.ts
+PASS src/stages/stages.controller.spec.ts
+PASS src/schedule/schedule.service.spec.ts
+PASS src/app.controller.spec.ts
+PASS src/stages/stages.service.spec.ts
+
+Test Suites: 3 failed, 8 passed, 11 total
+Tests:       5 failed, 30 passed, 35 total
+Snapshots:   0 total
+Time:        22.917 s
+Ran all test suites.
+/Volumes/T7/CodeT7/Archive/LivePro/apps/api:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  api@0.0.1 test:unit: `jest`
+Exit status 1
