@@ -1,9 +1,7 @@
 "use client";
 import Image from "next/image";
-import { Reveal } from "@repo/motion";
 import { Card } from "@repo/ui";
 import { Gradient } from "@repo/ui";
-import { TurborepoLogo } from "@repo/ui";
 
 const LINKS = [
   {
@@ -75,10 +73,6 @@ export default function Page() {
                 small
               />
             </div>
-
-            <div className="flex justify-center items-center z-50">
-              <TurborepoLogo />
-            </div>
           </div>
           <Gradient
             className="top-[-500px] opacity-[0.15] w-[1000px] h-[1000px]"
@@ -106,15 +100,13 @@ export default function Page() {
         </div>
       </div>
 
-      <Reveal variant="fade-up">
-        <div className="grid mb-32 text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-          {LINKS.map(({ title, href, description }) => (
-            <Card href={href} key={title} title={title}>
-              {description}
-            </Card>
-          ))}
-        </div>
-      </Reveal>
+      <div className="grid mb-32 text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
+        {LINKS.map(({ title, href, description }) => (
+          <Card href={href} key={title} title={title}>
+            {description}
+          </Card>
+        ))}
+      </div>
     </main>
   );
 }
