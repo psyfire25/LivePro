@@ -1,46 +1,25 @@
-    FROM node:20-alpine AS base
-    WORKDIR /app
-    RUN corepack enable
-    
-    # -------- Dependencies layer --------
-    FROM base AS deps
-    WORKDIR /app
+FROM node:20-alpine AS build
+WORKDIR /app
+RUN corepack enable
 
-    # ⬇️ Add this line before pnpm install
-    ENV PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
-    
-    # Copy root manifests for pnpm + workspaces
-    COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
-    
-    # Copy all package.json files so pnpm can build workspace graph
-    COPY apps ./apps
-    COPY packages ./packages
-    
-    # Install dependencies for the whole monorepo (you can optimize later)
-    RUN pnpm install --frozen-lockfile
-    
-    # -------- Build API --------
-    FROM deps AS build
-    WORKDIR /app
-    
-    # Build only the API app
-    # ⚠️ Replace "@livepro/api" with whatever the actual name is in apps/api/package.json
-    RUN pnpm --filter @livepro/api build
-    
-    # -------- Runtime image --------
-    FROM node:20-alpine AS runtime
-    WORKDIR /app
-    RUN corepack enable
-    ENV NODE_ENV=production
-    
-    # Copy node_modules + built files
-    COPY --from=build /app/node_modules ./node_modules
-    COPY --from=build /app/apps/api ./apps/api
-    COPY --from=build /app/packages ./packages
-    COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
-    
-    # Expose API port
-    EXPOSE 3333
-    
-    # ⚠️ Replace "start:prod" and filter name to match your scripts if needed
-    CMD ["pnpm", "--filter", "@livepro/api", "start:prod"]
+ENV PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING=1
+
+# Copy root manifests for pnpm + workspaces
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+
+# Copy all package.json files so pnpm can build workspace graph
+COPY apps ./apps
+COPY packages ./packages
+
+# Install dependencies for the whole monorepo
+RUN pnpm install --frozen-lockfile
+
+# Build only the API app
+RUN pnpm --filter api build
+
+# Set production environment
+ENV NODE_ENV=production
+
+EXPOSE 3333
+
+CMD ["node", "/app/apps/api/dist/src/main.js"]

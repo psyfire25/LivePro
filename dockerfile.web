@@ -24,4 +24,4 @@ COPY --from=build /app /app
 EXPOSE 3001
 
 # Run Next using the installed package in the build output
-CMD ["node", "/app/apps/web/node_modules/next/dist/bin/next", "start", "-p", "3001", "--dir", "/app/apps/web"]
+CMD ["node", "/app/apps/web/node_modules/next/dist/bin/next", "start", "-p", "3001", "/app/apps/web"]

@@ -57,7 +57,9 @@ describe('TasksService', () => {
     describe('updateStatus', () => {
         it('should update task status', async () => {
             const dto = { status: 'COMPLETED' };
-            const result = { id: '1', title: 'Test Task', status: 'COMPLETED' };
+            const existingTask = { id: 'task-1', eventId: 'event-1', title: 'Test Task', status: 'PENDING' };
+            const result = { id: 'task-1', eventId: 'event-1', title: 'Test Task', status: 'COMPLETED' };
+            jest.spyOn(prisma.task, 'findFirst').mockResolvedValue(existingTask as any);
             jest.spyOn(prisma.task, 'update').mockResolvedValue(result as any);
 
             expect(await service.updateStatus('event-1', 'task-1', dto)).toBe(result);
