@@ -31,7 +31,7 @@ export function AdminShell({
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const stored = typeof window !== 'undefined' ? (localStorage.getItem('lp-theme') as any) : null;
+    const stored = typeof window !== 'undefined' ? (localStorage.getItem('lp-theme') as string | null) : null;
     const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const t: "light" | "dark" = stored === 'dark' || (!stored && prefersDark) ? 'dark' : 'light';
     setTheme(t);
@@ -48,7 +48,7 @@ export function AdminShell({
       if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
       else document.documentElement.removeAttribute('data-theme');
     }
-    try { localStorage.setItem('lp-theme', next); } catch { }
+    try { localStorage.setItem('lp-theme', next); } catch { /* ignore */ }
   }
 
   return (

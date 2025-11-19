@@ -10,15 +10,15 @@ export function AppShell({ children, rightSlot }: { children: ReactNode; rightSl
     { href: "http://localhost:3001", label: "Web" },
     { href: "http://localhost:3000", label: "Docs" },
   ];
-  const [theme, setTheme] = useState<"light"|"dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    const stored = typeof window !== 'undefined' ? (localStorage.getItem('lp-theme') as any) : null;
+    const stored = typeof window !== 'undefined' ? (localStorage.getItem('lp-theme') as string | null) : null;
     const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const t: "light"|"dark" = stored === 'dark' || (!stored && prefersDark) ? 'dark' : 'light';
+    const t: "light" | "dark" = stored === 'dark' || (!stored && prefersDark) ? 'dark' : 'light';
     setTheme(t);
     if (typeof document !== 'undefined') {
-      if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
       else document.documentElement.removeAttribute('data-theme');
     }
   }, []);
@@ -27,10 +27,10 @@ export function AppShell({ children, rightSlot }: { children: ReactNode; rightSl
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
     if (typeof document !== 'undefined') {
-      if (next === 'dark') document.documentElement.setAttribute('data-theme','dark');
+      if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
       else document.documentElement.removeAttribute('data-theme');
     }
-    try { localStorage.setItem('lp-theme', next); } catch {}
+    try { localStorage.setItem('lp-theme', next); } catch { /* ignore */ }
   }
 
   return (

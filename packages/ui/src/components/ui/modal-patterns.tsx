@@ -85,7 +85,7 @@ interface FormModalProps {
     isOpen: boolean;
     onClose: () => void;
     title: string;
-    onSubmit: (data: any) => void | Promise<void>;
+    onSubmit: (data: Record<string, unknown>) => void | Promise<void>;
     children: React.ReactNode;
     submitText?: string;
     size?: "sm" | "md" | "lg" | "xl";

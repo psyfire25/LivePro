@@ -1,6 +1,7 @@
 import * as React from "react";
 
 export const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
+  // eslint-disable-next-line react/prop-types
   ({ className = "", ...props }, ref) => {
     return (
       <input

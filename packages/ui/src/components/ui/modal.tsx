@@ -87,7 +87,8 @@ export function Modal({
 
     return (
         <div
-            className="ui:fixed ui:inset-0 ui:z-50 ui:flex ui:items-center ui:justify-center ui:p-4"
+            className={`ui:fixed ui:inset-0 ui:z-50 ui:flex ui:p-4 ${centered ? "ui:items-center ui:justify-center" : "ui:items-start ui:justify-center ui:pt-20"
+                }`}
             style={{
                 animation: "modalFadeIn 0.2s ease-out",
             }}

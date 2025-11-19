@@ -1,8 +1,5 @@
 // packages/ui/src/index.ts
 
-import { AppShell } from "./components/ui/app-shell";
-import { AdminShell } from "./components/ui/admin-shell";
-
 // Top-level components
 export { Card } from "./components/ui/card";
 export { Gradient } from "./components/ui/gradient";

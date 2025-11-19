@@ -17,11 +17,11 @@ export function Button({
     variant === "primary"
       ? "ui:bg-black ui:text-white hover:ui:bg-black/90"
       : variant === "outline"
-      ? "ui:border ui:border-black/15 hover:ui:bg-black/5"
-      : "hover:ui:bg-black/5";
+        ? "ui:border ui:border-black/15 hover:ui:bg-black/5"
+        : "hover:ui:bg-black/5";
 
   if (asChild && React.isValidElement(children)) {
-    const child = children as React.ReactElement<any>;
+    const child = children as React.ReactElement<{ className?: string }>;
     return React.cloneElement(child, {
       className: `${base} ${styles} ${className} ${child.props?.className ?? ""}`.trim(),
       ...props,
