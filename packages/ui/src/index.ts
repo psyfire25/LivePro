@@ -38,3 +38,5 @@ export { NotificationItem } from "./components/ui/notification-item";
 export type { Notification, NotificationItemProps } from "./components/ui/notification-item";
 export { NotificationDropdown } from "./components/ui/notification-dropdown";
 export type { NotificationDropdownProps } from "./components/ui/notification-dropdown";
+export { NotificationList } from "./components/ui/notification-list";
+export type { NotificationListProps } from "./components/ui/notification-list";

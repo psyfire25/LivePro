@@ -10,10 +10,10 @@ describe('Button', () => {
     });
 
     it('applies variant classes', () => {
-        render(<Button variant="destructive">Delete</Button>);
-        const button = screen.getByRole('button', { name: /delete/i });
+        render(<Button variant="outline">Outline Button</Button>);
+        const button = screen.getByRole('button', { name: /outline button/i });
         // Note: We're not testing specific tailwind classes as they might change,
-        // but we could test if the class list contains destructive related classes if needed.
+        // but we could test if the class list contains outline related classes if needed.
         // For now just ensuring it renders is a good baseline.
         expect(button).toBeInTheDocument();
     });

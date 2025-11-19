@@ -27,16 +27,16 @@ export function AdminShell({
   sideNav?: NavItem[];    // left sidebar navigation
   appName?: string;
 }) {
-  const [theme, setTheme] = useState<"light"|"dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const stored = typeof window !== 'undefined' ? (localStorage.getItem('lp-theme') as any) : null;
     const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const t: "light"|"dark" = stored === 'dark' || (!stored && prefersDark) ? 'dark' : 'light';
+    const t: "light" | "dark" = stored === 'dark' || (!stored && prefersDark) ? 'dark' : 'light';
     setTheme(t);
     if (typeof document !== 'undefined') {
-      if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
       else document.documentElement.removeAttribute('data-theme');
     }
   }, []);
@@ -45,10 +45,10 @@ export function AdminShell({
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
     if (typeof document !== 'undefined') {
-      if (next === 'dark') document.documentElement.setAttribute('data-theme','dark');
+      if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
       else document.documentElement.removeAttribute('data-theme');
     }
-    try { localStorage.setItem('lp-theme', next); } catch {}
+    try { localStorage.setItem('lp-theme', next); } catch { }
   }
 
   return (
@@ -58,7 +58,7 @@ export function AdminShell({
         <div className="lp-wrap lp-container ui:flex ui:items-center ui:gap-3 ui:justify-between">
           <div className="ui:flex ui:items-center ui:gap-3">
             <button className="ui:md:hidden ui:inline-flex ui:h-9 ui:w-9 ui:items-center ui:justify-center ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5"
-              aria-label="Toggle navigation" onClick={() => setOpen(v=>!v)}>
+              aria-label="Toggle navigation" onClick={() => setOpen(v => !v)}>
               ☰
             </button>
             <a href="/" className="ui:font-semibold ui:no-underline">{appName}</a>
