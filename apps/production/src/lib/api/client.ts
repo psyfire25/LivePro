@@ -1,18 +1,40 @@
 // Optional: import OpenAPI types when generated; not required to run dev
 // import type { API } from "@livepro/api-types";
 
+interface EventData {
+  name: string; type: "CLUB_NIGHT"|"CONCERT"|"FESTIVAL"|"CONFERENCE"|"PRIVATE";
+  startAt: string; endAt: string; location?: string;
+}
+
+interface Event {
+  id: string;
+  name: string;
+}
+
+interface Stage {
+  id: string;
+  name: string;
+}
+
+interface Task {
+  id: string;
+  title: string;
+}
+
+interface ScheduleItem {
+  title: string; kind: "DOORS"|"PERFORMANCE"|"CHANGEOVER"|"CURFEW"|"NOTE";
+  startAt: string; endAt: string; stageId?: string; notes?: string; artist?: string;
+}
+
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
 
 export async function listEvents() {
   const res = await fetch(`${BASE}/events`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to list events");
-  return res.json() as Promise<any[]>;
+  return res.json() as Promise<Event[]>;
 }
 
-export async function createEvent(input: {
-  name: string; type: "CLUB_NIGHT"|"CONCERT"|"FESTIVAL"|"CONFERENCE"|"PRIVATE";
-  startAt: string; endAt: string; location?: string;
-}) {
+export async function createEvent(input: EventData) {
   const res = await fetch(`${BASE}/events`, {
     method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(input)
   });
@@ -23,13 +45,13 @@ export async function createEvent(input: {
 export async function getEvent(id: string) {
   const res = await fetch(`${BASE}/events/${id}`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to load event");
-  return res.json() as Promise<any>;
+  return res.json() as Promise<Event>;
 }
 
 export async function listStages(eventId: string) {
   const res = await fetch(`${BASE}/events/${eventId}/stages`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to list stages");
-  return res.json() as Promise<any[]>;
+  return res.json() as Promise<Stage[]>;
 }
 
 export async function createStage(eventId: string, name: string) {
@@ -43,7 +65,7 @@ export async function createStage(eventId: string, name: string) {
 export async function listTasks(eventId: string) {
   const res = await fetch(`${BASE}/events/${eventId}/tasks`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to list tasks");
-  return res.json() as Promise<any[]>;
+  return res.json() as Promise<Task[]>;
 }
 
 export async function createTask(eventId: string, task: {
@@ -67,13 +89,10 @@ export async function updateTaskStatus(eventId: string, taskId: string, status: 
 export async function listSchedule(eventId: string) {
   const res = await fetch(`${BASE}/events/${eventId}/schedule`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to list schedule");
-  return res.json() as Promise<any[]>;
+  return res.json() as Promise<ScheduleItem[]>;
 }
 
-export async function createSchedule(eventId: string, item: {
-  title: string; kind: "DOORS"|"PERFORMANCE"|"CHANGEOVER"|"CURFEW"|"NOTE";
-  startAt: string; endAt: string; stageId?: string; notes?: string; artist?: string;
-}) {
+export async function createSchedule(eventId: string, item: ScheduleItem) {
   const res = await fetch(`${BASE}/events/${eventId}/schedule`, {
     method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(item)
   });

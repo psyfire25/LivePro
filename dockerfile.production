@@ -1,0 +1,27 @@
+FROM node:20-alpine AS base
+WORKDIR /app
+RUN corepack enable
+
+FROM base AS build
+WORKDIR /app
+
+COPY . .
+
+RUN pnpm install --frozen-lockfile
+
+RUN pnpm --filter @repo/ui build
+RUN pnpm --filter @repo/motion build
+RUN pnpm --filter production build
+
+FROM node:20-alpine AS runtime
+WORKDIR /app
+RUN corepack enable
+ENV NODE_ENV=production
+
+# Copy entire build output from the build stage so all node_modules and binaries are preserved
+COPY --from=build /app /app
+
+EXPOSE 3010
+
+# Run Next using the installed package in the build output
+CMD ["node", "/app/apps/production/node_modules/next/dist/bin/next", "start", "-p", "3010", "/app/apps/production"]

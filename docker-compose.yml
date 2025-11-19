@@ -23,8 +23,9 @@ services:
     env_file: .env
     depends_on:
       - db
+    # Map host 3333 to container 4000 — the Nest app listens on 4000 inside the container
     ports:
-      - "3333:3333"
+      - "3333:4000"
 
   web:
     build:
@@ -35,8 +36,57 @@ services:
     env_file: .env
     depends_on:
       - api
+    # Forward host port 3000 to the container's Next port (3001)
     ports:
-      - "3000:3000"
+      - "3000:3001"
+
+  production:
+    build:
+      context: .
+      dockerfile: dockerfile.production
+    container_name: livepro_production
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - api
+    ports:
+      - "3010:3010"
+
+  staffing:
+    build:
+      context: .
+      dockerfile: dockerfile.staffing
+    container_name: livepro_staffing
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - api
+    ports:
+      - "3030:3030"
+
+  talent:
+    build:
+      context: .
+      dockerfile: dockerfile.talent
+    container_name: livepro_talent
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - api
+    ports:
+      - "3020:3020"
+
+  finance:
+    build:
+      context: .
+      dockerfile: dockerfile.finance
+    container_name: livepro_finance
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - api
+    ports:
+      - "3040:3040"
 
 volumes:
   livepro_db_data:
