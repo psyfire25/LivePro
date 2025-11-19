@@ -1,3 +1,4 @@
+"use client";
 import * as React from "react";
 
 type TabsContextValue = {
@@ -41,9 +42,8 @@ export function TabsTrigger({ value, children, className = "" }: { value: string
     <button
       type="button"
       onClick={() => ctx.setValue(value)}
-      className={`ui:inline-flex ui:items-center ui:justify-center ui:rounded ui:px-3 ui:text-sm ui:h-7 ui:transition-colors ${
-        active ? "ui:bg-black ui:text-white" : "hover:ui:bg-black/5"
-      } ${className}`}
+      className={`ui:inline-flex ui:items-center ui:justify-center ui:rounded ui:px-3 ui:text-sm ui:h-7 ui:transition-colors ${active ? "ui:bg-black ui:text-white" : "hover:ui:bg-black/5"
+        } ${className}`}
     >
       {children}
     </button>

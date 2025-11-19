@@ -1,3 +1,4 @@
+"use client";
 import React, { createContext, useContext, useState, useCallback, type ReactNode } from "react";
 import { ToastContainer } from "./toast-container";
 import type { ToastVariant } from "./toast";

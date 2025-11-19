@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { NotificationItem, type Notification } from "./notification-item";
 

@@ -1,3 +1,4 @@
+"use client";
 import React, { type ReactNode, useEffect, useRef } from "react";
 
 export interface ModalProps {

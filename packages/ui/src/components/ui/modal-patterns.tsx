@@ -1,3 +1,4 @@
+"use client";
 import { Modal, Button } from "@repo/ui";
 import { useState } from "react";
 
