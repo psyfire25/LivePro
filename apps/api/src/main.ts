@@ -16,6 +16,6 @@ const config = new DocumentBuilder()
   .build();
 const doc = SwaggerModule.createDocument(app, config);
 SwaggerModule.setup('/docs', app, doc);
-await app.listen(4000);
+await app.listen(4000, '0.0.0.0');
 }
 bootstrap();

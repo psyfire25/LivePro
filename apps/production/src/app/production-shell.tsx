@@ -21,6 +21,7 @@ export function ProductionShell({ searchParams }: Props) {
   const [loading, setLoading] = useState(true);
   const [hasEvents, setHasEvents] = useState<boolean | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const view = (searchParams?.view as string | undefined) ?? "default";
 
@@ -30,6 +31,11 @@ export function ProductionShell({ searchParams }: Props) {
         const events = (await listEvents()) as Event[];
         setHasEvents(events?.length > 0);
         if (events?.length === 0) setShowCreateModal(true);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Failed to load events';
+        console.error('Error loading events:', message);
+        setError(message);
+        setHasEvents(null);
       } finally {
         setLoading(false);
       }
@@ -52,7 +58,14 @@ async function handleSubmit(data: Record<string, unknown>) {
   return (
     <>
       <main className="min-h-screen lp-prose space-y-8">
-        {!loading && hasEvents === false ? (
+        {error && !loading && (
+          <section className="lp-card lp-card-lg bg-red-50 border border-red-200">
+            <h2 className="text-red-900">Configuration Error</h2>
+            <p className="text-red-800 mt-2">{error}</p>
+            <p className="text-red-700 text-sm mt-4">Please ensure the API_URL environment variable is configured in Vercel.</p>
+          </section>
+        )}
+        {!loading && hasEvents === false && !error ? (
           <section className="lp-card lp-card-lg">
             <h1 className="mb-2">Create your first production</h1>
             <p className="opacity-80">

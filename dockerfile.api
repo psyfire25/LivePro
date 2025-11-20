@@ -22,4 +22,8 @@ ENV NODE_ENV=production
 
 EXPOSE 3333
 
-CMD ["node", "/app/apps/api/dist/src/main.js"]
+# Copy entrypoint script
+COPY docker-entrypoint-api.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]

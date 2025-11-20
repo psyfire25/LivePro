@@ -9,6 +9,7 @@ COPY . .
 
 RUN pnpm install --frozen-lockfile
 
+RUN pnpm --filter @livepro/api-types build
 RUN pnpm --filter @repo/ui build
 RUN pnpm --filter @repo/motion build
 RUN pnpm --filter finance build
