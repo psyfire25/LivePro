@@ -70,7 +70,7 @@ export function useConfirmDialog() {
                     </div>
                 }
             >
-                <p className="ui:text-gray-700">{config.message}</p>
+                <p className="ui:text-gray-300">{config.message}</p>
             </Modal>
         );
     };
@@ -238,7 +238,7 @@ export function SelectionModal<T>({
                 )}
                 <div className="ui:space-y-2 ui:max-h-96 ui:overflow-y-auto">
                     {filteredItems.length === 0 ? (
-                        <p className="ui:text-gray-500 dark:ui:text-gray-400 ui:text-center ui:py-8">
+                        <p className="ui:text-gray-300 dark:ui:text-gray-400 ui:text-center ui:py-8">
                             No items found
                         </p>
                     ) : (

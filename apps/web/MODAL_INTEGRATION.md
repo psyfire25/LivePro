@@ -40,7 +40,7 @@ export function WelcomeModal() {
       }
     >
       <div className="ui:space-y-4">
-        <p className="ui:text-gray-700">
+        <p className="ui:text-gray-300">
           LivePro is your complete live event management platform. Here's what you can do:
         </p>
 
@@ -182,7 +182,7 @@ export function HelpButton() {
         size="md"
       >
         <div className="ui:space-y-4">
-          <p className="ui:text-gray-700">
+          <p className="ui:text-gray-300">
             Need help getting started? Here are some resources:
           </p>
 
@@ -215,7 +215,7 @@ export function HelpButton() {
               <div className="ui:font-semibold ui:text-gray-900">
                 💬 Support
               </div>
-              <div className="ui:text-sm ui:text-gray-700">
+              <div className="ui:text-sm ui:text-gray-300">
                 Email: support@livepro.com
               </div>
             </div>
@@ -334,7 +334,7 @@ export function WorkspaceSwitcher({ workspaces }: { workspaces: Workspace[] }) {
         renderItem={(ws) => (
           <div>
             <div className="ui:font-medium">{ws.name}</div>
-            <div className="ui:text-sm ui:text-gray-500">{ws.role}</div>
+            <div className="ui:text-sm ui:text-gray-300">{ws.role}</div>
           </div>
         )}
         searchable

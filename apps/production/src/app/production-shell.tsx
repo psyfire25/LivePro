@@ -137,7 +137,7 @@ async function handleSubmit(data: Record<string, unknown>) {
           <div>
             <label
               htmlFor="name"
-              className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
             >
               Event Name
             </label>
@@ -153,7 +153,7 @@ async function handleSubmit(data: Record<string, unknown>) {
           <div>
             <label
               htmlFor="type"
-              className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
             >
               Event Type
             </label>
@@ -176,7 +176,7 @@ async function handleSubmit(data: Record<string, unknown>) {
             <div>
               <label
                 htmlFor="startAt"
-                className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+                className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
               >
                 Start Date & Time
               </label>
@@ -186,7 +186,7 @@ async function handleSubmit(data: Record<string, unknown>) {
             <div>
               <label
                 htmlFor="endAt"
-                className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+                className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
               >
                 End Date & Time
               </label>
@@ -197,7 +197,7 @@ async function handleSubmit(data: Record<string, unknown>) {
           <div>
             <label
               htmlFor="location"
-              className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
             >
               Location (Optional)
             </label>

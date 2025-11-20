@@ -225,7 +225,7 @@ export function AssignTaskButton({ taskId, crewMembers }: {
         renderItem={(member) => (
           <div>
             <div className="ui:font-medium">{member.name}</div>
-            <div className="ui:text-sm ui:text-gray-500">{member.role}</div>
+            <div className="ui:text-sm ui:text-gray-300">{member.role}</div>
           </div>
         )}
         searchable
@@ -260,19 +260,19 @@ export function EventInfoButton({ event }) {
         <div className="ui:space-y-4">
           <div>
             <h4 className="ui:font-semibold ui:mb-1">Date</h4>
-            <p className="ui:text-gray-700">{event.date}</p>
+            <p className="ui:text-gray-300">{event.date}</p>
           </div>
           <div>
             <h4 className="ui:font-semibold ui:mb-1">Venue</h4>
-            <p className="ui:text-gray-700">{event.venue}</p>
+            <p className="ui:text-gray-300">{event.venue}</p>
           </div>
           <div>
             <h4 className="ui:font-semibold ui:mb-1">Description</h4>
-            <p className="ui:text-gray-700">{event.description}</p>
+            <p className="ui:text-gray-300">{event.description}</p>
           </div>
           <div>
             <h4 className="ui:font-semibold ui:mb-1">Stages</h4>
-            <ul className="ui:list-disc ui:list-inside ui:text-gray-700">
+            <ul className="ui:list-disc ui:list-inside ui:text-gray-300">
               {event.stages?.map((stage) => (
                 <li key={stage.id}>{stage.name}</li>
               ))}

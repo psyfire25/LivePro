@@ -103,7 +103,7 @@ export default function Home() {
         }
       >
         <div className="ui:space-y-4">
-          <p className="ui:text-gray-700">
+          <p className="ui:text-gray-300">
             LivePro is your complete live event management platform. Here's what
             you can do:
           </p>

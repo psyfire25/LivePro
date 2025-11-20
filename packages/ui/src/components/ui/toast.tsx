@@ -121,7 +121,7 @@ export function Toast({
                             {title}
                         </p>
                     )}
-                    <p className="ui:text-sm ui:text-gray-700">{message}</p>
+                    <p className="ui:text-sm ui:text-gray-300">{message}</p>
                 </div>
 
                 {/* Close button */}

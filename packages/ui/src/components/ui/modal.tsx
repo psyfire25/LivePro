@@ -108,12 +108,14 @@ export function Modal({
                 ref={modalRef}
                 className={`
           ui:relative ui:w-full ${sizeClasses[size]}
-          ui:bg-white ui:rounded-lg ui:shadow-2xl
+          ui:rounded-lg ui:shadow-2xl
           ui:flex ui:flex-col ui:max-h-[90vh]
           ${className}
         `}
                 style={{
                     animation: "modalSlideIn 0.3s ease-out",
+                    background: "var(--lp-card-bg)",
+                    color: "var(--lp-card-fg)",
                 }}
                 role="dialog"
                 aria-modal="true"
@@ -121,11 +123,11 @@ export function Modal({
             >
                 {/* Header */}
                 {(title || showCloseButton) && (
-                    <div className="ui:flex ui:items-center ui:justify-between ui:px-6 ui:py-4 ui:border-b ui:border-gray-200">
+                    <div className="ui:flex ui:items-center ui:justify-between ui:px-6 ui:py-4 ui:border-b" style={{ borderColor: 'var(--lp-card-border)' }}>
                         {title && (
                             <h2
                                 id="modal-title"
-                                className="ui:text-xl ui:font-semibold ui:text-gray-900"
+                                className="ui:text-xl ui:font-semibold"
                             >
                                 {title}
                             </h2>
@@ -133,8 +135,9 @@ export function Modal({
                         {showCloseButton && (
                             <button
                                 onClick={onClose}
-                                className="ui:ml-auto ui:inline-flex ui:items-center ui:justify-center ui:w-8 ui:h-8 ui:rounded-md ui:text-gray-400 hover:ui:text-gray-600 hover:ui:bg-gray-100 ui:transition-colors"
+                                className="ui:ml-auto ui:inline-flex ui:items-center ui:justify-center ui:w-8 ui:h-8 ui:rounded-md hover:ui:bg-gray-100 dark:hover:ui:bg-slate-800 ui:transition-colors"
                                 aria-label="Close modal"
+                                style={{ color: 'var(--lp-card-fg)' }}
                             >
                                 <svg
                                     className="ui:w-5 ui:h-5"
@@ -155,13 +158,13 @@ export function Modal({
                 )}
 
                 {/* Body */}
-                <div className="ui:flex-1 ui:overflow-y-auto ui:px-6 ui:py-4">
+                <div className="ui:flex-1 ui:overflow-y-auto ui:px-6 ui:py-4 ui:bg-transparent">
                     {children}
                 </div>
 
                 {/* Footer */}
                 {footer && (
-                    <div className="ui:px-6 ui:py-4 ui:border-t ui:border-gray-200 ui:bg-gray-50">
+                    <div className="ui:px-6 ui:py-4 ui:border-t" style={{ borderColor: 'var(--lp-card-border)', background: 'var(--lp-card-bg)' }}>
                         {footer}
                     </div>
                 )}

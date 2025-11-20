@@ -265,7 +265,7 @@ export function AssignCrewButton({ shift, crew }: {
           <div className="ui:flex ui:justify-between ui:items-center">
             <div>
               <div className="ui:font-medium">{member.name}</div>
-              <div className="ui:text-sm ui:text-gray-500">{member.role}</div>
+              <div className="ui:text-sm ui:text-gray-300">{member.role}</div>
             </div>
             <div className="ui:text-sm ui:text-gray-600">
               ${member.hourlyRate}/hr
@@ -337,7 +337,7 @@ export function ViewScheduleButton({ crewMember, shifts }) {
       >
         <div className="ui:space-y-4">
           {shifts.length === 0 ? (
-            <p className="ui:text-gray-500 ui:text-center ui:py-8">
+            <p className="ui:text-gray-300 ui:text-center ui:py-8">
               No upcoming shifts
             </p>
           ) : (
@@ -351,11 +351,11 @@ export function ViewScheduleButton({ crewMember, shifts }) {
                     <h4 className="ui:font-semibold">{shift.event}</h4>
                     <p className="ui:text-sm ui:text-gray-600">{shift.role}</p>
                   </div>
-                  <span className="ui:text-sm ui:text-gray-500">
+                  <span className="ui:text-sm ui:text-gray-300">
                     {shift.duration} hours
                   </span>
                 </div>
-                <div className="ui:mt-2 ui:text-sm ui:text-gray-700">
+                <div className="ui:mt-2 ui:text-sm ui:text-gray-300">
                   {shift.startTime} - {shift.endTime}
                 </div>
               </div>

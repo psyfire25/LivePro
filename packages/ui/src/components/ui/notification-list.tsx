@@ -63,7 +63,7 @@ export function NotificationList({
             ui:transition-colors
             ${filter === "all"
                             ? "ui:bg-blue-600 ui:text-white"
-                            : "ui:bg-gray-100 ui:text-gray-700 hover:ui:bg-gray-200"
+                            : "ui:bg-gray-100 ui:text-gray-300 hover:ui:bg-gray-200"
                         }
           `}
                 >
@@ -76,7 +76,7 @@ export function NotificationList({
             ui:transition-colors
             ${filter === "unread"
                             ? "ui:bg-blue-600 ui:text-white"
-                            : "ui:bg-gray-100 ui:text-gray-700 hover:ui:bg-gray-200"
+                            : "ui:bg-gray-100 ui:text-gray-300 hover:ui:bg-gray-200"
                         }
           `}
                 >
@@ -89,7 +89,7 @@ export function NotificationList({
                 {isLoading && notifications.length === 0 ? (
                     <div className="ui:p-12 ui:text-center">
                         <div className="ui:inline-block ui:w-8 ui:h-8 ui:border-4 ui:border-gray-200 ui:border-t-blue-500 ui:rounded-full ui:animate-spin" />
-                        <p className="ui:text-sm ui:text-gray-500 ui:mt-4">Loading notifications...</p>
+                        <p className="ui:text-sm ui:text-gray-300 ui:mt-4">Loading notifications...</p>
                     </div>
                 ) : filteredNotifications.length === 0 ? (
                     <div className="ui:p-12 ui:text-center">
@@ -106,7 +106,7 @@ export function NotificationList({
                                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                             />
                         </svg>
-                        <p className="ui:text-gray-500 ui:mt-4">{emptyMessage}</p>
+                        <p className="ui:text-gray-300 ui:mt-4">{emptyMessage}</p>
                     </div>
                 ) : (
                     <>

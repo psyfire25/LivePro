@@ -82,7 +82,7 @@ export function NotificationDropdown({
                     <h3 className="ui:text-sm ui:font-semibold ui:text-gray-900">
                         Notifications
                         {unreadCount > 0 && (
-                            <span className="ui:ml-2 ui:text-xs ui:text-gray-500">
+                            <span className="ui:ml-2 ui:text-xs ui:text-gray-300">
                                 ({unreadCount} unread)
                             </span>
                         )}
@@ -103,7 +103,7 @@ export function NotificationDropdown({
                 {isLoading ? (
                     <div className="ui:p-8 ui:text-center">
                         <div className="ui:inline-block ui:w-8 ui:h-8 ui:border-4 ui:border-gray-200 ui:border-t-blue-500 ui:rounded-full ui:animate-spin" />
-                        <p className="ui:text-sm ui:text-gray-500 ui:mt-4">Loading...</p>
+                        <p className="ui:text-sm ui:text-gray-300 ui:mt-4">Loading...</p>
                     </div>
                 ) : notifications.length === 0 ? (
                     <div className="ui:p-8 ui:text-center">
@@ -120,7 +120,7 @@ export function NotificationDropdown({
                                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
                             />
                         </svg>
-                        <p className="ui:text-sm ui:text-gray-500 ui:mt-4">
+                        <p className="ui:text-sm ui:text-gray-300 ui:mt-4">
                             No notifications yet
                         </p>
                     </div>

@@ -330,7 +330,7 @@ export function SelectArtistButton({ eventId, artists }: {
         renderItem={(artist) => (
           <div>
             <div className="ui:font-medium">{artist.name}</div>
-            <div className="ui:text-sm ui:text-gray-500">{artist.genre}</div>
+            <div className="ui:text-sm ui:text-gray-300">{artist.genre}</div>
           </div>
         )}
         searchable
