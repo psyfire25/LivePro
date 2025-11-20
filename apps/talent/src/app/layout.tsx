@@ -27,8 +27,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <AuthProvider>
-          <AppShell rightSlot={(
+        {/* <AuthProvider> */}
+          {/* <AppShell rightSlot={(
             <>
               <SignedOut>
                 <SignInButton mode="modal">
@@ -39,10 +39,10 @@ export default function RootLayout({
                 <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
               </SignedIn>
             </>
-          )}>
+          )}> */}
             {children}
-          </AppShell>
-        </AuthProvider>
+          {/* </AppShell> */}
+          
       </body>
     </html>
   );

@@ -15,7 +15,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <ClerkProvider
+    <ClerkProvider dynamic
       publishableKey={pk}
       signInUrl="/sign-in"
       signUpUrl="/sign-up"
