@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+const request = require('supertest');
 import { AppModule } from '../src/app.module';
-import { PrismaService } from '../src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 describe('EventsController (e2e)', () => {
     let app: INestApplication;
@@ -32,14 +32,20 @@ describe('EventsController (e2e)', () => {
 
     describe('/events (POST)', () => {
         it('should create a new event', () => {
-            const dto = { name: 'E2E Test Event', slug: 'e2e-test-event' };
+            const now = new Date();
+            const dto = {
+                name: 'E2E Test Event',
+                type: 'CONCERT',
+                startAt: now.toISOString(),
+                endAt: new Date(now.getTime() + 60 * 60 * 1000).toISOString(),
+            };
             return request(app.getHttpServer())
                 .post('/events')
                 .send(dto)
                 .expect(201)
                 .then((res) => {
                     expect(res.body.name).toBe(dto.name);
-                    expect(res.body.slug).toBe(dto.slug);
+                    expect(res.body.type).toBe(dto.type);
                 });
         });
     });
