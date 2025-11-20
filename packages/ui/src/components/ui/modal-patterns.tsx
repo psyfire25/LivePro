@@ -233,12 +233,12 @@ export function SelectionModal<T>({
                         placeholder="Search..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="ui:w-full ui:px-3 ui:py-2 ui:border ui:border-gray-300 ui:rounded-md focus:ui:outline-none focus:ui:ring-2 focus:ui:ring-blue-500"
+                        className="ui:w-full ui:px-3 ui:py-2 ui:border ui:border-gray-300 dark:ui:border-gray-600 ui:bg-white dark:ui:bg-slate-900 ui:text-black dark:ui:text-white ui:rounded-md focus:ui:outline-none focus:ui:ring-2 focus:ui:ring-blue-500 dark:focus:ui:ring-blue-400"
                     />
                 )}
                 <div className="ui:space-y-2 ui:max-h-96 ui:overflow-y-auto">
                     {filteredItems.length === 0 ? (
-                        <p className="ui:text-gray-500 ui:text-center ui:py-8">
+                        <p className="ui:text-gray-500 dark:ui:text-gray-400 ui:text-center ui:py-8">
                             No items found
                         </p>
                     ) : (
@@ -246,7 +246,7 @@ export function SelectionModal<T>({
                             <button
                                 key={keyExtractor(item)}
                                 onClick={() => handleSelect(item)}
-                                className="ui:w-full ui:text-left ui:px-4 ui:py-3 ui:rounded-md ui:border ui:border-gray-200 hover:ui:bg-gray-50 hover:ui:border-gray-300 ui:transition-colors"
+                                className="ui:w-full ui:text-left ui:px-4 ui:py-3 ui:rounded-md ui:border ui:border-gray-200 dark:ui:border-gray-700 hover:ui:bg-gray-50 dark:hover:ui:bg-slate-800 hover:ui:border-gray-300 dark:hover:ui:border-gray-600 ui:text-black dark:ui:text-white ui:transition-colors"
                             >
                                 {renderItem(item)}
                             </button>

@@ -42,7 +42,7 @@ export default function EventsPage() {
         <TabsContent value="create" className="ui:mt-4">
           <form onSubmit={submit} className="ui:grid ui:grid-cols-1 md:ui:grid-cols-5 ui:gap-3 ui:items-end">
             <Input placeholder="Name" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} />
-            <select className="ui:h-9 ui:rounded-md ui:border ui:border-black/15 ui:bg-white ui:px-3 ui:text-sm" value={form.type} onChange={e=>setForm({...form,type:e.target.value})}>
+            <select className="ui:h-9 ui:rounded-md ui:border ui:border-black/15 dark:ui:border-white/15 ui:bg-white dark:ui:bg-slate-900 ui:px-3 ui:text-sm ui:text-black dark:ui:text-white" value={form.type} onChange={e=>setForm({...form,type:e.target.value})}>
               {["CLUB_NIGHT","CONCERT","FESTIVAL","CONFERENCE","PRIVATE"].map(t=><option key={t} value={t}>{t}</option>)}
             </select>
             <Input type="datetime-local" value={form.startAt} onChange={e=>setForm({...form,startAt:e.target.value})} />

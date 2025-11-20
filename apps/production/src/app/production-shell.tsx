@@ -126,88 +126,90 @@ async function handleSubmit(data: Record<string, unknown>) {
       </main>
 
       <FormModal
-  isOpen={showCreateModal}
-  onClose={() => setShowCreateModal(false)}
-  title="Create New Event"
-  onSubmit={handleSubmit}
-  submitText="Create Event"
-  size="lg"
->
-  <div>
-    <label
-      htmlFor="name"
-      className="ui:block ui:text-sm ui:font-medium ui:mb-1"
-    >
-      Event Name
-    </label>
-    <Input
-      type="text"
-      id="name"
-      name="name"
-      placeholder="e.g., Summer Music Festival 2025"
-      required
-    />
-  </div>
-
-  <div>
-    <label
-      htmlFor="type"
-      className="ui:block ui:text-sm ui:font-medium ui:mb-1"
-    >
-      Event Type
-    </label>
-    <select
-      id="type"
-      name="type"
-      required
-      className="ui:w-full ui:h-9 ui:rounded-md ui:border ui:border-gray-300 ui:bg-white ui:px-3 ui:text-sm"
-      defaultValue="CONCERT"
-    >
-      <option value="CONCERT">Concert</option>
-      <option value="FESTIVAL">Festival</option>
-      <option value="CLUB_NIGHT">Club Night</option>
-      <option value="CONFERENCE">Conference</option>
-      <option value="PRIVATE">Private Event</option>
-    </select>
-  </div>
-
-  <div className="ui:grid ui:grid-cols-2 ui:gap-4">
-    <div>
-      <label
-        htmlFor="startAt"
-        className="ui:block ui:text-sm ui:font-medium ui:mb-1"
+        isOpen={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        title="Create New Event"
+        onSubmit={handleSubmit}
+        submitText="Create Event"
+        size="lg"
       >
-        Start Date & Time
-      </label>
-      <Input type="datetime-local" id="startAt" name="startAt" required />
-    </div>
+        <div className="ui:space-y-4">
+          <div>
+            <label
+              htmlFor="name"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+            >
+              Event Name
+            </label>
+            <Input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="e.g., Summer Music Festival 2025"
+              required
+            />
+          </div>
 
-    <div>
-      <label
-        htmlFor="endAt"
-        className="ui:block ui:text-sm ui:font-medium ui:mb-1"
-      >
-        End Date & Time
-      </label>
-      <Input type="datetime-local" id="endAt" name="endAt" required />
-    </div>
-  </div>
+          <div>
+            <label
+              htmlFor="type"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+            >
+              Event Type
+            </label>
+            <select
+              id="type"
+              name="type"
+              required
+              className="ui:w-full ui:h-9 ui:rounded-md ui:border ui:border-black/15 dark:ui:border-white/15 ui:bg-white dark:ui:bg-slate-900 ui:px-3 ui:py-2 ui:text-sm ui:text-black dark:ui:text-white ui:focus-visible:ui:outline-none ui:focus-visible:ui:ring-2 ui:focus-visible:ui:ring-black/20 dark:ui:focus-visible:ui:ring-white/20"
+              defaultValue="CONCERT"
+            >
+              <option value="CONCERT">Concert</option>
+              <option value="FESTIVAL">Festival</option>
+              <option value="CLUB_NIGHT">Club Night</option>
+              <option value="CONFERENCE">Conference</option>
+              <option value="PRIVATE">Private Event</option>
+            </select>
+          </div>
 
-  <div>
-    <label
-      htmlFor="location"
-      className="ui:block ui:text-sm ui:font-medium ui:mb-1"
-    >
-      Location (Optional)
-    </label>
-    <Input
-      type="text"
-      id="location"
-      name="location"
-      placeholder="e.g., Madison Square Garden, New York"
-    />
-  </div>
-</FormModal>
+          <div className="ui:grid ui:grid-cols-2 ui:gap-4">
+            <div>
+              <label
+                htmlFor="startAt"
+                className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+              >
+                Start Date & Time
+              </label>
+              <Input type="datetime-local" id="startAt" name="startAt" required />
+            </div>
+
+            <div>
+              <label
+                htmlFor="endAt"
+                className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+              >
+                End Date & Time
+              </label>
+              <Input type="datetime-local" id="endAt" name="endAt" required />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="location"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-700 ui:mb-2"
+            >
+              Location (Optional)
+            </label>
+            <Input
+              type="text"
+              id="location"
+              name="location"
+              placeholder="e.g., Madison Square Garden, New York"
+            />
+          </div>
+        </div>
+      </FormModal>
     </>
   );
 }

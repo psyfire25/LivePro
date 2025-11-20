@@ -174,7 +174,7 @@ export function FormModalExample() {
                             onChange={(e) =>
                                 setFormData({ ...formData, name: e.target.value })
                             }
-                            className="ui:w-full ui:px-3 ui:py-2 ui:border ui:border-gray-300 ui:rounded-md focus:ui:outline-none focus:ui:ring-2 focus:ui:ring-blue-500"
+                            className="ui:w-full ui:px-3 ui:py-2 ui:border ui:border-gray-300 dark:ui:border-gray-600 ui:bg-white dark:ui:bg-slate-900 ui:text-black dark:ui:text-white ui:rounded-md focus:ui:outline-none focus:ui:ring-2 focus:ui:ring-blue-500 dark:focus:ui:ring-blue-400"
                             placeholder="Enter your name"
                         />
                     </div>
@@ -192,7 +192,7 @@ export function FormModalExample() {
                             onChange={(e) =>
                                 setFormData({ ...formData, email: e.target.value })
                             }
-                            className="ui:w-full ui:px-3 ui:py-2 ui:border ui:border-gray-300 ui:rounded-md focus:ui:outline-none focus:ui:ring-2 focus:ui:ring-blue-500"
+                            className="ui:w-full ui:px-3 ui:py-2 ui:border ui:border-gray-300 dark:ui:border-gray-600 ui:bg-white dark:ui:bg-slate-900 ui:text-black dark:ui:text-white ui:rounded-md focus:ui:outline-none focus:ui:ring-2 focus:ui:ring-blue-500 dark:focus:ui:ring-blue-400"
                             placeholder="Enter your email"
                         />
                     </div>
