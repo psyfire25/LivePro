@@ -3,14 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { listEvents, createEvent } from "../lib/api/client";
-import { Input, Button, FormModal } from "@repo/ui";
+import { Input, Button, FormModal, AppShell, Card, Gradient } from "@repo/ui";
 import { useWorkspaceRole, hasMinRole } from "@/lib/auth/role";
 import type { API } from "@livepro/api-types";
 
 type EventFormData = API.components["schemas"]["CreateEventDto"];
-// if EventBase exists:
-type Event = { id: string; name: string }; // minimal for listEvents result
-
+type Event = { id: string; name: string };
 
 type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -42,22 +40,30 @@ export function ProductionShell({ searchParams }: Props) {
     })();
   }, []);
 
-async function handleSubmit(data: Record<string, unknown>) {
-  const typed: EventFormData = {
-    name: String(data.name ?? ""),
-    type: (data.type ?? "CONCERT") as EventFormData["type"],
-    startAt: String(data.startAt ?? ""),
-    endAt: String(data.endAt ?? ""),
-    location: data.location ? String(data.location) : undefined,
-  };
+  async function handleSubmit(data: Record<string, unknown>) {
+    const typed: EventFormData = {
+      name: String(data.name ?? ""),
+      type: (data.type ?? "CONCERT") as EventFormData["type"],
+      startAt: String(data.startAt ?? ""),
+      endAt: String(data.endAt ?? ""),
+      location: data.location ? String(data.location) : undefined,
+    };
 
-  await createEvent(typed);
-  window.location.href = "/events";
-}
+    await createEvent(typed);
+    window.location.href = "/events";
+  }
 
   return (
-    <>
-      <main className="min-h-screen lp-prose space-y-8">
+    <AppShell
+      rightSlot={
+        <div className="ui:flex ui:items-center ui:gap-2">
+          <span className="ui:text-xs ui:font-medium ui:bg-black/5 ui:px-2 ui:py-1 ui:rounded-full">
+            {role}
+          </span>
+        </div>
+      }
+    >
+      <div className="ui:space-y-8 ui:py-8">
         {error && !loading && (
           <section className="lp-card lp-card-lg bg-red-50 border border-red-200">
             <h2 className="text-red-900">Configuration Error</h2>
@@ -65,65 +71,63 @@ async function handleSubmit(data: Record<string, unknown>) {
             <p className="text-red-700 text-sm mt-4">Please ensure the API_URL environment variable is configured in Vercel.</p>
           </section>
         )}
+        
         {!loading && hasEvents === false && !error ? (
-          <section className="lp-card lp-card-lg">
-            <h1 className="mb-2">Create your first production</h1>
-            <p className="opacity-80">
-              Kick off by creating your first event. You can add stages, build a
-              schedule, and assign tasks once it&apos;s created.
-            </p>
-            <div className="mt-6">
-              <Button onClick={() => setShowCreateModal(true)}>
+          <section className="ui:relative ui:overflow-hidden lp-card lp-card-lg ui:text-center ui:py-20">
+            <Gradient className="ui:opacity-20" />
+            <div className="ui:relative ui:z-10 ui:max-w-md ui:mx-auto">
+              <h1 className="ui:text-3xl ui:font-bold ui:mb-4">Create your first production</h1>
+              <p className="ui:text-lg ui:opacity-70 ui:mb-8">
+                Kick off by creating your first event. You can add stages, build a
+                schedule, and assign tasks once it&apos;s created.
+              </p>
+              <Button onClick={() => setShowCreateModal(true)} className="ui:w-full sm:ui:w-auto">
                 Create Your First Event
               </Button>
             </div>
           </section>
         ) : (
           <>
-            <section className="relative overflow-hidden lp-card lp-card-lg lp-hero-bg">
-              <h1>LivePro: Production</h1>
-              <p className="mt-2">
-                Plan, schedule, and run your event operations. (View: {view})
-              </p>
-              <div className="mt-6 ui:flex ui:gap-3">
-                <Link className="lp-card ui:rounded-md" href="/events">
-                  View Events
-                </Link>
-                <Button onClick={() => setShowCreateModal(true)}>
-                  Create Event
-                </Button>
+            <section className="ui:relative ui:overflow-hidden lp-card lp-card-lg lp-hero-bg ui:min-h-[300px] ui:flex ui:flex-col ui:justify-center">
+              <Gradient className="ui:opacity-30" conic />
+              <div className="ui:relative ui:z-10">
+                <h1 className="ui:text-5xl ui:font-bold ui:tracking-tight">Production</h1>
+                <p className="ui:mt-4 ui:text-xl ui:opacity-80 ui:max-w-2xl">
+                  Plan, schedule, and run your event operations with precision.
+                </p>
+                <div className="ui:mt-8 ui:flex ui:gap-4">
+                  <Link href="/events">
+                    <Button variant="outline" className="ui:bg-white/50 ui:backdrop-blur-sm hover:ui:bg-white/80">
+                      View All Events
+                    </Button>
+                  </Link>
+                  <Button onClick={() => setShowCreateModal(true)}>
+                    Create New Event
+                  </Button>
+                </div>
               </div>
             </section>
 
-            <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-              <Link className="lp-card" href="/events">
-                <div className="text-lg font-semibold">
-                  Production Management
-                </div>
-                <div className="opacity-70 text-sm mt-1">
-                  Events, schedules, tasks
-                </div>
-              </Link>
+            <section className="ui:grid ui:gap-6 sm:ui:grid-cols-2 md:ui:grid-cols-3">
+              <Card title="Management" href="/events">
+                Manage your events, master schedules, and operational tasks.
+              </Card>
+              
               {hasMinRole(role, "MANAGER") && (
-                <Link className="lp-card" href="/sections/build">
-                  <div className="text-lg font-semibold">Production Build</div>
-                  <div className="opacity-70 text-sm mt-1">
-                    Stages, tech specs, equipment
-                  </div>
-                </Link>
+                <Card title="Production Build" href="/sections/build">
+                  Configure stages, technical specifications, and equipment lists.
+                </Card>
               )}
+              
               {hasMinRole(role, "MANAGER") && (
-                <Link className="lp-card" href="/sections/logistics">
-                  <div className="text-lg font-semibold">Logistics</div>
-                  <div className="opacity-70 text-sm mt-1">
-                    Crew, suppliers, transport
-                  </div>
-                </Link>
+                <Card title="Logistics" href="/sections/logistics">
+                   Manage crew assignments, supplier contracts, and transport.
+                </Card>
               )}
             </section>
           </>
         )}
-      </main>
+      </div>
 
       <FormModal
         isOpen={showCreateModal}
@@ -137,7 +141,7 @@ async function handleSubmit(data: Record<string, unknown>) {
           <div>
             <label
               htmlFor="name"
-              className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-500 ui:mb-1"
             >
               Event Name
             </label>
@@ -153,7 +157,7 @@ async function handleSubmit(data: Record<string, unknown>) {
           <div>
             <label
               htmlFor="type"
-              className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-500 ui:mb-1"
             >
               Event Type
             </label>
@@ -161,7 +165,7 @@ async function handleSubmit(data: Record<string, unknown>) {
               id="type"
               name="type"
               required
-              className="ui:w-full ui:h-9 ui:rounded-md ui:border ui:border-black/15 dark:ui:border-white/15 ui:bg-white dark:ui:bg-slate-900 ui:px-3 ui:py-2 ui:text-sm ui:text-black dark:ui:text-white ui:focus-visible:ui:outline-none ui:focus-visible:ui:ring-2 ui:focus-visible:ui:ring-black/20 dark:ui:focus-visible:ui:ring-white/20"
+              className="ui:w-full ui:h-9 ui:rounded-md ui:border ui:border-black/15 dark:ui:border-white/15 ui:bg-transparent ui:px-3 ui:py-2 ui:text-sm ui:focus-visible:ui:outline-none ui:focus-visible:ui:ring-2 ui:focus-visible:ui:ring-black/20 dark:ui:focus-visible:ui:ring-white/20"
               defaultValue="CONCERT"
             >
               <option value="CONCERT">Concert</option>
@@ -176,7 +180,7 @@ async function handleSubmit(data: Record<string, unknown>) {
             <div>
               <label
                 htmlFor="startAt"
-                className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
+                className="ui:block ui:text-sm ui:font-medium ui:text-gray-500 ui:mb-1"
               >
                 Start Date & Time
               </label>
@@ -186,7 +190,7 @@ async function handleSubmit(data: Record<string, unknown>) {
             <div>
               <label
                 htmlFor="endAt"
-                className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
+                className="ui:block ui:text-sm ui:font-medium ui:text-gray-500 ui:mb-1"
               >
                 End Date & Time
               </label>
@@ -197,7 +201,7 @@ async function handleSubmit(data: Record<string, unknown>) {
           <div>
             <label
               htmlFor="location"
-              className="ui:block ui:text-sm ui:font-medium ui:text-gray-300 ui:mb-2"
+              className="ui:block ui:text-sm ui:font-medium ui:text-gray-500 ui:mb-1"
             >
               Location (Optional)
             </label>
@@ -210,6 +214,6 @@ async function handleSubmit(data: Record<string, unknown>) {
           </div>
         </div>
       </FormModal>
-    </>
+    </AppShell>
   );
 }
