@@ -15,6 +15,10 @@
         "$TURBO_DEFAULT$",
         ".env*"
       ],
+      "env": [
+        "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
+        "CLERK_SECRET_KEY"
+      ],
       "outputs": [
         "dist/**",
         ".next/**",
