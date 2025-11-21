@@ -110,6 +110,8 @@ jobs:
         env:
           CI: true
           DATABASE_URL: postgresql://test:test@localhost:5432/test
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
