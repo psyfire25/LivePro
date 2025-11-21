@@ -11,7 +11,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const pk = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   if (!pk) {
-    throw new Error("Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY for AuthProvider");
+    const availableKeys = Object.keys(process.env)
+      .filter((key) => key.startsWith("NEXT_PUBLIC_"))
+      .join(", ");
+    throw new Error(
+      `Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY for AuthProvider. Available NEXT_PUBLIC_ keys: ${availableKeys}`
+    );
   }
 
   return (
