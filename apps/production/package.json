@@ -13,18 +13,18 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.35.2",
+    "@livepro/api-types": "workspace:*",
+    "@repo/auth": "workspace:*",
+    "@repo/motion": "workspace:*",
+    "@repo/ui": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "@repo/ui": "workspace:*",
-    "@repo/motion": "workspace:*",
-    "@clerk/nextjs": "^6.35.2",
-    "@repo/auth": "workspace:*",
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
     "next-themes": "^0.4.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "@livepro/api-types": "workspace:*",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
@@ -42,6 +42,7 @@
     "jsdom": "^24.0.0",
     "tailwindcss": "4.1.5",
     "typescript": "5.9.2",
+    "vite": "^7.2.4",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.0"
   }

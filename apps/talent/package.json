@@ -13,13 +13,13 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "@repo/motion": "workspace:*",
-    "@repo/auth": "workspace:*",
     "@clerk/nextjs": "^6.35.2",
+    "@repo/auth": "workspace:*",
+    "@repo/motion": "workspace:*",
+    "@repo/ui": "workspace:*",
+    "next": "15.5.2",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.2"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -36,6 +36,7 @@
     "jsdom": "^24.0.0",
     "tailwindcss": "4.1.5",
     "typescript": "5.9.2",
+    "vite": "^7.2.4",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.0"
   }
