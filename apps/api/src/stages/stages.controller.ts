@@ -21,4 +21,3 @@ export class StagesController {
     return this.svc.create(eventId, dto);
   }
 }
-

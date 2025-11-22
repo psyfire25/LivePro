@@ -7,4 +7,3 @@ export class UpdateTaskStatusDto {
   @IsEnum(TaskStatusEntity)
   status!: TaskStatusEntity;
 }
-

@@ -7,7 +7,10 @@ export class StagesService {
   constructor(private prisma: PrismaService) {}
 
   list(eventId: string) {
-    return this.prisma.stage.findMany({ where: { eventId }, orderBy: { name: 'asc' } });
+    return this.prisma.stage.findMany({
+      where: { eventId },
+      orderBy: { name: 'asc' },
+    });
   }
 
   create(eventId: string, dto: CreateStageDto) {
@@ -20,4 +23,3 @@ export class StagesService {
     });
   }
 }
-

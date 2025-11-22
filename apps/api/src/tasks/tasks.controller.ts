@@ -27,9 +27,8 @@ export class TasksController {
   updateStatus(
     @Param('eventId') eventId: string,
     @Param('taskId') taskId: string,
-    @Body() dto: UpdateTaskStatusDto
+    @Body() dto: UpdateTaskStatusDto,
   ) {
     return this.svc.updateStatus(eventId, taskId, dto);
   }
 }
-

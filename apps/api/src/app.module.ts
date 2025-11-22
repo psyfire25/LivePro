@@ -10,8 +10,16 @@ import { WorkspacesModule } from './workspaces/workspaces.module';
 import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
-  imports: [ScheduleModule, PrismaModule, EventsModule, StagesModule, TasksModule, WorkspacesModule, NotificationsModule],
+  imports: [
+    ScheduleModule,
+    PrismaModule,
+    EventsModule,
+    StagesModule,
+    TasksModule,
+    WorkspacesModule,
+    NotificationsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

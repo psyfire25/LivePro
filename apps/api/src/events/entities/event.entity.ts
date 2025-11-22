@@ -41,7 +41,9 @@ export class ScheduleItemEntity {
   @ApiProperty() eventId!: string;
   @ApiProperty({ required: false }) stageId?: string;
   @ApiProperty() title!: string;
-  @ApiProperty({ enum: ['DOORS', 'PERFORMANCE', 'CHANGEOVER', 'CURFEW', 'NOTE'] as const })
+  @ApiProperty({
+    enum: ['DOORS', 'PERFORMANCE', 'CHANGEOVER', 'CURFEW', 'NOTE'] as const,
+  })
   kind!: 'DOORS' | 'PERFORMANCE' | 'CHANGEOVER' | 'CURFEW' | 'NOTE';
   @ApiProperty() startAt!: string;
   @ApiProperty() endAt!: string;
@@ -70,4 +72,3 @@ export class EventDetailEntity extends EventEntity {
 export class OkResponse {
   @ApiProperty() ok!: boolean;
 }
-

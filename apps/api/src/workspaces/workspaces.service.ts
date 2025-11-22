@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
+import { WorkspaceRole } from '@prisma/client';
 
 @Injectable()
 export class WorkspacesService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   getMembership(workspaceId: string, userId: string) {
     return this.prisma.workspaceMember.findUnique({
@@ -11,11 +12,11 @@ export class WorkspacesService {
     });
   }
 
-  upsertMember(workspaceId: string, userId: string, role: string) {
+  upsertMember(workspaceId: string, userId: string, role: WorkspaceRole) {
     return this.prisma.workspaceMember.upsert({
       where: { workspaceId_userId: { workspaceId, userId } },
-      update: { role: role as any },
-      create: { workspaceId, userId, role: role as any },
+      update: { role },
+      create: { workspaceId, userId, role },
     });
   }
 

@@ -10,7 +10,7 @@ export class ScheduleService {
   list(eventId: string) {
     return this.prisma.scheduleItem.findMany({
       where: { eventId },
-      orderBy: [{ startAt: 'asc' }]
+      orderBy: [{ startAt: 'asc' }],
     });
   }
 
@@ -30,7 +30,9 @@ export class ScheduleService {
   }
 
   async update(eventId: string, id: string, dto: UpdateScheduleItemDto) {
-    const existing = await this.prisma.scheduleItem.findFirst({ where: { id, eventId } });
+    const existing = await this.prisma.scheduleItem.findFirst({
+      where: { id, eventId },
+    });
     if (!existing) throw new NotFoundException('Schedule item not found');
     return this.prisma.scheduleItem.update({
       where: { id },
@@ -43,7 +45,9 @@ export class ScheduleService {
   }
 
   async remove(eventId: string, id: string) {
-    const existing = await this.prisma.scheduleItem.findFirst({ where: { id, eventId } });
+    const existing = await this.prisma.scheduleItem.findFirst({
+      where: { id, eventId },
+    });
     if (!existing) throw new NotFoundException('Schedule item not found');
     await this.prisma.scheduleItem.delete({ where: { id } });
     return { ok: true };
