@@ -1,8 +1,9 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Gradient, Tile, Button, Stepper  } from "@repo/ui";
+import { Gradient, Tile, Button, Stepper } from "@repo/ui";
 import { createEvent } from "@/src/lib/api";
 import { Reveal } from "@repo/motion";
+import Link from "next/link";
 
 type ModuleKey = "production" | "staffing" | "talent" | "finance" | "docs";
 
@@ -66,8 +67,8 @@ export default function Onboarding() {
         });
         setCreatedEventId(ev.id);
       }
-    } catch (e: any) {
-      setError(e?.message || "Failed to provision resources");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Failed to provision resources");
     } finally {
       setProvisioning(false);
       setStep(3);
@@ -86,7 +87,7 @@ export default function Onboarding() {
       </header>
 
       <nav className="relative z-10">
-        <Stepper steps={["Modules","Workspace","Launch"]} current={step} />
+        <Stepper steps={["Modules", "Workspace", "Launch"]} current={step} />
       </nav>
 
       {step === 1 && (
@@ -113,11 +114,11 @@ export default function Onboarding() {
         <section className="relative z-10 space-y-4">
           <div>
             <label className="block text-sm font-medium mb-1">Workspace Name</label>
-            <input className="border rounded p-2 w-full" placeholder="e.g. Acme Events" value={workspace} onChange={e=>setWorkspace(e.target.value)} />
+            <input className="border rounded p-2 w-full" placeholder="e.g. Acme Events" value={workspace} onChange={e => setWorkspace(e.target.value)} />
           </div>
           <div>
             <label className="block text-sm font-medium mb-1">Your Email</label>
-            <input className="border rounded p-2 w-full" placeholder="you@example.com" value={email} onChange={e=>setEmail(e.target.value)} />
+            <input className="border rounded p-2 w-full" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} />
           </div>
           <div className="flex justify-between">
             <button className="border rounded px-3 py-2" onClick={back}>Back</button>
@@ -146,8 +147,8 @@ export default function Onboarding() {
             })}
           </div>
           <div className="flex gap-2 pt-2">
-            <a className="underline" href="/">Return home</a>
-            <a className="underline" href="/onboarding">Restart onboarding</a>
+            <Link className="underline" href="/">Return home</Link>
+            <Link className="underline" href="/onboarding">Restart onboarding</Link>
           </div>
         </section>
       )}

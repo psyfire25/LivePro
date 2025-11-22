@@ -1,6 +1,5 @@
 "use client";
-import { Reveal } from "@repo/motion";
-import { Button, Modal, InfoModal } from "@repo/ui";
+import { Button, Modal } from "@repo/ui";
 import { useState, useEffect } from "react";
 
 const apps = [
@@ -99,7 +98,7 @@ export default function Home() {
                   <div key={i} className="ui:p-4 ui:flex ui:items-center ui:gap-4 hover:ui:bg-gray-50 dark:hover:ui:bg-gray-750 ui:transition-colors">
                     <div className="ui:w-2 ui:h-2 ui:rounded-full ui:bg-blue-500"></div>
                     <div className="ui:flex-1">
-                      <p className="ui:text-sm ui:font-medium ui:text-gray-900 dark:ui:text-white">New production created: "Summer Festival"</p>
+                      <p className="ui:text-sm ui:font-medium ui:text-gray-900 dark:ui:text-white">New production created: &ldquo;Summer Festival&rdquo;</p>
                       <p className="ui:text-xs ui:text-gray-500">2 hours ago • Production App</p>
                     </div>
                   </div>
@@ -144,7 +143,7 @@ export default function Home() {
       >
         <div className="ui:space-y-4">
           <p className="ui:text-gray-300">
-            LivePro is your complete live event management platform. Here's what
+            LivePro is your complete live event management platform. Here&apos;s what
             you can do:
           </p>
 

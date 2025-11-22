@@ -364,7 +364,6 @@ function HomeContent() {
         unreadMessages={1}
         onEditProfile={() => setIsModalOpen(true)}
         onViewSchedule={() => setViewMode('schedule')}
-        onViewMessages={() => setViewMode('messages')}
         onEditRequirements={() => setViewMode('requirements')}
       />
     </div>
