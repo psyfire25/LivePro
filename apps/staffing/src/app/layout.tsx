@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AdminShell } from "@repo/ui";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
+import { NotificationManager } from "../components/NotificationManager";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,9 @@ export default function RootLayout({
           )}>
             {children}
           </AdminShell>
+          <SignedIn>
+            <NotificationManager />
+          </SignedIn>
         </AuthProvider>
       </body>
     </html>

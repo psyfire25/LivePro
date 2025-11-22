@@ -71,4 +71,31 @@ export class NotificationsController {
     delete(@Param('id') id: string, @Query('userId') userId: string) {
         return this.service.delete(id, userId);
     }
+
+    @Get('push/vapid-public-key')
+    @ApiOkResponse({ type: String })
+    getVapidPublicKey() {
+        return { publicKey: this.service.getVapidPublicKey() };
+    }
+
+    @Post('push/subscribe')
+    @HttpCode(HttpStatus.CREATED)
+    subscribeToPush(@Body() body: { userId: string; subscription: any }) {
+        return this.service.subscribeToPush(body.userId, body.subscription);
+    }
+
+    @Post('push/unsubscribe')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    unsubscribeFromPush(@Body() body: { endpoint: string }) {
+        return this.service.unsubscribeFromPush(body.endpoint);
+    }
+
+    @Post('push/test')
+    @HttpCode(HttpStatus.OK)
+    testPush(@Body() body: { userId: string; title: string; message: string }) {
+        return this.service.sendPushNotification(body.userId, {
+            title: body.title,
+            body: body.message,
+        });
+    }
 }

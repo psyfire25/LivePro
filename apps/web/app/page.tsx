@@ -47,48 +47,88 @@ export default function Home() {
     setShowWelcome(false);
   };
 
-  const links = [
-    { href: "/onboarding", label: "Get Started (Onboarding)" },
-    { href: "http://localhost:3010", label: "Production" },
-    { href: "http://localhost:3030", label: "Staffing" },
-    { href: "http://localhost:3020", label: "Talent" },
-    { href: "http://localhost:3040", label: "Finance" },
-    { href: "http://localhost:4000/docs", label: "API Docs (Nest)" },
+  const stats = [
+    { label: "Active Productions", value: "3", icon: "🎬", color: "ui:bg-blue-500" },
+    { label: "Upcoming Events", value: "12", icon: "📅", color: "ui:bg-purple-500" },
+    { label: "Staff On-Site", value: "45", icon: "👥", color: "ui:bg-green-500" },
+    { label: "Pending Invoices", value: "5", icon: "💰", color: "ui:bg-yellow-500" },
   ];
 
   return (
     <>
-      <main className="mx-auto max-w-5xl p-8 space-y-8 lp-prose">
-        <Reveal variant="fade-up">
-          <section className="relative overflow-hidden lp-card lp-card-lg lp-hero-bg">
-            <h1>LivePro</h1>
-            <p className="mt-2 max-w-2xl">
-              A modular suite for live event production: plan shows, staff
-              crews, coordinate talent, and reconcile finances — all in one
-              place.
-            </p>
-            <div className="mt-6 flex gap-3">
-              <Button asChild>
-                <a href="/onboarding">Start Onboarding</a>
-              </Button>
-              <Button variant="outline" onClick={() => setShowAppSelector(true)}>
-                Browse Apps
-              </Button>
-            </div>
-          </section>
-        </Reveal>
+      <div className="ui:space-y-8">
+        <div className="ui:flex ui:items-center ui:justify-between">
+          <div>
+            <h1 className="ui:text-2xl ui:font-bold ui:text-gray-900 dark:ui:text-white">Dashboard</h1>
+            <p className="ui:text-gray-500 dark:ui:text-gray-400">Welcome back to LivePro Command Center.</p>
+          </div>
+          <div className="ui:flex ui:gap-3">
+            <Button variant="outline" onClick={() => setShowAppSelector(true)}>
+              Quick Launch
+            </Button>
+            <Button asChild>
+              <a href="/onboarding">Onboarding</a>
+            </Button>
+          </div>
+        </div>
 
-        <Reveal variant="fade-up" delay={100}>
-          <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {links.slice(1).map((l) => (
-              <a key={l.href} className="lp-card" href={l.href}>
-                <div className="text-lg font-semibold">{l.label}</div>
-                <div className="opacity-70 text-sm mt-1">{l.href}</div>
-              </a>
-            ))}
-          </section>
-        </Reveal>
-      </main>
+        {/* Stats Grid */}
+        <div className="ui:grid ui:grid-cols-1 sm:ui:grid-cols-2 lg:ui:grid-cols-4 ui:gap-4">
+          {stats.map((stat) => (
+            <div key={stat.label} className="ui:bg-white dark:ui:bg-gray-800 ui:p-6 ui:rounded-xl ui:border ui:border-gray-200 dark:ui:border-gray-700 ui:shadow-sm ui:flex ui:items-center ui:gap-4">
+              <div className={`ui:w-12 ui:h-12 ui:rounded-lg ${stat.color} ui:flex ui:items-center ui:justify-center ui:text-2xl ui:text-white`}>
+                {stat.icon}
+              </div>
+              <div>
+                <div className="ui:text-2xl ui:font-bold ui:text-gray-900 dark:ui:text-white">{stat.value}</div>
+                <div className="ui:text-sm ui:text-gray-500 dark:ui:text-gray-400">{stat.label}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Recent Activity / Apps */}
+        <div className="ui:grid ui:grid-cols-1 lg:ui:grid-cols-3 ui:gap-8">
+          <div className="lg:ui:col-span-2 ui:space-y-6">
+            <section className="ui:bg-white dark:ui:bg-gray-800 ui:rounded-xl ui:border ui:border-gray-200 dark:ui:border-gray-700 ui:shadow-sm ui:overflow-hidden">
+              <div className="ui:p-6 ui:border-b ui:border-gray-200 dark:ui:border-gray-700">
+                <h3 className="ui:font-semibold ui:text-lg">Recent Activity</h3>
+              </div>
+              <div className="ui:divide-y ui:divide-gray-200 dark:ui:divide-gray-700">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="ui:p-4 ui:flex ui:items-center ui:gap-4 hover:ui:bg-gray-50 dark:hover:ui:bg-gray-750 ui:transition-colors">
+                    <div className="ui:w-2 ui:h-2 ui:rounded-full ui:bg-blue-500"></div>
+                    <div className="ui:flex-1">
+                      <p className="ui:text-sm ui:font-medium ui:text-gray-900 dark:ui:text-white">New production created: "Summer Festival"</p>
+                      <p className="ui:text-xs ui:text-gray-500">2 hours ago • Production App</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+
+          <div className="ui:space-y-6">
+            <section className="ui:bg-white dark:ui:bg-gray-800 ui:rounded-xl ui:border ui:border-gray-200 dark:ui:border-gray-700 ui:shadow-sm ui:overflow-hidden">
+              <div className="ui:p-6 ui:border-b ui:border-gray-200 dark:ui:border-gray-700">
+                <h3 className="ui:font-semibold ui:text-lg">Quick Access</h3>
+              </div>
+              <div className="ui:p-2">
+                {apps.map((app) => (
+                  <a
+                    key={app.name}
+                    href={app.url}
+                    className="ui:flex ui:items-center ui:gap-3 ui:p-3 ui:rounded-lg hover:ui:bg-gray-50 dark:hover:ui:bg-gray-750 ui:transition-colors ui:no-underline ui:text-gray-900 dark:ui:text-white"
+                  >
+                    <span className="ui:text-xl">{app.icon}</span>
+                    <span className="ui:font-medium">{app.name}</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
 
       {/* Welcome Modal */}
       <Modal
