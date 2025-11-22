@@ -1,9 +1,12 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { WorkspacesService } from './workspaces.service';
+import { CreateWorkspaceDto } from './dto/create-workspace.dto';
+import { UpsertWorkspaceMemberDto } from './dto/upsert-workspace-member.dto';
+import { WorkspaceRole } from '@prisma/client';
 
 @Controller('workspaces')
 export class WorkspacesController {
-  constructor(private svc: WorkspacesService) {}
+  constructor(private svc: WorkspacesService) { }
 
   @Get(':workspaceId/members/:userId')
   getMembership(
@@ -16,8 +19,9 @@ export class WorkspacesController {
   @Post(':workspaceId/members')
   upsert(
     @Param('workspaceId') ws: string,
-    @Body() body: { userId: string; role: string },
+    @Body() body: UpsertWorkspaceMemberDto,
   ) {
+    // body.role is now typed as WorkspaceRole, which matches the service
     return this.svc.upsertMember(ws, body.userId, body.role);
   }
 
@@ -27,7 +31,7 @@ export class WorkspacesController {
   }
 
   @Post()
-  create(@Body() dto: { name: string; slug: string }) {
+  create(@Body() dto: CreateWorkspaceDto) {
     return this.svc.create(dto);
   }
 }
