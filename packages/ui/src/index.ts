@@ -9,6 +9,8 @@ export { Button } from "./components/ui/button";
 export { Tile } from "./components/ui/tile";
 export { Stepper } from "./components/ui/stepper";
 export { Input } from "./components/ui/input";
+export { SearchInput } from "./components/ui/search-input";
+export type { SearchInputProps } from "./components/ui/search-input";
 export { Modal } from "./components/ui/modal";
 export type { ModalProps } from "./components/ui/modal";
 // Add modal patterns exports

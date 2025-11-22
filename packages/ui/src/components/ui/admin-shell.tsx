@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, type ReactNode } from "react";
+import { SearchInput } from "./search-input";
 
 type NavItem = {
   href: string;
@@ -20,12 +21,14 @@ export function AdminShell({
   ],
   sideNav = [],
   appName = "LivePro",
+  onSearch,
 }: {
   children: ReactNode;
   rightSlot?: ReactNode;
   productNav?: (NavItem & { icon?: string })[]; // top bar app switcher
   sideNav?: NavItem[];    // left sidebar navigation
   appName?: string;
+  onSearch?: (query: string) => void;
 }) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [open, setOpen] = useState(false);
@@ -91,23 +94,15 @@ export function AdminShell({
       </aside>
 
       {/* Main Content Area */}
-      <div className="ui:flex-1 ui:flex ui:flex-col ui:min-w-0">
+      <div className="ui:flex-1 ui:flex ui:flex-col">
         {/* Top Bar */}
         <header className="ui:h-14 ui:border-b ui:border-gray-200 dark:ui:border-gray-800 ui:bg-white dark:ui:bg-gray-950 ui:flex ui:items-center ui:justify-between ui:px-6 ui:sticky ui:top-0 ui:z-40">
           <div className="ui:flex ui:items-center ui:gap-4 ui:flex-1">
             <div className="ui:flex ui:items-center ui:gap-3 ui:mr-4">
-              {/* Mobile menu trigger could go here */}
               <span className="ui:font-semibold ui:text-lg">{appName}</span>
             </div>
 
-            <div className="ui:relative ui:max-w-md ui:w-full">
-              <span className="ui:absolute ui:left-3 ui:top-1/2 -ui:translate-y-1/2 ui:text-gray-400">🔍</span>
-              <input
-                type="text"
-                placeholder="Search... (⌘K)"
-                className="ui:w-full ui:pl-9 ui:pr-4 ui:py-1.5 ui:bg-gray-100 dark:ui:bg-gray-900 ui:border-none ui:rounded-md ui:text-sm focus:ui:ring-2 focus:ui:ring-black/5 dark:focus:ui:ring-white/10 ui:outline-none"
-              />
-            </div>
+            <SearchInput onChange={onSearch} />
           </div>
           <div className="ui:flex ui:items-center ui:gap-3">
             {rightSlot}
@@ -136,9 +131,7 @@ export function AdminShell({
 
           {/* Page Content */}
           <main className="ui:flex-1 ui:overflow-auto ui:bg-gray-50 dark:ui:bg-gray-900">
-            <div className="lp-wrap lp-container ui:py-8">
-              {children}
-            </div>
+            {children}
           </main>
         </div>
       </div>

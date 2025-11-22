@@ -1,14 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { Button, Card, Gradient } from "@repo/ui";
+import { useState, useMemo } from "react";
+import { Button, Gradient, Card } from "@repo/ui";
 import { ExpenseForm } from "@/components/expense-form";
 import { ExpenseList } from "@/components/expense-list";
 import type { Expense } from "@/lib/types";
+import { useSearch } from "@/components/search-provider";
 
 export default function Home() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { query } = useSearch();
+
+  // Filter expenses based on search query
+  const filteredExpenses = useMemo(() => {
+    if (!query.trim()) return expenses;
+
+    const lowerQuery = query.toLowerCase();
+    return expenses.filter((expense) => {
+      return (
+        expense.vendor.toLowerCase().includes(lowerQuery) ||
+        expense.category.toLowerCase().includes(lowerQuery) ||
+        expense.description.toLowerCase().includes(lowerQuery)
+      );
+    });
+  }, [expenses, query]);
 
   const handleAddExpense = (data: Record<string, unknown>) => {
     const newExpense: Expense = {
@@ -25,38 +41,27 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
-  const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-
   return (
-    <main className="ui:min-h-screen ui:p-8 ui:space-y-8">
-      <section className="ui:relative ui:overflow-hidden lp-card lp-card-lg lp-hero-bg ui:min-h-[200px] ui:flex ui:flex-col ui:justify-center">
-        <Gradient className="ui:opacity-30" conic />
-        <div className="ui:relative ui:z-10 ui:flex ui:justify-between ui:items-end">
-          <div>
-            <h1 className="ui:text-4xl ui:font-bold ui:tracking-tight">Finance</h1>
-            <p className="ui:mt-2 ui:text-lg ui:opacity-80">
-              Track expenses, manage budgets, and handle settlements.
-            </p>
-          </div>
-          <Button onClick={() => setIsModalOpen(true)}>Add Expense</Button>
-        </div>
-      </section>
+    <main className="lp-content">
+      <Gradient />
 
-      <div className="ui:grid ui:gap-6 sm:ui:grid-cols-3">
+      <div className="ui:flex ui:items-center ui:justify-between ui:mb-8">
+        <h1 className="ui:text-3xl ui:font-bold">Finance Dashboard</h1>
+        <Button onClick={() => setIsModalOpen(true)}>Add Expense</Button>
+      </div>
+
+      <div className="ui:grid ui:grid-cols-1 md:ui:grid-cols-3 ui:gap-6 ui:mb-8">
         <Card title="Total Expenses" href="#">
           <div className="ui:text-3xl ui:font-bold ui:mt-2">
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-            }).format(totalExpenses)}
+            ${expenses.reduce((sum, e) => sum + e.amount, 0).toFixed(2)}
           </div>
           <div className="ui:text-sm ui:opacity-70 ui:mt-1">
-            {expenses.length} items recorded
+            {expenses.length} transactions
           </div>
         </Card>
 
-        <Card title="Pending Approvals" href="#">
-          <div className="ui:text-3xl ui:font-bold ui:mt-2">$0.00</div>
+        <Card title="Pending Items" href="#">
+          <div className="ui:text-3xl ui:font-bold ui:mt-2">0</div>
           <div className="ui:text-sm ui:opacity-70 ui:mt-1">
             All caught up
           </div>
@@ -76,7 +81,7 @@ export default function Home() {
         <div className="ui:flex ui:items-center ui:justify-between ui:mb-6">
           <h2 className="ui:text-xl ui:font-semibold">Recent Expenses</h2>
         </div>
-        <ExpenseList expenses={expenses} />
+        <ExpenseList expenses={filteredExpenses} />
       </section>
 
       <ExpenseForm

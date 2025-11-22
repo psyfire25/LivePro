@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState, type ReactNode } from "react";
+import { SearchInput } from "./search-input";
 
-export function AppShell({ children, rightSlot }: { children: ReactNode; rightSlot?: ReactNode }) {
+export function AppShell({ children, rightSlot, onSearch }: { children: ReactNode; rightSlot?: ReactNode; onSearch?: (query: string) => void }) {
   const links = [
     { href: "http://localhost:3010", label: "Production", icon: "🎬" },
     { href: "http://localhost:3020", label: "Talent", icon: "🎤" },
@@ -77,14 +78,7 @@ export function AppShell({ children, rightSlot }: { children: ReactNode; rightSl
         {/* Top Bar */}
         <header className="ui:h-14 ui:border-b ui:border-gray-200 dark:ui:border-gray-800 ui:bg-white dark:ui:bg-gray-950 ui:flex ui:items-center ui:justify-between ui:px-6 ui:sticky ui:top-0 ui:z-40">
           <div className="ui:flex ui:items-center ui:gap-4 ui:flex-1">
-            <div className="ui:relative ui:max-w-md ui:w-full">
-              <span className="ui:absolute ui:left-3 ui:top-1/2 -ui:translate-y-1/2 ui:text-gray-400">🔍</span>
-              <input
-                type="text"
-                placeholder="Search... (⌘K)"
-                className="ui:w-full ui:pl-9 ui:pr-4 ui:py-1.5 ui:bg-gray-100 dark:ui:bg-gray-900 ui:border-none ui:rounded-md ui:text-sm focus:ui:ring-2 focus:ui:ring-black/5 dark:focus:ui:ring-white/10 ui:outline-none"
-              />
-            </div>
+            <SearchInput onChange={onSearch} />
           </div>
           <div className="ui:flex ui:items-center ui:gap-3">
             {rightSlot}

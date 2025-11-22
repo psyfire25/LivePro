@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AdminShell } from "@repo/ui";
+import { AdminShell, ToastProvider } from "@repo/ui";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 import { NotificationManager } from "../components/NotificationManager";
 
@@ -29,23 +29,25 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
-          <AdminShell rightSlot={(
-            <>
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
-                </SignInButton>
-              </SignedOut>
-              <SignedIn>
-                <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
-              </SignedIn>
-            </>
-          )}>
-            {children}
-          </AdminShell>
-          <SignedIn>
-            <NotificationManager />
-          </SignedIn>
+          <ToastProvider>
+            <AdminShell rightSlot={(
+              <>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
+                </SignedIn>
+              </>
+            )}>
+              {children}
+            </AdminShell>
+            <SignedIn>
+              <NotificationManager />
+            </SignedIn>
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
-import { AdminShell } from "@repo/ui";
+import { AdminShell, ToastProvider } from "@repo/ui";
 import Script from "next/script";
 import { UserRoleBadge } from "@/components/user-role-badge";
 
@@ -35,31 +35,33 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AuthProvider>
-          <AdminShell
-            appName="LivePro: Production"
-            sideNav={[
-              { href: "/", label: "Dashboard" },
-              { href: "/events", label: "Events" },
-              { href: "/sections/management", label: "Management" },
-              { href: "/sections/build", label: "Build" },
-              { href: "/sections/logistics", label: "Logistics" },
-            ]}
-            rightSlot={(
-              <>
-                <SignedOut>
-                  <SignInButton mode="modal">
-                    <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
-                  </SignInButton>
-                </SignedOut>
-                <SignedIn>
-                  <UserRoleBadge />
-                  <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
-                </SignedIn>
-              </>
-            )}
-          >
-            {children}
-          </AdminShell>
+          <ToastProvider>
+            <AdminShell
+              appName="LivePro: Production"
+              sideNav={[
+                { href: "/", label: "Dashboard" },
+                { href: "/events", label: "Events" },
+                { href: "/sections/management", label: "Management" },
+                { href: "/sections/build", label: "Build" },
+                { href: "/sections/logistics", label: "Logistics" },
+              ]}
+              rightSlot={(
+                <>
+                  <SignedOut>
+                    <SignInButton mode="modal">
+                      <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
+                    </SignInButton>
+                  </SignedOut>
+                  <SignedIn>
+                    <UserRoleBadge />
+                    <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
+                  </SignedIn>
+                </>
+              )}
+            >
+              {children}
+            </AdminShell>
+          </ToastProvider>
         </AuthProvider>
       </body>
     </html>
