@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { listEvents, createEvent } from "../lib/api/client";
-import { Input, Button, FormModal, AppShell, Card, Gradient } from "@repo/ui";
+import { Input, Button, FormModal, Card, Gradient } from "@repo/ui";
 import { useWorkspaceRole, hasMinRole } from "@/lib/auth/role";
 import type { API } from "@livepro/api-types";
 
@@ -54,15 +54,7 @@ export function ProductionShell({ searchParams }: Props) {
   }
 
   return (
-    <AppShell
-      rightSlot={
-        <div className="ui:flex ui:items-center ui:gap-2">
-          <span className="ui:text-xs ui:font-medium ui:bg-black/5 ui:px-2 ui:py-1 ui:rounded-full">
-            {role}
-          </span>
-        </div>
-      }
-    >
+    <>
       <div className="ui:space-y-8 ui:py-8">
         {error && !loading && (
           <section className="lp-card lp-card-lg bg-red-50 border border-red-200">
@@ -71,7 +63,7 @@ export function ProductionShell({ searchParams }: Props) {
             <p className="text-red-700 text-sm mt-4">Please ensure the API_URL environment variable is configured in Vercel.</p>
           </section>
         )}
-        
+
         {!loading && hasEvents === false && !error ? (
           <section className="ui:relative ui:overflow-hidden lp-card lp-card-lg ui:text-center ui:py-20">
             <Gradient className="ui:opacity-20" />
@@ -112,16 +104,16 @@ export function ProductionShell({ searchParams }: Props) {
               <Card title="Management" href="/events">
                 Manage your events, master schedules, and operational tasks.
               </Card>
-              
+
               {hasMinRole(role, "MANAGER") && (
                 <Card title="Production Build" href="/sections/build">
                   Configure stages, technical specifications, and equipment lists.
                 </Card>
               )}
-              
+
               {hasMinRole(role, "MANAGER") && (
                 <Card title="Logistics" href="/sections/logistics">
-                   Manage crew assignments, supplier contracts, and transport.
+                  Manage crew assignments, supplier contracts, and transport.
                 </Card>
               )}
             </section>
@@ -214,6 +206,6 @@ export function ProductionShell({ searchParams }: Props) {
           </div>
         </div>
       </FormModal>
-    </AppShell>
+    </>
   );
 }

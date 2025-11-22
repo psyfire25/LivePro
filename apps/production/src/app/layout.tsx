@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 import { AdminShell } from "@repo/ui";
 import Script from "next/script";
+import { UserRoleBadge } from "@/components/user-role-badge";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,17 +45,18 @@ export default function RootLayout({
               { href: "/sections/logistics", label: "Logistics" },
             ]}
             rightSlot={(
-            <>
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
-                </SignInButton>
-              </SignedOut>
-              <SignedIn>
-                <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
-              </SignedIn>
-            </>
-          )}
+              <>
+                <SignedOut>
+                  <SignInButton mode="modal">
+                    <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
+                  </SignInButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserRoleBadge />
+                  <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
+                </SignedIn>
+              </>
+            )}
           >
             {children}
           </AdminShell>
