@@ -31,7 +31,13 @@ export function AdminShell({
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const stored = typeof window !== 'undefined' ? (localStorage.getItem('lp-theme') as string | null) : null;
+    const getCookie = (name: string) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift();
+    };
+
+    const stored = typeof window !== 'undefined' ? getCookie('lp-theme') : null;
     const prefersDark = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const t: "light" | "dark" = stored === 'dark' || (!stored && prefersDark) ? 'dark' : 'light';
     setTheme(t);
@@ -47,8 +53,8 @@ export function AdminShell({
     if (typeof document !== 'undefined') {
       if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
       else document.documentElement.removeAttribute('data-theme');
+      document.cookie = `lp-theme=${next}; path=/; max-age=31536000; SameSite=Lax`;
     }
-    try { localStorage.setItem('lp-theme', next); } catch { /* ignore */ }
   }
 
   return (
