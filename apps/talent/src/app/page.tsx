@@ -206,8 +206,8 @@ type ViewMode = 'manager-dashboard' | 'talent-dashboard' | 'schedule' | 'message
 
 function HomeContent() {
   const [talents, setTalents] = useState<TalentProfile[]>(mockTalents);
-  const [bookings, setBookings] = useState<Booking[]>(mockBookings);
-  const [contracts, setContracts] = useState<Contract[]>(mockContracts);
+  const [bookings] = useState<Booking[]>(mockBookings);
+  const [contracts] = useState<Contract[]>(mockContracts);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { query } = useSearch();
 

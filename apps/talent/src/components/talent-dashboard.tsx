@@ -10,7 +10,6 @@ interface TalentDashboardProps {
     unreadMessages: number;
     onEditProfile: () => void;
     onViewSchedule: () => void;
-    onViewMessages: () => void;
     onEditRequirements: () => void;
 }
 
@@ -21,7 +20,6 @@ export function TalentDashboard({
     unreadMessages,
     onEditProfile,
     onViewSchedule,
-    onViewMessages,
     onEditRequirements,
 }: TalentDashboardProps) {
     const nextBooking = upcomingBookings[0];

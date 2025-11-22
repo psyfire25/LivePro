@@ -1,6 +1,4 @@
-import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import React from 'react';
 
 // Note: This is a placeholder test. Update when actual page components are available.
 describe('Talent App Pages', () => {

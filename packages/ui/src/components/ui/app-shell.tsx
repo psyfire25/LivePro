@@ -25,8 +25,13 @@ export function AppShell({ children, rightSlot, onSearch }: { children: ReactNod
     const t: "light" | "dark" = stored === 'dark' || (!stored && prefersDark) ? 'dark' : 'light';
     setTheme(t);
     if (typeof document !== 'undefined') {
-      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-      else document.documentElement.removeAttribute('data-theme');
+      if (t === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        document.documentElement.classList.remove('dark');
+      }
     }
   }, []);
 
@@ -34,14 +39,19 @@ export function AppShell({ children, rightSlot, onSearch }: { children: ReactNod
     const next = theme === 'dark' ? 'light' : 'dark';
     setTheme(next);
     if (typeof document !== 'undefined') {
-      if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-      else document.documentElement.removeAttribute('data-theme');
+      if (next === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        document.documentElement.classList.remove('dark');
+      }
       document.cookie = `lp-theme=${next}; path=/; max-age=31536000; SameSite=Lax`;
     }
   }
 
   return (
-    <div className="ui:flex ui:min-h-screen ui:bg-gray-50 dark:ui:bg-gray-900 ui:text-gray-900 dark:ui:text-gray-100">
+    <div className="ui:flex ui:min-h-screen ui:text-[var(--lp-fg)]" style={{ background: 'var(--lp-bg)' }}>
       {/* Sidebar */}
       <aside className="ui:w-16 ui:flex-shrink-0 ui:bg-black ui:text-white ui:flex ui:flex-col ui:items-center ui:py-4 ui:gap-4 ui:z-50">
         <a href="/" className="ui:w-10 ui:h-10 ui:bg-white/10 ui:rounded-xl ui:flex ui:items-center ui:justify-center ui:font-bold ui:text-lg ui:mb-4 ui:no-underline ui:text-white hover:ui:bg-white/20 ui:transition-colors">
@@ -76,7 +86,7 @@ export function AppShell({ children, rightSlot, onSearch }: { children: ReactNod
       {/* Main Content Area */}
       <div className="ui:flex-1 ui:flex ui:flex-col ui:min-w-0">
         {/* Top Bar */}
-        <header className="ui:h-14 ui:border-b ui:border-gray-200 dark:ui:border-gray-800 ui:bg-white dark:ui:bg-gray-950 ui:flex ui:items-center ui:justify-between ui:px-6 ui:sticky ui:top-0 ui:z-40">
+        <header className="ui:h-14 ui:flex ui:items-center ui:justify-between ui:px-6 ui:sticky ui:top-0 ui:z-40 lp-header">
           <div className="ui:flex ui:items-center ui:gap-4 ui:flex-1">
             <SearchInput onChange={onSearch} />
           </div>
@@ -86,7 +96,7 @@ export function AppShell({ children, rightSlot, onSearch }: { children: ReactNod
         </header>
 
         {/* Page Content */}
-        <main className="ui:flex-1 ui:overflow-auto">
+        <main className="ui:flex-1 ui:overflow-auto" style={{ background: 'var(--lp-bg)' }}>
           <div className="lp-wrap lp-container ui:py-8">
             {children}
           </div>

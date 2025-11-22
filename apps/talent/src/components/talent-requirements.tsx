@@ -11,10 +11,9 @@ interface TalentRequirementsProps {
         accommodation: Requirement[];
         other: Requirement[];
     };
-    onUpdate?: (requirements: Record<string, unknown>) => void;
 }
 
-export function TalentRequirements({ requirements, onUpdate }: TalentRequirementsProps) {
+export function TalentRequirements({ requirements }: TalentRequirementsProps) {
     const [activeTab, setActiveTab] = useState<'technical' | 'rider' | 'travel' | 'accommodation' | 'other'>('technical');
     const [editMode, setEditMode] = useState(false);
 

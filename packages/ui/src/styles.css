@@ -1,6 +1,8 @@
 /* Component-level styles for the UI package */
 @import "tailwindcss" prefix(ui);
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
 /* Provide shared color tokens used by UI components */
 @theme {
   --color-blue-1000: #2a8af6;
@@ -11,33 +13,44 @@
 /* Base theme tokens */
 :root {
   --lp-bg: #fafafa;
-  --lp-fg: #0f172a; /* slate-900 */
-  --lp-nav-fg: #334155; /* slate-600 */
-  --lp-nav-hover: #f1f5f9; /* slate-100 */
+  --lp-fg: #0f172a;
+  /* slate-900 */
+  --lp-nav-fg: #334155;
+  /* slate-600 */
+  --lp-nav-hover: #f1f5f9;
+  /* slate-100 */
   --lp-card-bg: #ffffff;
   --lp-card-fg: var(--lp-fg);
-  --lp-card-border: #e5e7eb; /* gray-200 */
-  --lp-card-border-hover: #cbd5e1; /* slate-300 */
-  --lp-card-shadow: 0 1px 2px rgba(0,0,0,.04);
-  --lp-card-shadow-hover: 0 6px 16px rgba(15,23,42,.06);
+  --lp-card-border: #e5e7eb;
+  /* gray-200 */
+  --lp-card-border-hover: #cbd5e1;
+  /* slate-300 */
+  --lp-card-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+  --lp-card-shadow-hover: 0 6px 16px rgba(15, 23, 42, .06);
   --lp-border: #e5e7eb;
-  --lp-header-bg: rgba(255,255,255,.7);
+  --lp-header-bg: rgba(255, 255, 255, .7);
   color-scheme: light dark;
 }
 
 [data-theme="dark"] {
-  --lp-bg: #0b0f19; /* deep slate */
-  --lp-fg: #e5e7eb; /* slate-200 */
+  --lp-bg: #0b0f19;
+  /* deep slate */
+  --lp-fg: #e5e7eb;
+  /* slate-200 */
   --lp-card-fg: #ffffff;
-  --lp-nav-fg: #cbd5e1; /* slate-300 */
-  --lp-nav-hover: rgba(255,255,255,.08);
-  --lp-card-bg: #0f172a; /* slate-900 */
-  --lp-card-border: #1f2937; /* gray-800 */
-  --lp-card-border-hover: #334155; /* slate-700 */
-  --lp-card-shadow: 0 1px 2px rgba(0,0,0,.5);
-  --lp-card-shadow-hover: 0 8px 24px rgba(0,0,0,.6);
+  --lp-nav-fg: #cbd5e1;
+  /* slate-300 */
+  --lp-nav-hover: rgba(255, 255, 255, .08);
+  --lp-card-bg: #0f172a;
+  /* slate-900 */
+  --lp-card-border: #1f2937;
+  /* gray-800 */
+  --lp-card-border-hover: #334155;
+  /* slate-700 */
+  --lp-card-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+  --lp-card-shadow-hover: 0 8px 24px rgba(0, 0, 0, .6);
   --lp-border: #1f2937;
-  --lp-header-bg: rgba(15,23,42,.7);
+  --lp-header-bg: rgba(15, 23, 42, .7);
   color-scheme: dark;
 }
 
@@ -47,34 +60,71 @@
     --lp-bg: #0b0f19;
     --lp-fg: #e5e7eb;
     --lp-nav-fg: #cbd5e1;
-    --lp-nav-hover: rgba(255,255,255,.08);
+    --lp-nav-hover: rgba(255, 255, 255, .08);
     --lp-card-bg: #0f172a;
     --lp-card-border: #1f2937;
     --lp-card-border-hover: #334155;
-    --lp-card-shadow: 0 1px 2px rgba(0,0,0,.5);
-    --lp-card-shadow-hover: 0 8px 24px rgba(0,0,0,.6);
+    --lp-card-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+    --lp-card-shadow-hover: 0 8px 24px rgba(0, 0, 0, .6);
     --lp-border: #1f2937;
-    --lp-header-bg: rgba(15,23,42,.7);
+    --lp-header-bg: rgba(15, 23, 42, .7);
     color-scheme: dark;
   }
 }
 
 /* Baseline body + typography */
-html, body { color: var(--lp-fg); background: var(--lp-bg); }
-body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+html,
+body {
+  color: var(--lp-fg);
+  background: var(--lp-bg);
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
 
 /* Typography */
 .lp-prose {
   font-feature-settings: "ss01" on, "liga" on;
   line-height: 1.6;
 }
-.lp-prose, .lp-card { color: var(--lp-fg); }
-.lp-prose a { color: var(--lp-fg); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.lp-prose a:visited { color: var(--lp-fg); }
-.lp-prose a:hover { text-decoration-color: rgba(15, 23, 42, .6); }
-.lp-prose h1 { font-size: 2.25rem; line-height: 2.5rem; font-weight: 700; }
-.lp-prose h2 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; }
-.lp-prose p { opacity: .85; }
+
+.lp-prose,
+.lp-card {
+  color: var(--lp-fg);
+}
+
+.lp-prose a {
+  color: var(--lp-fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.lp-prose a:visited {
+  color: var(--lp-fg);
+}
+
+.lp-prose a:hover {
+  text-decoration-color: rgba(15, 23, 42, .6);
+}
+
+.lp-prose h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+}
+
+.lp-prose h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+}
+
+.lp-prose p {
+  opacity: .85;
+}
 
 /* Cards: subtle gradient + border */
 .lp-card {
@@ -89,38 +139,104 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
   display: block;
   padding: 1rem;
 }
-.lp-card-lg { padding: 1.5rem; }
-@media (min-width: 768px) {
-  .lp-card { padding: 1.25rem; }
-  .lp-card-lg { padding: 2rem; }
+
+.lp-card-lg {
+  padding: 1.5rem;
 }
-.lp-card:hover { transform: translateY(-2px); border-color: var(--lp-card-border-hover); box-shadow: var(--lp-card-shadow-hover); }
-.lp-card a { color: inherit; text-decoration: none; }
+
+@media (min-width: 768px) {
+  .lp-card {
+    padding: 1.25rem;
+  }
+
+  .lp-card-lg {
+    padding: 2rem;
+  }
+}
+
+.lp-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--lp-card-border-hover);
+  box-shadow: var(--lp-card-shadow-hover);
+}
+
+.lp-card a {
+  color: inherit;
+  text-decoration: none;
+}
 
 /* Stepper */
-.lp-stepper { display:flex; align-items:center; gap:.75rem; }
-.lp-stepper-item { display:flex; align-items:center; gap:.5rem; color:#334155; }
-.lp-stepper-dot { width:10px; height:10px; border-radius:9999px; background:#cbd5e1; }
-.lp-stepper-item.is-active .lp-stepper-dot { background:#0f172a; }
-.lp-stepper-sep { width:28px; height:2px; background:#e2e8f0; border-radius:1px; }
-.lp-stepper-item.is-active + .lp-stepper-sep { background:#94a3b8; }
+.lp-stepper {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.lp-stepper-item {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: #334155;
+}
+
+.lp-stepper-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: #cbd5e1;
+}
+
+.lp-stepper-item.is-active .lp-stepper-dot {
+  background: #0f172a;
+}
+
+.lp-stepper-sep {
+  width: 28px;
+  height: 2px;
+  background: #e2e8f0;
+  border-radius: 1px;
+}
+
+.lp-stepper-item.is-active+.lp-stepper-sep {
+  background: #94a3b8;
+}
 
 /* Hero background gradient */
 .lp-hero-bg {
-  background: radial-gradient(1200px 600px at 20% -10%, rgba(233,42,103,0.06), transparent 60%),
-              radial-gradient(1200px 600px at 80% -10%, rgba(42,138,246,0.06), transparent 60%);
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(233, 42, 103, 0.06), transparent 60%),
+    radial-gradient(1200px 600px at 80% -10%, rgba(42, 138, 246, 0.06), transparent 60%);
 }
 
 /* Glass surface */
-.lp-glass { backdrop-filter: saturate(120%) blur(10px); background: rgba(255,255,255,0.55); }
+.lp-glass {
+  backdrop-filter: saturate(120%) blur(10px);
+  background: rgba(255, 255, 255, 0.55);
+}
 
 /* AppShell nav fallback (works even if ui: utilities fail) */
-.lp-nav { display:flex; align-items:center; gap:16px; }
-.lp-nav a { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px; color:var(--lp-nav-fg); text-decoration:none !important; }
-.lp-nav a:hover { background:var(--lp-nav-hover); color:var(--lp-fg); }
+.lp-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.lp-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--lp-nav-fg);
+  text-decoration: none !important;
+}
+
+.lp-nav a:hover {
+  background: var(--lp-nav-hover);
+  color: var(--lp-fg);
+}
 
 /* Header surface using theme vars */
-.lp-header { 
+.lp-header {
   background: var(--lp-header-bg);
   border-bottom: 1px solid var(--lp-border);
   -webkit-backdrop-filter: saturate(120%) blur(8px);
@@ -128,7 +244,24 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
 }
 
 /* Layout helpers (non-prefixed fallbacks so spacing works everywhere) */
-.lp-wrap { max-width: 72rem; margin-left: auto; margin-right: auto; }
-.lp-container { padding: 1rem; }
-@media (min-width: 640px) { .lp-container { padding: 1.25rem; } }
-@media (min-width: 768px) { .lp-container { padding: 2rem; } }
+.lp-wrap {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lp-container {
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .lp-container {
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .lp-container {
+    padding: 2rem;
+  }
+}

@@ -1,3 +1,4 @@
+import Script from "next/script";
 import "./globals.css";
 import { AdminShell, ToastProvider } from "@repo/ui";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
@@ -19,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script id="lp-theme-init" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('lp-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();` }} />
+        <Script id="lp-theme-init" strategy="beforeInteractive">
+          {`(function(){try{var c=document.cookie.split('; ').find(r=>r.startsWith('lp-theme='));var t=c?c.split('=')[1]:null;if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();`}
+        </Script>
       </head>
       <body className={geist.className}>
         <AuthProvider>
