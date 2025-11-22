@@ -4,7 +4,7 @@ import "./globals.css";
 import { AdminShell, ToastProvider } from "@repo/ui";
 import { AuthProvider, SignedIn, SignedOut, UserButton, SignInButton } from "@repo/auth";
 import { SearchProvider } from "../components/search-provider";
-import { SearchHandler } from "../components/search-handler";
+import { ShellWrapper } from "../components/shell-wrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,27 +32,22 @@ export default function RootLayout({
         <AuthProvider>
           <ToastProvider>
             <SearchProvider>
-              <SearchHandler>
-                {(onSearch) => (
-                  <AdminShell
-                    onSearch={onSearch}
-                    rightSlot={
-                      <>
-                        <SignedOut>
-                          <SignInButton mode="modal">
-                            <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
-                          </SignInButton>
-                        </SignedOut>
-                        <SignedIn>
-                          <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
-                        </SignedIn>
-                      </>
-                    }
-                  >
-                    {children}
-                  </AdminShell>
-                )}
-              </SearchHandler>
+              <ShellWrapper
+                rightSlot={
+                  <>
+                    <SignedOut>
+                      <SignInButton mode="modal">
+                        <span className="ui:px-3 ui:py-1.5 ui:rounded-md ui:border ui:border-black/10 hover:ui:bg-black/5 ui:cursor-pointer">Sign in</span>
+                      </SignInButton>
+                    </SignedOut>
+                    <SignedIn>
+                      <UserButton appearance={{ elements: { userButtonBox: "ui:ml-1" } }} />
+                    </SignedIn>
+                  </>
+                }
+              >
+                {children}
+              </ShellWrapper>
             </SearchProvider>
           </ToastProvider>
         </AuthProvider>
