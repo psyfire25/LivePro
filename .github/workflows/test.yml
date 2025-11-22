@@ -69,8 +69,6 @@ jobs:
     env:
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_dummy' }}
       CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY || 'sk_test_dummy' }}
-      VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY || 'BDummy_VAPID_Public_Key_For_Testing_Only' }}
-      VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY || 'dummy_vapid_private_key_for_testing' }}
 
     services:
       postgres:
@@ -135,10 +133,6 @@ jobs:
     name: API Tests
     runs-on: ubuntu-latest
     timeout-minutes: 20
-
-    env:
-      VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY || 'BDummy_VAPID_Public_Key_For_Testing_Only' }}
-      VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY || 'dummy_vapid_private_key_for_testing' }}
 
     services:
       postgres:
