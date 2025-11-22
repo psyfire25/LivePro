@@ -31,7 +31,6 @@ export function AdminShell({
   onSearch?: (query: string) => void;
 }) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const getCookie = (name: string) => {

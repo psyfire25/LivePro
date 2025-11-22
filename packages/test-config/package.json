@@ -7,6 +7,11 @@
         "playwright.config.ts",
         "test-setup.ts"
     ],
+    "exports": {
+        "./playwright.config": "./playwright.config.ts",
+        "./vitest.config": "./vitest.config.ts",
+        "./test-setup": "./test-setup.ts"
+    },
     "devDependencies": {
         "@playwright/test": "^1.41.1",
         "@testing-library/jest-dom": "^6.4.2",
