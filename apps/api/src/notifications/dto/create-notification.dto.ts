@@ -47,5 +47,5 @@ export class CreateNotificationDto {
   @ApiProperty({ required: false })
   @IsObject()
   @IsOptional()
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }

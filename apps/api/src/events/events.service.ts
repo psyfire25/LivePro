@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
+import { EventType } from '@prisma/client';
 import { CreateEventDto } from './dto/create-event.dto';
 
 @Injectable()
@@ -27,7 +28,7 @@ export class EventsService {
     return this.prisma.event.create({
       data: {
         name: dto.name,
-        type: dto.type as any,
+        type: dto.type as EventType,
         startAt: new Date(dto.startAt),
         endAt: new Date(dto.endAt),
         location: dto.location,

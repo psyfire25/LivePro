@@ -12,7 +12,10 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
-import { NotificationsService } from './notifications.service';
+import {
+  NotificationsService,
+  PushSubscription,
+} from './notifications.service';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { FilterNotificationsDto } from './dto/filter-notifications.dto';
@@ -80,7 +83,9 @@ export class NotificationsController {
 
   @Post('push/subscribe')
   @HttpCode(HttpStatus.CREATED)
-  subscribeToPush(@Body() body: { userId: string; subscription: any }) {
+  subscribeToPush(
+    @Body() body: { userId: string; subscription: PushSubscription },
+  ) {
     return this.service.subscribeToPush(body.userId, body.subscription);
   }
 

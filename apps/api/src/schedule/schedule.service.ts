@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
+import { ScheduleKind } from '@prisma/client';
 import { CreateScheduleItemDto } from './dto/create-schedule-item.dto';
 import { UpdateScheduleItemDto } from './dto/update-schedule-item.dto';
 
@@ -19,7 +20,7 @@ export class ScheduleService {
       data: {
         eventId,
         title: dto.title,
-        kind: dto.kind as any,
+        kind: dto.kind as ScheduleKind,
         startAt: new Date(dto.startAt),
         endAt: new Date(dto.endAt),
         stageId: dto.stageId,
@@ -40,7 +41,7 @@ export class ScheduleService {
         ...dto,
         startAt: dto.startAt ? new Date(dto.startAt) : undefined,
         endAt: dto.endAt ? new Date(dto.endAt) : undefined,
-      } as any,
+      },
     });
   }
 

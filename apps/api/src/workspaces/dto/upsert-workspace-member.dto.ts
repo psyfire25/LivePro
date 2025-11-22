@@ -2,6 +2,6 @@
 import { WorkspaceRole } from '@prisma/client';
 
 export class UpsertWorkspaceMemberDto {
-    userId: string;
-    role: WorkspaceRole;
+  userId: string;
+  role: WorkspaceRole;
 }

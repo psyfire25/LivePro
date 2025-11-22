@@ -6,6 +6,18 @@ import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { FilterNotificationsDto } from './dto/filter-notifications.dto';
 import * as webpush from 'web-push';
 
+export interface PushSubscription {
+  endpoint: string;
+  keys: {
+    p256dh: string;
+    auth: string;
+  };
+}
+
+interface WebPushError extends Error {
+  statusCode: number;
+}
+
 @Injectable()
 export class NotificationsService {
   constructor(private prisma: PrismaService) {
@@ -125,7 +137,7 @@ export class NotificationsService {
   }
 
   // Push notification methods
-  async subscribeToPush(userId: string, subscription: any) {
+  async subscribeToPush(userId: string, subscription: PushSubscription) {
     return this.prisma.pushSubscription.upsert({
       where: { endpoint: subscription.endpoint },
       create: {
@@ -150,7 +162,7 @@ export class NotificationsService {
 
   async sendPushNotification(
     userId: string,
-    payload: { title: string; body: string; data?: any },
+    payload: { title: string; body: string; data?: Record<string, unknown> },
   ) {
     const subscriptions = await this.prisma.pushSubscription.findMany({
       where: { userId },
@@ -177,7 +189,8 @@ export class NotificationsService {
             },
             pushPayload,
           );
-        } catch (error: any) {
+        } catch (err) {
+          const error = err as WebPushError;
           // If subscription is invalid, remove it
           if (error.statusCode === 410) {
             await this.unsubscribeFromPush(sub.endpoint);

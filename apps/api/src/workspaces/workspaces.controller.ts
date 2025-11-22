@@ -2,11 +2,10 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { WorkspacesService } from './workspaces.service';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpsertWorkspaceMemberDto } from './dto/upsert-workspace-member.dto';
-import { WorkspaceRole } from '@prisma/client';
 
 @Controller('workspaces')
 export class WorkspacesController {
-  constructor(private svc: WorkspacesService) { }
+  constructor(private svc: WorkspacesService) {}
 
   @Get(':workspaceId/members/:userId')
   getMembership(
