@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
+test('redirects to sign-in when not authenticated', async ({ page }) => {
     await page.goto('/');
 
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/LivePro/);
+    // Expect to be redirected to the sign-in page
+    await expect(page).toHaveURL(/.*sign-in.*/);
 });
 
 test('get started link', async ({ page }) => {
