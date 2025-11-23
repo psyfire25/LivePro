@@ -1,16 +1,16 @@
 import { IsString, IsInt, IsOptional } from 'class-validator';
 
 export class CreateStaffingRequestDto {
-    @IsString()
-    eventId: string;
+  @IsString()
+  eventId: string;
 
-    @IsString()
-    role: string;
+  @IsString()
+  role: string;
 
-    @IsInt()
-    quantity: number;
+  @IsInt()
+  quantity: number;
 
-    @IsOptional()
-    @IsString()
-    status?: string;
+  @IsOptional()
+  @IsString()
+  status?: string;
 }

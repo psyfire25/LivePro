@@ -1,5 +1,21 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3333";
 
+interface ShiftData {
+    userId: string;
+    eventId?: string;
+    startAt: string;
+    endAt: string;
+    role: string;
+    notes?: string;
+}
+
+interface StaffingRequestData {
+    eventId: string;
+    role: string;
+    quantity: number;
+    status?: string;
+}
+
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
     const res = await fetch(`${API_URL}${endpoint}`, {
         ...options,
@@ -28,7 +44,7 @@ export async function getShifts(userId?: string, eventId?: string) {
     return fetchAPI(`/staffing/shifts?${params.toString()}`);
 }
 
-export async function createShift(data: any) {
+export async function createShift(data: ShiftData) {
     return fetchAPI("/staffing/shifts", {
         method: "POST",
         body: JSON.stringify(data),
@@ -39,7 +55,7 @@ export async function getRequests() {
     return fetchAPI("/staffing/requests");
 }
 
-export async function createRequest(data: any) {
+export async function createRequest(data: StaffingRequestData) {
     return fetchAPI("/staffing/requests", {
         method: "POST",
         body: JSON.stringify(data),
