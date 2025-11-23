@@ -31,7 +31,10 @@
     "typescript": "^5.9.2",
     "react": "^19.x",
     "react-dom": "^19.x",
-    "vitest": "^1.2.1",
+    "vite": "^7.2.4",
+    "vitest": "^3.0.0",
+    "@vitest/coverage-v8": "^3.0.0",
+    "vite-tsconfig-paths": "^5.1.4",
     "@repo/test-config": "workspace:*"
   }
 }
