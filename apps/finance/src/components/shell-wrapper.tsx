@@ -14,7 +14,12 @@ export function ShellWrapper({
     const { setQuery } = useSearch();
 
     return (
-        <AdminShell onSearch={setQuery} rightSlot={rightSlot}>
+        <AdminShell
+            appName="LivePro: Finance"
+            sideNav={[{ href: "/", label: "Dashboard" }]}
+            onSearch={setQuery}
+            rightSlot={rightSlot}
+        >
             {children}
         </AdminShell>
     );

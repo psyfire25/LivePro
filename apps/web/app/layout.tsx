@@ -28,6 +28,7 @@ export default function RootLayout({
         <AuthProvider>
           <ToastProvider>
             <AdminShell
+              appName="LivePro: Web"
               rightSlot={(
                 <>
                   <SignedOut>

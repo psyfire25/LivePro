@@ -8,6 +8,7 @@ import { StagesModule } from './stages/stages.module';
 import { TasksModule } from './tasks/tasks.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { StaffingModule } from './staffing/staffing.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     TasksModule,
     WorkspacesModule,
     NotificationsModule,
+    StaffingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

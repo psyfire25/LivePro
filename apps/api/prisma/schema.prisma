@@ -67,6 +67,7 @@ model User {
   updatedAt     DateTime       @updatedAt
   notifications Notification[]
   pushSubscriptions PushSubscription[]
+  shifts Shift[]
 }
 
 model Event {
@@ -86,6 +87,8 @@ model Event {
   crews         CrewAssignment[]
   supplierLinks SupplierLink[]
   notifications Notification[]
+  shifts        Shift[]
+  staffingRequests StaffingRequest[]
 }
 
 model Stage {
@@ -271,4 +274,34 @@ model PushSubscription {
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+}
+
+model Shift {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventId   String?
+  event     Event?   @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  startAt   DateTime
+  endAt     DateTime
+  role      String
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([eventId])
+}
+
+model StaffingRequest {
+  id        String   @id @default(cuid())
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  role      String
+  quantity  Int
+  status    String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([eventId])
 }
