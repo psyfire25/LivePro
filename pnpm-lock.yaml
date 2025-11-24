@@ -798,6 +798,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@repo/auth':
+        specifier: workspace:*
+        version: link:../auth
       react:
         specifier: 19.1.0
         version: 19.1.0

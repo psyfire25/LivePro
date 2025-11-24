@@ -1,7 +1,6 @@
 "use client";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import type { ReactNode } from "react";
 
 type AuthProviderProps = {
   children: any; // we already relaxed this for type soup
