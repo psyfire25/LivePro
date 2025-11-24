@@ -40,6 +40,14 @@ const apps = [
 export default function Home() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [showAppSelector, setShowAppSelector] = useState(false);
+  const [stats, setStats] = useState([
+    { label: "Active Productions", value: "0", icon: "🎬", color: "ui:bg-blue-500" },
+    { label: "Upcoming Events", value: "0", icon: "📅", color: "ui:bg-purple-500" },
+    { label: "Staff On-Site", value: "0", icon: "👥", color: "ui:bg-green-500" },
+    { label: "Pending Invoices", value: "0", icon: "💰", color: "ui:bg-yellow-500" },
+  ]);
+  const [activityItems, setActivityItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Show welcome modal for new users
@@ -47,6 +55,34 @@ export default function Home() {
     if (!hasSeenWelcome) {
       setShowWelcome(true);
     }
+
+    // Fetch dashboard data
+    async function fetchDashboardData() {
+      try {
+        setLoading(true);
+        const { getDashboardStats, getRecentActivity } = await import("@/src/lib/api");
+
+        const [statsData, activity] = await Promise.all([
+          getDashboardStats(),
+          getRecentActivity(),
+        ]);
+
+        setStats([
+          { label: "Active Productions", value: String(statsData.activeProductions), icon: "🎬", color: "ui:bg-blue-500" },
+          { label: "Upcoming Events", value: String(statsData.upcomingEvents), icon: "📅", color: "ui:bg-purple-500" },
+          { label: "Staff On-Site", value: String(statsData.staffOnSite), icon: "👥", color: "ui:bg-green-500" },
+          { label: "Pending Invoices", value: String(statsData.pendingInvoices), icon: "💰", color: "ui:bg-yellow-500" },
+        ]);
+
+        setActivityItems(activity);
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchDashboardData();
   }, []);
 
   const handleCloseWelcome = () => {
@@ -54,12 +90,17 @@ export default function Home() {
     setShowWelcome(false);
   };
 
-  const stats = [
-    { label: "Active Productions", value: "3", icon: "🎬", color: "ui:bg-blue-500" },
-    { label: "Upcoming Events", value: "12", icon: "📅", color: "ui:bg-purple-500" },
-    { label: "Staff On-Site", value: "45", icon: "👥", color: "ui:bg-green-500" },
-    { label: "Pending Invoices", value: "5", icon: "💰", color: "ui:bg-yellow-500" },
-  ];
+  const formatTime = (timestamp: string) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+
+    if (hours < 1) return "Just now";
+    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    const days = Math.floor(hours / 24);
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  };
 
   return (
     <>
@@ -102,15 +143,21 @@ export default function Home() {
                 <h3 className="ui:font-semibold ui:text-lg">Recent Activity</h3>
               </div>
               <div className="ui:divide-y ui:divide-gray-200 dark:ui:divide-gray-700">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="ui:p-4 ui:flex ui:items-center ui:gap-4 hover:ui:bg-gray-50 dark:hover:ui:bg-gray-750 ui:transition-colors">
-                    <div className="ui:w-2 ui:h-2 ui:rounded-full ui:bg-blue-500"></div>
-                    <div className="ui:flex-1">
-                      <p className="ui:text-sm ui:font-medium ui:text-gray-900 dark:ui:text-white">New production created: &ldquo;Summer Festival&rdquo;</p>
-                      <p className="ui:text-xs ui:text-gray-500">2 hours ago • Production App</p>
+                {loading ? (
+                  <div className="ui:p-4 ui:text-center ui:text-gray-500">Loading...</div>
+                ) : activityItems.length > 0 ? (
+                  activityItems.map((item) => (
+                    <div key={item.id} className="ui:p-4 ui:flex ui:items-center ui:gap-4 hover:ui:bg-gray-50 dark:hover:ui:bg-gray-750 ui:transition-colors">
+                      <div className="ui:w-2 ui:h-2 ui:rounded-full ui:bg-blue-500"></div>
+                      <div className="ui:flex-1">
+                        <p className="ui:text-sm ui:font-medium ui:text-gray-900 dark:ui:text-white">{item.title}</p>
+                        <p className="ui:text-xs ui:text-gray-500">{formatTime(item.timestamp)} • {item.app}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <div className="ui:p-4 ui:text-center ui:text-gray-500">No recent activity</div>
+                )}
               </div>
             </section>
           </div>
