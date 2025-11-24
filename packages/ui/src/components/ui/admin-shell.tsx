@@ -71,14 +71,14 @@ export function AdminShell({
   }
 
   return (
-    <div className="ui:flex ui:min-h-screen ui:text-[var(--lp-fg)]" style={{ background: 'var(--lp-bg)' }}>
+    <div className="ui:flex ui:flex-row ui:min-h-screen ui:text-[var(--lp-fg)]" style={{ display: 'flex', flexDirection: 'row', background: 'var(--lp-bg)' }}>
       {/* Global Sidebar (Icons) */}
-      <aside className="ui:w-16 ui:flex-shrink-0 ui:bg-black ui:text-white ui:flex ui:flex-col ui:items-center ui:py-4 ui:gap-4 ui:z-50">
+      <aside className="ui:w-16 ui:flex-shrink-0 ui:bg-black ui:text-white ui:flex ui:flex-col ui:items-center ui:py-4 ui:gap-4 ui:z-50" style={{ display: 'flex', flexDirection: 'column' }}>
         <a href="/" className="ui:w-10 ui:h-10 ui:bg-white/10 ui:rounded-xl ui:flex ui:items-center ui:justify-center ui:font-bold ui:text-lg ui:mb-4 ui:no-underline ui:text-white hover:ui:bg-white/20 ui:transition-colors">
           LP
         </a>
 
-        <nav className="ui:flex ui:flex-col ui:gap-2 ui:w-full ui:px-2">
+        <nav className="ui:flex ui:flex-col ui:gap-2 ui:w-full ui:px-2" style={{ flexDirection: 'column' }}>
           {productNav.map(l => (
             <a
               key={l.href}
@@ -104,7 +104,7 @@ export function AdminShell({
       </aside>
 
       {/* Main Content Area */}
-      <div className="ui:flex-1 ui:flex ui:flex-col">
+      <div className="ui:flex-1 ui:flex ui:flex-col ui:min-w-0" style={{ display: 'flex', flexDirection: 'column' }}>
         {/* Top Bar */}
         <header className="ui:h-14 ui:flex ui:items-center ui:justify-between ui:px-6 ui:sticky ui:top-0 ui:z-40 lp-header">
           <div className="ui:flex ui:items-center ui:gap-4 ui:flex-1">
@@ -141,7 +141,9 @@ export function AdminShell({
 
           {/* Page Content */}
           <main className="ui:flex-1 ui:overflow-auto" style={{ background: 'var(--lp-bg)' }}>
-            {children}
+            <div className="lp-container ui:py-8">
+              {children}
+            </div>
           </main>
         </div>
       </div>
