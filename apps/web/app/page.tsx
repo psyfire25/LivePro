@@ -2,28 +2,36 @@
 import { Button, Modal } from "@repo/ui";
 import { useState, useEffect } from "react";
 
+// Import the app config
+const appConfig = {
+  production: process.env.NEXT_PUBLIC_PRODUCTION_URL || 'http://localhost:3010',
+  talent: process.env.NEXT_PUBLIC_TALENT_URL || 'http://localhost:3020',
+  staffing: process.env.NEXT_PUBLIC_STAFFING_URL || 'http://localhost:3030',
+  finance: process.env.NEXT_PUBLIC_FINANCE_URL || 'http://localhost:3040',
+};
+
 const apps = [
   {
     name: "Production",
-    url: "http://localhost:3010",
+    url: appConfig.production,
     icon: "🎬",
     description: "Event production management",
   },
   {
     name: "Talent",
-    url: "http://localhost:3020",
+    url: appConfig.talent,
     icon: "🎤",
     description: "Artist & talent coordination",
   },
   {
     name: "Staffing",
-    url: "http://localhost:3030",
+    url: appConfig.staffing,
     icon: "👥",
     description: "Crew scheduling & management",
   },
   {
     name: "Finance",
-    url: "http://localhost:3040",
+    url: appConfig.finance,
     icon: "💰",
     description: "Budgets, quotes & invoices",
   },

@@ -1,47 +1,42 @@
-# Vercel Environment Setup for LivePro
+# Vercel Environment Variables Setup Guide
 
-## Current ngrok API URL
-```
-https://d480e1287d2d.ngrok-free.app
-```
+## Overview
+Each app needs environment variables configured in Vercel to point to the correct production URLs.
 
-## Steps to Fix 500 Errors
-
-### 1. Update Vercel Environment Variables
-
-For **each app** (production, talent, staffing, finance):
-
-1. Go to Vercel Dashboard → Select the app
-2. Settings → Environment Variables
-3. Add or update:
-   - **Name:** `NEXT_PUBLIC_API_URL`
-   - **Value:** `https://d480e1287d2d.ngrok-free.app`
-   - **Select all environments** (Production, Preview, Development)
-4. Click "Save"
-5. Go to Deployments and trigger a redeploy (or push a new commit)
-
-### 2. When ngrok URL Changes
-
-ngrok free tier URLs change when you restart. To get your new URL:
+## Required Environment Variables
+Add these to **each** Vercel project's environment variables:
 
 ```bash
-# Check your current ngrok URL
-curl http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
+NEXT_PUBLIC_PRODUCTION_URL=https://live-pro-production.vercel.app
+NEXT_PUBLIC_TALENT_URL=https://live-pro-talent.vercel.app
+NEXT_PUBLIC_STAFFING_URL=https://live-pro-staffing.vercel.app
+NEXT_PUBLIC_FINANCE_URL=https://live-pro-finance.vercel.app
+NEXT_PUBLIC_WEB_URL=https://live-pro-web.vercel.app
+NEXT_PUBLIC_DOCS_URL=https://live-pro-docs.vercel.app
+NEXT_PUBLIC_API_URL=https://livepro-api.fly.dev
 ```
 
-Then update all Vercel apps with the new URL and redeploy.
+## How to Add to Vercel
 
-### 3. Alternative: Use ngrok Static Domain (Recommended for Production)
+1. Go to your Vercel project dashboard
+2. Navigate to **Settings** → **Environment Variables**
+3. Add each variable above for the **Production** environment
+4. Redeploy your app
 
-If you upgrade to ngrok paid tier, you can use a static domain that won't change:
-- Upgrade at https://dashboard.ngrok.com
-- Configure a static domain in ngrok config
-- Update Vercel once and forget about it
+## Local Development
 
-## Testing
+For local development, these variables default to `localhost` URLs:
+- Production: `http://localhost:3010`
+- Talent: `http://localhost:3020`
+- Staffing: `http://localhost:3030`
+- Finance: `http://localhost:3040`
+- Web: `http://localhost:3001`
+- Docs: `http://localhost:3000`
+- API: `http://localhost:3333`
 
-After deploying to Vercel, visit each app URL and verify:
-- Production: `https://your-production-app.vercel.app/` (should not show error)
-- Talent: `https://your-talent-app.vercel.app/`
-- Staffing: `https://your-staffing-app.vercel.app/`
-- Finance: `https://your-finance-app.vercel.app/`
+No local `.env` file is needed unless you want to override these defaults.
+
+## Files Created
+- `packages/ui/src/lib/app-config.ts` - Central config that reads from env vars
+- `apps/web/.env.production` - Production env files (gitignored, for reference only)
+- This guide for setup instructions

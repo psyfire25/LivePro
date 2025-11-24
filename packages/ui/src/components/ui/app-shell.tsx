@@ -1,15 +1,16 @@
 "use client";
 import { useEffect, useState, type ReactNode } from "react";
 import { SearchInput } from "./search-input";
+import { appConfig } from "../../lib/app-config";
 
 export function AppShell({ children, rightSlot, onSearch }: { children: ReactNode; rightSlot?: ReactNode; onSearch?: (query: string) => void }) {
   const links = [
-    { href: "http://localhost:3010", label: "Production", icon: "🎬" },
-    { href: "http://localhost:3020", label: "Talent", icon: "🎤" },
-    { href: "http://localhost:3030", label: "Staffing", icon: "👥" },
-    { href: "http://localhost:3040", label: "Finance", icon: "💰" },
-    { href: "http://localhost:3001", label: "Web", icon: "🌐" },
-    { href: "http://localhost:3000", label: "Docs", icon: "📚" },
+    { href: appConfig.production, label: "Production", icon: "🎬" },
+    { href: appConfig.talent, label: "Talent", icon: "🎤" },
+    { href: appConfig.staffing, label: "Staffing", icon: "👥" },
+    { href: appConfig.finance, label: "Finance", icon: "💰" },
+    { href: appConfig.web, label: "Web", icon: "🌐" },
+    { href: appConfig.docs, label: "Docs", icon: "📚" },
   ];
   const [theme, setTheme] = useState<"light" | "dark">("light");
 

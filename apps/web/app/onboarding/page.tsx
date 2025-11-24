@@ -7,12 +7,20 @@ import Link from "next/link";
 
 type ModuleKey = "production" | "staffing" | "talent" | "finance" | "docs";
 
+const appConfig = {
+  production: process.env.NEXT_PUBLIC_PRODUCTION_URL || 'http://localhost:3010',
+  talent: process.env.NEXT_PUBLIC_TALENT_URL || 'http://localhost:3020',
+  staffing: process.env.NEXT_PUBLIC_STAFFING_URL || 'http://localhost:3030',
+  finance: process.env.NEXT_PUBLIC_FINANCE_URL || 'http://localhost:3040',
+  docs: process.env.NEXT_PUBLIC_DOCS_URL || 'http://localhost:3000',
+};
+
 const MODULES: { key: ModuleKey; name: string; description: string; devUrl: string }[] = [
-  { key: "production", name: "LivePro:Production", description: "Plan and run live events: stages, tasks, and detailed schedules.", devUrl: "http://localhost:3010" },
-  { key: "staffing", name: "LivePro:Staffing", description: "Crew assignment, roles, and availability.", devUrl: "http://localhost:3030" },
-  { key: "talent", name: "LivePro:Talent", description: "Artist/talent coordination and logistics.", devUrl: "http://localhost:3020" },
-  { key: "finance", name: "LivePro:Finance", description: "Budgets, suppliers, and settlements.", devUrl: "http://localhost:3040" },
-  { key: "docs", name: "Developer Docs", description: "API documentation and references.", devUrl: "http://localhost:3000" },
+  { key: "production", name: "LivePro:Production", description: "Plan and run live events: stages, tasks, and detailed schedules.", devUrl: appConfig.production },
+  { key: "staffing", name: "LivePro:Staffing", description: "Crew assignment, roles, and availability.", devUrl: appConfig.staffing },
+  { key: "talent", name: "LivePro:Talent", description: "Artist/talent coordination and logistics.", devUrl: appConfig.talent },
+  { key: "finance", name: "LivePro:Finance", description: "Budgets, suppliers, and settlements.", devUrl: appConfig.finance },
+  { key: "docs", name: "Developer Docs", description: "API documentation and references.", devUrl: appConfig.docs },
 ];
 
 export default function Onboarding() {
