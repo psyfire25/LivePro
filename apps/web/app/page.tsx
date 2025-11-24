@@ -1,6 +1,7 @@
 "use client";
 import { Button, Modal } from "@repo/ui";
 import { useState, useEffect } from "react";
+import { RecentActivityItem } from "@/src/lib/api";
 
 // Import the app config
 const appConfig = {
@@ -46,7 +47,7 @@ export default function Home() {
     { label: "Staff On-Site", value: "0", icon: "👥", color: "ui:bg-green-500" },
     { label: "Pending Invoices", value: "0", icon: "💰", color: "ui:bg-yellow-500" },
   ]);
-  const [activityItems, setActivityItems] = useState<any[]>([]);
+  const [activityItems, setActivityItems] = useState<RecentActivityItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

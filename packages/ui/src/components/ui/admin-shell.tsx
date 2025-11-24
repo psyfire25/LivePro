@@ -151,7 +151,7 @@ export function AdminShell({
           </header>
 
           {/* Content Body (with optional local sidebar) */}
-          <div className="ui:flex-1 ui:flex ui:overflow-hidden">
+          <div className="ui:flex-1 ui:flex ui:overflow-hidden w-full">
             {/* Local Sidebar */}
             {sideNav.length > 0 && (
               <aside

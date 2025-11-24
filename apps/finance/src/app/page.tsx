@@ -42,7 +42,7 @@ export default function Home() {
   };
 
   return (
-    <main className="lp-content">
+    <main className="ui:container ui:mx-auto ui:px-4 ui:py-8">
       <Gradient />
 
       <div className="ui:flex ui:items-center ui:justify-between ui:mb-8">
